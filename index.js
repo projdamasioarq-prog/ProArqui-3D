@@ -38,27 +38,9 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Camada única fixa no viewport, fora do DOM do visualizador Marzipano.
-  // Os próprios botões são filhos diretos desta camada, sem ancestrais transformados.
-  var fixedActionsLayer = document.createElement('div');
-  fixedActionsLayer.id = 'fixedActionsLayer';
-  fixedActionsLayer.setAttribute('aria-label', 'Ações fixas');
-  document.body.appendChild(fixedActionsLayer);
-
-  if (lobbyActionsElement) {
-    Array.prototype.forEach.call(lobbyActionsElement.querySelectorAll('.glass-action'), function(button, index) {
-      button.classList.add('fixed-lobby-button', 'fixed-lobby-button-' + index);
-      fixedActionsLayer.appendChild(button);
-    });
-    lobbyActionsElement.remove();
-  }
-  if (portfolioActionsElement) {
-    Array.prototype.forEach.call(portfolioActionsElement.querySelectorAll('.portfolio-pair'), function(pair) {
-      fixedActionsLayer.appendChild(pair);
-    });
-    portfolioActionsElement.remove();
-  }
-
+  // Os overlays permanecem como irmãos do #pano no body,
+  // exatamente como no site de referência: o Marzipano movimenta somente o panorama.
+  
   aboutActionElement.addEventListener('click', function() {
     aboutModalElement.classList.add('is-open');
     aboutModalElement.setAttribute('aria-hidden', 'false');
@@ -237,11 +219,16 @@
     updateSceneList(scene);
     var isLobby = scene.data.id === '0-lobby';
     var isPortfolio = scene.data.id === '1-portiflio';
-    fixedActionsLayer.classList.toggle('show-lobby', isLobby);
-    fixedActionsLayer.classList.toggle('show-portfolio', isPortfolio);
-    // Mantém o par inicial do portfólio; a rotação da câmera não altera sua posição.
-    for (var i = 0; i < portfolioPairs.length; i++) {
-      portfolioPairs[i].classList.toggle('is-active', i === 0);
+    if (lobbyActionsElement) {
+      lobbyActionsElement.classList.toggle('is-visible', isLobby);
+    }
+    if (portfolioActionsElement) {
+      portfolioActionsElement.classList.toggle('is-visible', isPortfolio);
+      portfolioActionsElement.style.display = isPortfolio ? 'block' : 'none';
+      // Mantém o primeiro par na posição inicial, sem acompanhar o yaw da câmera.
+      for (var i = 0; i < portfolioPairs.length; i++) {
+        portfolioPairs[i].classList.toggle('is-active', i === 0);
+      }
     }
     if (!isLobby) closeAboutModal();
   }
