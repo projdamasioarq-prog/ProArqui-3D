@@ -29,6 +29,8 @@
   var sceneListToggleElement = document.querySelector('#sceneListToggle');
   var autorotateToggleElement = document.querySelector('#autorotateToggle');
   var fullscreenToggleElement = document.querySelector('#fullscreenToggle');
+  var portfolioActionsElement = document.querySelector('#portfolioActions');
+  var portfolioPairs = portfolioActionsElement ? portfolioActionsElement.querySelectorAll('.portfolio-pair') : [];
 
   // Ações fixas sobre a cena inicial, independentes da câmera 360°.
   var lobbyActionsElement = document.querySelector('#lobbyActions');
@@ -129,6 +131,12 @@
       scene.hotspotContainer().createHotspot(element, { yaw: hotspot.yaw, pitch: hotspot.pitch });
     });
 
+    if (data.id === '1-portiflio') {
+      view.addEventListener('change', function() {
+        updatePortfolioActions(view);
+      });
+    }
+
     return {
       data: data,
       scene: scene,
@@ -218,6 +226,14 @@
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
+    if (portfolioActionsElement) {
+      if (scene.data.id === '1-portiflio') {
+        portfolioActionsElement.classList.add('is-visible');
+        updatePortfolioActions(scene.view);
+      } else {
+        portfolioActionsElement.classList.remove('is-visible');
+      }
+    }
     if (lobbyActionsElement) {
       if (scene.data.id === '0-lobby') {
         lobbyActionsElement.classList.add('is-visible');
@@ -225,6 +241,18 @@
         lobbyActionsElement.classList.remove('is-visible');
         closeAboutModal();
       }
+    }
+  }
+
+  // Exibe apenas o par de botões correspondente ao enquadramento atual.
+  // Os botões ficam presos à tela, não às coordenadas do panorama.
+  function updatePortfolioActions(view) {
+    if (!portfolioPairs.length) return;
+    var yaw = view.yaw() % (2 * Math.PI);
+    if (yaw < 0) yaw += 2 * Math.PI;
+    var pairIndex = Math.floor((yaw + Math.PI / 3) / (2 * Math.PI / 3)) % 3;
+    for (var i = 0; i < portfolioPairs.length; i++) {
+      portfolioPairs[i].classList.toggle('is-active', i === pairIndex);
     }
   }
 
