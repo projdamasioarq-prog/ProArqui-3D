@@ -30,6 +30,29 @@
   var autorotateToggleElement = document.querySelector('#autorotateToggle');
   var fullscreenToggleElement = document.querySelector('#fullscreenToggle');
 
+  // Ações fixas sobre a cena inicial, independentes da câmera 360°.
+  var lobbyActionsElement = document.querySelector('#lobbyActions');
+  var aboutActionElement = document.querySelector('#aboutAction');
+  var aboutModalElement = document.querySelector('#aboutModal');
+  var aboutCloseElement = document.querySelector('#aboutClose');
+
+  aboutActionElement.addEventListener('click', function() {
+    aboutModalElement.classList.add('is-open');
+    aboutModalElement.setAttribute('aria-hidden', 'false');
+    aboutCloseElement.focus();
+  });
+  aboutCloseElement.addEventListener('click', closeAboutModal);
+  aboutModalElement.addEventListener('click', function(event) {
+    if (event.target === aboutModalElement) closeAboutModal();
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') closeAboutModal();
+  });
+  function closeAboutModal() {
+    aboutModalElement.classList.remove('is-open');
+    aboutModalElement.setAttribute('aria-hidden', 'true');
+  }
+
   // Detect desktop or mobile mode.
   if (window.matchMedia) {
     var setMode = function() {
@@ -189,6 +212,14 @@
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
+    if (lobbyActionsElement) {
+      if (scene.data.id === '0-lobby') {
+        lobbyActionsElement.classList.add('is-visible');
+      } else {
+        lobbyActionsElement.classList.remove('is-visible');
+        closeAboutModal();
+      }
+    }
   }
 
   function updateSceneName(scene) {
