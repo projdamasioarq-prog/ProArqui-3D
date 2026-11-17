@@ -82,9 +82,9 @@ body.view-control-buttons .viewControlButton{display:block}
 
 
 /* Ações flutuantes do Lobby — interface fixa, independente da câmera 360°. */
-.lobby-actions{position:fixed;z-index:18;top:51%;left:0;width:100%;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(7%,10vw,15%);transform:translateY(-50%);pointer-events:none;opacity:0;visibility:hidden}
+.lobby-actions{position:fixed;z-index:18;top:51%;left:0;width:100%;display:flex;align-items:center;justify-content:center;gap:clamp(150px,24vw,340px);padding:0;transform:translateY(-50%);pointer-events:none;opacity:0;visibility:hidden}
 .lobby-actions.is-visible{visibility:visible;opacity:1}
-.glass-action{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;min-width:clamp(124px,13vw,174px);min-height:48px;padding:13px 22px;border:1px solid rgba(255,255,255,.68);border-radius:999px;background:rgba(255,255,255,.19);-webkit-backdrop-filter:blur(15px) saturate(145%);backdrop-filter:blur(15px) saturate(145%);box-shadow:0 8px 30px rgba(0,0,0,.10),inset 0 1px 0 rgba(255,255,255,.38);color:#fff;font-family:Manrope,"DM Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.19em;text-decoration:none;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:transform .28s ease,background .28s ease,border-color .28s ease,box-shadow .28s ease;animation:glassActionIn .8s cubic-bezier(.2,.75,.25,1) both}
+.glass-action{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;width:clamp(104px,9vw,126px);min-width:0;min-height:38px;padding:9px 13px;border:1px solid rgba(255,255,255,.68);border-radius:999px;background:rgba(255,255,255,.19);-webkit-backdrop-filter:blur(15px) saturate(145%);backdrop-filter:blur(15px) saturate(145%);box-shadow:0 8px 30px rgba(0,0,0,.10),inset 0 1px 0 rgba(255,255,255,.38);color:#fff;font-family:Manrope,"DM Sans",sans-serif;font-size:10px;font-weight:600;letter-spacing:.19em;text-decoration:none;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:transform .28s ease,background .28s ease,border-color .28s ease,box-shadow .28s ease;animation:glassActionIn .8s cubic-bezier(.2,.75,.25,1) both}
 #contactAction{animation-delay:.12s}
 .glass-action:hover,.glass-action:focus-visible{transform:translateY(-3px);background:rgba(255,255,255,.30);border-color:rgba(255,255,255,.95);box-shadow:0 12px 34px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.55);outline:none}
 @keyframes glassActionIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -96,5 +96,5 @@ body.view-control-buttons .viewControlButton{display:block}
 .about-card p:not(.about-eyebrow){font-size:14px;line-height:1.8;color:rgba(255,255,255,.83)}
 .about-close{position:absolute;top:15px;right:18px;width:34px;height:34px;border:1px solid rgba(255,255,255,.25);border-radius:50%;background:transparent;color:#fff;font-size:24px;line-height:1}
 .about-close:hover{background:rgba(255,255,255,.14)}
-@media(max-width:700px){.lobby-actions{top:51%;padding:0 5%;gap:12px;justify-content:space-evenly}.glass-action{min-width:0;width:42%;min-height:43px;padding:11px 9px;font-size:8px;letter-spacing:.13em}.about-card{padding:30px 24px}.about-card p:not(.about-eyebrow){font-size:13px}}
+@media(max-width:700px){.lobby-actions{top:51%;padding:0;gap:clamp(54px,18vw,120px);justify-content:center}.glass-action{width:clamp(88px,25vw,112px);min-width:0;min-height:35px;padding:8px 7px;font-size:7px;letter-spacing:.12em}.about-card{padding:30px 24px}.about-card p:not(.about-eyebrow){font-size:13px}}
 @media(prefers-reduced-motion:reduce){.glass-action{animation:none;transition:none}}
