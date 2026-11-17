@@ -38,13 +38,12 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Retira a camada dos botões do fluxo do visualizador e a coloca diretamente
-  // no elemento raiz do documento, fora de qualquer camada transformada pelo panorama.
-  if (lobbyActionsElement && lobbyActionsElement.parentNode !== document.documentElement) {
-    document.documentElement.appendChild(lobbyActionsElement);
+  // As duas camadas de ações ficam como filhas diretas do body.
+  // Isso mantém position:fixed relativo à janela, sem acompanhar o giro do panorama.
+  // Elas ficam fora do #pano e de qualquer elemento transformado pelo visualizador.
+  if (lobbyActionsElement && lobbyActionsElement.parentNode !== document.body) {
+    document.body.appendChild(lobbyActionsElement);
   }
-  // A camada do portfólio também precisa ficar fora do elemento do panorama.
-  // Assim, position:fixed é calculado em relação à janela e os botões permanecem visíveis.
   if (portfolioActionsElement && portfolioActionsElement.parentNode !== document.body) {
     document.body.appendChild(portfolioActionsElement);
   }
