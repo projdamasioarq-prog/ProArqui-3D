@@ -45,8 +45,8 @@
   }
   // A camada do portfólio também precisa ficar fora do elemento do panorama.
   // Assim, position:fixed é calculado em relação à janela e os botões permanecem visíveis.
-  if (portfolioActionsElement && portfolioActionsElement.parentNode !== document.documentElement) {
-    document.documentElement.appendChild(portfolioActionsElement);
+  if (portfolioActionsElement && portfolioActionsElement.parentNode !== document.body) {
+    document.body.appendChild(portfolioActionsElement);
   }
 
   aboutActionElement.addEventListener('click', function() {
@@ -232,12 +232,10 @@
     updateSceneName(scene);
     updateSceneList(scene);
     if (portfolioActionsElement) {
-      if (scene.data.id === '1-portiflio') {
-        portfolioActionsElement.classList.add('is-visible');
-        updatePortfolioActions(scene.view);
-      } else {
-        portfolioActionsElement.classList.remove('is-visible');
-      }
+      var isPortfolio = scene.data.id === '1-portiflio';
+      portfolioActionsElement.classList.toggle('is-visible', isPortfolio);
+      portfolioActionsElement.style.display = isPortfolio ? 'block' : 'none';
+      if (isPortfolio) updatePortfolioActions(scene.view);
     }
     if (lobbyActionsElement) {
       if (scene.data.id === '0-lobby') {
