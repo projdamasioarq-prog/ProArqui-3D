@@ -38,13 +38,14 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Mantém cada grupo como filho DIRETO do body, sem wrapper transformado.
-  // O Marzipano só controla o conteúdo de #pano; estes elementos ficam presos ao viewport.
-  if (lobbyActionsElement && lobbyActionsElement.parentElement !== document.body) {
-    document.body.appendChild(lobbyActionsElement);
+  // Portal de interface: move os controles para fora do BODY e de #pano.
+  // Assim, nenhum transform/estilo aplicado ao body ou ao viewer pode girá-los.
+  var fixedUiRoot = document.documentElement;
+  if (lobbyActionsElement && lobbyActionsElement.parentElement !== fixedUiRoot) {
+    fixedUiRoot.appendChild(lobbyActionsElement);
   }
-  if (portfolioActionsElement && portfolioActionsElement.parentElement !== document.body) {
-    document.body.appendChild(portfolioActionsElement);
+  if (portfolioActionsElement && portfolioActionsElement.parentElement !== fixedUiRoot) {
+    fixedUiRoot.appendChild(portfolioActionsElement);
   }
 
   aboutActionElement.addEventListener('click', function() {
