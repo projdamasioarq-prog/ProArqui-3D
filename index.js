@@ -43,6 +43,11 @@
   if (lobbyActionsElement && lobbyActionsElement.parentNode !== document.documentElement) {
     document.documentElement.appendChild(lobbyActionsElement);
   }
+  // A camada do portfólio também precisa ficar fora do elemento do panorama.
+  // Assim, position:fixed é calculado em relação à janela e os botões permanecem visíveis.
+  if (portfolioActionsElement && portfolioActionsElement.parentNode !== document.documentElement) {
+    document.documentElement.appendChild(portfolioActionsElement);
+  }
 
   aboutActionElement.addEventListener('click', function() {
     aboutModalElement.classList.add('is-open');
