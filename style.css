@@ -122,3 +122,7 @@ body.view-control-buttons .viewControlButton{display:block}
  #fixedActionsLayer .fixed-lobby-button-1{left:66%!important}
  #fixedActionsLayer .portfolio-pair{top:64%!important}
 }
+
+/* O par do portfólio só aparece quando a cena correspondente está ativa. */
+#fixedActionsLayer .portfolio-pair{opacity:0!important;visibility:hidden!important}
+#fixedActionsLayer.show-portfolio .portfolio-pair.is-active{opacity:1!important;visibility:visible!important}
