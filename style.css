@@ -126,3 +126,22 @@ body.view-control-buttons .viewControlButton{display:block}
 /* O par do portfólio só aparece quando a cena correspondente está ativa. */
 #fixedActionsLayer .portfolio-pair{opacity:0!important;visibility:hidden!important}
 #fixedActionsLayer.show-portfolio .portfolio-pair.is-active{opacity:1!important;visibility:visible!important}
+
+
+/* Mesmo mecanismo do site /360: overlays como irmãos do #pano no body.
+   O panorama gira dentro do #pano; estes elementos absolutos não fazem parte dele. */
+.lobby-actions{
+  position:absolute!important;
+  z-index:1000!important;
+  top:50vh!important;
+  left:0!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:100vw!important;
+  transform:translateY(-50%)!important;
+}
+.portfolio-actions{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1001!important;
+}
