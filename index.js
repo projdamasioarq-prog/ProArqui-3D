@@ -135,12 +135,6 @@
       scene.hotspotContainer().createHotspot(element, { yaw: hotspot.yaw, pitch: hotspot.pitch });
     });
 
-    if (data.id === '1-portiflio') {
-      view.addEventListener('change', function() {
-        updatePortfolioActions(view);
-      });
-    }
-
     return {
       data: data,
       scene: scene,
@@ -234,7 +228,12 @@
       var isPortfolio = scene.data.id === '1-portiflio';
       portfolioActionsElement.classList.toggle('is-visible', isPortfolio);
       portfolioActionsElement.style.display = isPortfolio ? 'block' : 'none';
-      if (isPortfolio) updatePortfolioActions(scene.view);
+      // Mantém o primeiro par na posição inicial da tela, sem trocar conforme o giro.
+      if (isPortfolio && portfolioPairs.length) {
+        for (var i = 0; i < portfolioPairs.length; i++) {
+          portfolioPairs[i].classList.toggle('is-active', i === 0);
+        }
+      }
     }
     if (lobbyActionsElement) {
       if (scene.data.id === '0-lobby') {
@@ -243,18 +242,6 @@
         lobbyActionsElement.classList.remove('is-visible');
         closeAboutModal();
       }
-    }
-  }
-
-  // Exibe apenas o par de botões correspondente ao enquadramento atual.
-  // Os botões ficam presos à tela, não às coordenadas do panorama.
-  function updatePortfolioActions(view) {
-    if (!portfolioPairs.length) return;
-    var yaw = view.yaw() % (2 * Math.PI);
-    if (yaw < 0) yaw += 2 * Math.PI;
-    var pairIndex = Math.floor((yaw + Math.PI / 3) / (2 * Math.PI / 3)) % 3;
-    for (var i = 0; i < portfolioPairs.length; i++) {
-      portfolioPairs[i].classList.toggle('is-active', i === pairIndex);
     }
   }
 
