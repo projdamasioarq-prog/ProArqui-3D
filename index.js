@@ -36,6 +36,12 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
+  // Retira a camada dos botões do fluxo do visualizador e a coloca diretamente
+  // no elemento raiz do documento, fora de qualquer camada transformada pelo panorama.
+  if (lobbyActionsElement && lobbyActionsElement.parentNode !== document.documentElement) {
+    document.documentElement.appendChild(lobbyActionsElement);
+  }
+
   aboutActionElement.addEventListener('click', function() {
     aboutModalElement.classList.add('is-open');
     aboutModalElement.setAttribute('aria-hidden', 'false');
