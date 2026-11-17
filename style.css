@@ -110,53 +110,40 @@ body.view-control-buttons .viewControlButton{display:block}
 
 
 
-/* Camada de interface independente do visualizador Marzipano. */
-#uiOverlayLayer{
+/* CONTROLES FIXOS NO VIEWPORT — fora da árvore do panorama Marzipano. */
+html, body { transform:none!important; perspective:none!important; filter:none!important; }
+#pano { position:absolute!important; inset:0!important; z-index:0!important; }
+body > #lobbyActions {
   position:fixed!important;
-  inset:0!important;
-  width:100vw!important;
-  height:100vh!important;
+  top:50vh!important; left:0!important; right:0!important; bottom:auto!important;
+  width:100vw!important; height:auto!important;
+  display:flex!important; align-items:center!important; justify-content:center!important;
+  gap:clamp(150px,24vw,340px)!important;
+  margin:0!important; padding:0!important;
+  transform:translate3d(0,-50%,0)!important;
+  transform-origin:center center!important;
   z-index:2147483000!important;
   pointer-events:none!important;
+}
+body > #lobbyActions.is-visible { opacity:1!important; visibility:visible!important; }
+body > #lobbyActions .glass-action { pointer-events:auto!important; }
+body > #portfolioActions {
+  position:fixed!important; inset:0!important;
+  width:100vw!important; height:100vh!important;
+  margin:0!important; padding:0!important;
   transform:none!important;
-  overflow:visible!important;
-}
-#uiOverlayLayer #lobbyActions{
-  position:absolute!important;
-  top:50%!important;
-  left:0!important;
-  right:0!important;
-  bottom:auto!important;
-  width:100%!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:clamp(150px,24vw,340px)!important;
-  margin:0!important;
-  padding:0!important;
-  transform:translateY(-50%)!important;
-  pointer-events:none!important;
-  z-index:1!important;
-}
-#uiOverlayLayer #lobbyActions.is-visible{opacity:1!important;visibility:visible!important}
-#uiOverlayLayer #portfolioActions{
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  height:100%!important;
-  transform:none!important;
-  pointer-events:none!important;
-  z-index:2!important;
-}
-#uiOverlayLayer #portfolioActions .portfolio-pair{
-  position:absolute!important;
-  left:50%!important;
-  top:67%!important;
-  transform:translate(-50%,-50%)!important;
+  z-index:2147483001!important;
   pointer-events:none!important;
 }
-#uiOverlayLayer #portfolioActions .portfolio-pair.is-active{pointer-events:auto!important}
-@media(max-width:700px){
-  #uiOverlayLayer #lobbyActions{gap:clamp(54px,18vw,120px)!important}
-  #uiOverlayLayer #portfolioActions .portfolio-pair{top:64%!important;gap:clamp(42px,13vw,100px)!important}
+body > #portfolioActions.is-visible { opacity:1!important; visibility:visible!important; }
+body > #portfolioActions .portfolio-pair {
+  position:absolute!important; left:50%!important; top:67%!important;
+  transform:translate3d(-50%,-50%,0)!important;
+  transform-origin:center center!important;
+  pointer-events:none!important;
+}
+body > #portfolioActions .portfolio-pair.is-active { pointer-events:auto!important; }
+@media(max-width:700px) {
+  body > #lobbyActions { gap:clamp(54px,18vw,120px)!important; }
+  body > #portfolioActions .portfolio-pair { top:64%!important; gap:clamp(42px,13vw,100px)!important; }
 }
