@@ -38,14 +38,13 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Força os overlays como filhos diretos do body. O #pano é um elemento fixo
-  // separado; assim, nenhum transform interno do Marzipano pode mover os botões.
-  if (lobbyActionsElement && lobbyActionsElement.parentElement !== document.body) {
-    document.body.appendChild(lobbyActionsElement);
-  }
-  if (portfolioActionsElement && portfolioActionsElement.parentElement !== document.body) {
-    document.body.appendChild(portfolioActionsElement);
-  }
+  // Cria uma camada própria, irmã do #pano, para os controles de tela.
+  // Os botões nunca entram no DOM interno do Marzipano nem acompanham a câmera.
+  var overlayLayer = document.createElement('div');
+  overlayLayer.id = 'uiOverlayLayer';
+  document.body.appendChild(overlayLayer);
+  if (lobbyActionsElement) overlayLayer.appendChild(lobbyActionsElement);
+  if (portfolioActionsElement) overlayLayer.appendChild(portfolioActionsElement);
 
   aboutActionElement.addEventListener('click', function() {
     aboutModalElement.classList.add('is-open');
