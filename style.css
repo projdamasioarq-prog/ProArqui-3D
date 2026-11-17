@@ -97,3 +97,13 @@ body.view-control-buttons .viewControlButton{display:block}
 .about-close:hover{background:rgba(255,255,255,.14)}
 @media(max-width:700px){.lobby-actions{top:50vh!important;gap:clamp(54px,18vw,120px)}.glass-action{width:clamp(82px,23vw,100px);min-width:0;min-height:32px;padding:7px 6px;font-size:7px;letter-spacing:.11em}.about-card{padding:30px 24px}.about-card p:not(.about-eyebrow){font-size:13px}}
 @media(prefers-reduced-motion:reduce){.glass-action{animation:none;transition:none}}
+
+
+/* Botões de projetos: camada fixa no viewport, independente da imagem 360°. */
+.portfolio-actions{position:fixed!important;inset:0!important;z-index:1001!important;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .2s ease}
+.portfolio-actions.is-visible{opacity:1;visibility:visible}
+.portfolio-pair{position:absolute;left:50%;top:67%;display:flex;align-items:center;justify-content:center;gap:clamp(90px,19vw,270px);width:max-content;transform:translate(-50%,-50%);opacity:0;visibility:hidden}
+.portfolio-pair.is-active{opacity:1;visibility:visible}
+.portfolio-project{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;min-width:104px;min-height:34px;padding:8px 13px;border:1px solid rgba(255,255,255,.72);border-radius:3px;background:rgba(248,247,242,.22);-webkit-backdrop-filter:blur(13px) saturate(135%);backdrop-filter:blur(13px) saturate(135%);box-shadow:0 5px 22px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.34);color:#fff;font:600 9px Manrope,"DM Sans",sans-serif;letter-spacing:.14em;text-shadow:0 1px 8px rgba(0,0,0,.55);cursor:pointer;white-space:nowrap;transition:background .2s ease,border-color .2s ease}
+.portfolio-project:hover,.portfolio-project:focus-visible{background:rgba(255,255,255,.36);border-color:#fff;outline:none}
+@media(max-width:700px){.portfolio-pair{top:64%;gap:clamp(42px,13vw,100px)}.portfolio-project{min-width:88px;min-height:31px;padding:7px 9px;font-size:7px;letter-spacing:.1em}}
