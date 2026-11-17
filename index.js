@@ -38,9 +38,15 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Os overlays permanecem como irmãos do #pano no body,
-  // exatamente como no site de referência: o Marzipano movimenta somente o panorama.
-  
+  // Força os overlays como filhos diretos do body. O #pano é um elemento fixo
+  // separado; assim, nenhum transform interno do Marzipano pode mover os botões.
+  if (lobbyActionsElement && lobbyActionsElement.parentElement !== document.body) {
+    document.body.appendChild(lobbyActionsElement);
+  }
+  if (portfolioActionsElement && portfolioActionsElement.parentElement !== document.body) {
+    document.body.appendChild(portfolioActionsElement);
+  }
+
   aboutActionElement.addEventListener('click', function() {
     aboutModalElement.classList.add('is-open');
     aboutModalElement.setAttribute('aria-hidden', 'false');
