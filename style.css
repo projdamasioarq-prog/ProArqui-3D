@@ -107,3 +107,18 @@ body.view-control-buttons .viewControlButton{display:block}
 .portfolio-project{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;min-width:104px;min-height:34px;padding:8px 13px;border:1px solid rgba(255,255,255,.72);border-radius:3px;background:rgba(248,247,242,.22);-webkit-backdrop-filter:blur(13px) saturate(135%);backdrop-filter:blur(13px) saturate(135%);box-shadow:0 5px 22px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.34);color:#fff;font:600 9px Manrope,"DM Sans",sans-serif;letter-spacing:.14em;text-shadow:0 1px 8px rgba(0,0,0,.55);cursor:pointer;white-space:nowrap;transition:background .2s ease,border-color .2s ease}
 .portfolio-project:hover,.portfolio-project:focus-visible{background:rgba(255,255,255,.36);border-color:#fff;outline:none}
 @media(max-width:700px){.portfolio-pair{top:64%;gap:clamp(42px,13vw,100px)}.portfolio-project{min-width:88px;min-height:31px;padding:7px 9px;font-size:7px;letter-spacing:.1em}}
+
+
+/* Camada de interface independente do panorama: nenhum botão é descendente do viewer. */
+#fixedActionsLayer{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;z-index:2147483000!important;pointer-events:none!important;transform:none!important;overflow:visible!important}
+#fixedActionsLayer .fixed-lobby-button{position:absolute!important;top:50%!important;margin:0!important;transform:translate(-50%,-50%)!important;pointer-events:auto!important;opacity:0;visibility:hidden}
+#fixedActionsLayer.show-lobby .fixed-lobby-button{opacity:1;visibility:visible}
+#fixedActionsLayer .fixed-lobby-button-0{left:34%!important}
+#fixedActionsLayer .fixed-lobby-button-1{left:66%!important}
+#fixedActionsLayer .portfolio-pair{position:absolute!important;left:50%!important;top:67%!important;transform:translate(-50%,-50%)!important;pointer-events:none!important}
+#fixedActionsLayer.show-portfolio .portfolio-pair.is-active{pointer-events:auto!important}
+@media(max-width:700px){
+ #fixedActionsLayer .fixed-lobby-button-0{left:34%!important}
+ #fixedActionsLayer .fixed-lobby-button-1{left:66%!important}
+ #fixedActionsLayer .portfolio-pair{top:64%!important}
+}
