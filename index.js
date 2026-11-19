@@ -38,6 +38,16 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
+  // Camada própria da interface: fica sobre o panorama, sem participar da câmera.
+  var screenOverlay = document.getElementById('screenOverlay');
+  if (!screenOverlay) {
+    screenOverlay = document.createElement('div');
+    screenOverlay.id = 'screenOverlay';
+    document.body.appendChild(screenOverlay);
+  }
+  if (lobbyActionsElement) screenOverlay.appendChild(lobbyActionsElement);
+  if (portfolioActionsElement) screenOverlay.appendChild(portfolioActionsElement);
+
   aboutActionElement.addEventListener('click', function() {
     aboutModalElement.classList.add('is-open');
     aboutModalElement.setAttribute('aria-hidden', 'false');
