@@ -38,13 +38,17 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Os controles são movidos para uma camada fixa, irmã do visualizador.
-  // Essa camada não pertence ao DOM interno do Marzipano nem à câmera 360°.
+  // Camada de interface movida para a raiz HTML: fora do body e do Marzipano.
+  // Assim nenhum transform/stacking context do body ou do panorama afeta os botões.
   var screenOverlay = document.getElementById('screenOverlay');
-  if (screenOverlay) {
-    if (lobbyActionsElement) screenOverlay.appendChild(lobbyActionsElement);
-    if (portfolioActionsElement) screenOverlay.appendChild(portfolioActionsElement);
+  if (!screenOverlay) {
+    screenOverlay = document.createElement('div');
+    screenOverlay.id = 'screenOverlay';
   }
+  document.documentElement.appendChild(screenOverlay);
+  if (lobbyActionsElement) screenOverlay.appendChild(lobbyActionsElement);
+  if (portfolioActionsElement) screenOverlay.appendChild(portfolioActionsElement);
+  if (aboutModalElement) screenOverlay.appendChild(aboutModalElement);
 
   aboutActionElement.addEventListener('click', function() {
     aboutModalElement.classList.add('is-open');
