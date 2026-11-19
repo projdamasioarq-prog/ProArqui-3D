@@ -61,7 +61,6 @@
     '#viewRight',
     '#viewIn',
     '#viewOut',
-    '#lobbyActions',
     '#portfolioActions',
     '#aboutModal'
   ];
