@@ -156,3 +156,20 @@ html > #screenOverlay .about-modal { position:absolute!important; z-index:3!impo
   html > #screenOverlay #lobbyActions { gap:clamp(54px,18vw,120px)!important; }
   html > #screenOverlay #portfolioActions .portfolio-pair { top:64%!important; gap:clamp(42px,13vw,100px)!important; }
 }
+
+
+/* Controles da interface agora são irmãos do body, fora do canvas do Marzipano. */
+html > #screenOverlay > #sceneListToggle,
+html > #screenOverlay > #autorotateToggle,
+html > #screenOverlay > #fullscreenToggle,
+html > #screenOverlay > .viewControlButton {
+  pointer-events:auto!important;
+}
+html > #screenOverlay > .site-header,
+html > #screenOverlay > #titleBar,
+html > #screenOverlay > .bottom-note {
+  pointer-events:none!important;
+}
+html > #screenOverlay > .site-header .brand {
+  pointer-events:auto!important;
+}
