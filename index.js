@@ -38,17 +38,37 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Camada de interface movida para a raiz HTML: fora do body e do Marzipano.
-  // Assim nenhum transform/stacking context do body ou do panorama afeta os botões.
+  // Toda a interface HTML fica numa camada fixa no viewport.
+  // O Marzipano permanece isolado em #pano; nenhum controle de tela é filho dele.
   var screenOverlay = document.getElementById('screenOverlay');
   if (!screenOverlay) {
     screenOverlay = document.createElement('div');
     screenOverlay.id = 'screenOverlay';
   }
   document.documentElement.appendChild(screenOverlay);
-  if (lobbyActionsElement) screenOverlay.appendChild(lobbyActionsElement);
-  if (portfolioActionsElement) screenOverlay.appendChild(portfolioActionsElement);
-  if (aboutModalElement) screenOverlay.appendChild(aboutModalElement);
+
+  var fixedInterfaceIds = [
+    'siteHeader',
+    'titleBar',
+    'sceneList',
+    'sceneListToggle',
+    'autorotateToggle',
+    'fullscreenToggle',
+    'bottomNote',
+    'viewUp',
+    'viewDown',
+    'viewLeft',
+    'viewRight',
+    'viewIn',
+    'viewOut',
+    'lobbyActions',
+    'portfolioActions',
+    'aboutModal'
+  ];
+  fixedInterfaceIds.forEach(function(id) {
+    var element = document.getElementById(id);
+    if (element) screenOverlay.appendChild(element);
+  });
 
   aboutActionElement.addEventListener('click', function() {
     aboutModalElement.classList.add('is-open');
