@@ -173,3 +173,26 @@ html > #screenOverlay > .bottom-note {
 html > #screenOverlay > .site-header .brand {
   pointer-events:auto!important;
 }
+
+
+/* Hotspots convertidos em controles fixos de tela (fora da câmera 360°). */
+html > #screenOverlay > .fixed-scene-hotspot {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  display: none !important;
+  z-index: 20 !important;
+  pointer-events: auto !important;
+}
+html > #screenOverlay > .fixed-scene-hotspot.is-current {
+  display: block !important;
+}
+html > #screenOverlay > .fixed-scene-hotspot .link-hotspot-tooltip {
+  pointer-events: none !important;
+}
+html > #screenOverlay > .info-hotspot-modal {
+  z-index: 30 !important;
+  pointer-events: auto !important;
+}
