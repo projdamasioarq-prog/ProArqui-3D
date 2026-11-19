@@ -65,8 +65,26 @@
     'portfolioActions',
     'aboutModal'
   ];
-  fixedInterfaceIds.forEach(function(id) {
-    var element = document.getElementById(id);
+  var fixedInterfaceSelectors = [
+    '.site-header',
+    '#titleBar',
+    '#sceneList',
+    '#sceneListToggle',
+    '#autorotateToggle',
+    '#fullscreenToggle',
+    '.bottom-note',
+    '#viewUp',
+    '#viewDown',
+    '#viewLeft',
+    '#viewRight',
+    '#viewIn',
+    '#viewOut',
+    '#lobbyActions',
+    '#portfolioActions',
+    '#aboutModal'
+  ];
+  fixedInterfaceSelectors.forEach(function(selector) {
+    var element = document.querySelector(selector);
     if (element) screenOverlay.appendChild(element);
   });
 
