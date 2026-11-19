@@ -145,20 +145,16 @@
       pinFirstLevel: true
     });
 
-    // Marcadores de navegação e informação ficam na camada fixa da tela,
-    // nunca dentro do hotspotContainer do Marzipano.
+    // Create link hotspots.
     data.linkHotspots.forEach(function(hotspot) {
       var element = createLinkHotspotElement(hotspot);
-      element.classList.add('fixed-scene-hotspot');
-      element.setAttribute('data-scene-id', data.id);
-      screenOverlay.appendChild(element);
+      scene.hotspotContainer().createHotspot(element, { yaw: hotspot.yaw, pitch: hotspot.pitch });
     });
 
+    // Create info hotspots.
     data.infoHotspots.forEach(function(hotspot) {
       var element = createInfoHotspotElement(hotspot);
-      element.classList.add('fixed-scene-hotspot');
-      element.setAttribute('data-scene-id', data.id);
-      screenOverlay.appendChild(element);
+      scene.hotspotContainer().createHotspot(element, { yaw: hotspot.yaw, pitch: hotspot.pitch });
     });
 
     return {
@@ -252,15 +248,6 @@
     updateSceneList(scene);
     var isLobby = scene.data.id === '0-lobby';
     var isPortfolio = scene.data.id === '1-portiflio';
-    // Mostra somente os marcadores pertencentes à cena atual, mantendo-os
-    // na mesma coordenada da tela durante qualquer rotação da panorâmica.
-    var fixedHotspots = screenOverlay.querySelectorAll('.fixed-scene-hotspot');
-    for (var h = 0; h < fixedHotspots.length; h++) {
-      fixedHotspots[h].classList.toggle(
-        'is-current',
-        fixedHotspots[h].getAttribute('data-scene-id') === scene.data.id
-      );
-    }
     if (lobbyActionsElement) {
       lobbyActionsElement.classList.toggle('is-visible', isLobby);
     }
@@ -421,7 +408,7 @@
     var modal = document.createElement('div');
     modal.innerHTML = wrapper.innerHTML;
     modal.classList.add('info-hotspot-modal');
-    screenOverlay.appendChild(modal);
+    document.body.appendChild(modal);
 
     var toggle = function() {
       wrapper.classList.toggle('visible');
