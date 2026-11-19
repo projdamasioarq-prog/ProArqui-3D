@@ -145,23 +145,57 @@
       pinFirstLevel: true
     });
 
-    // Create link hotspots.
+    // Os marcadores são desenhados na camada fixa usando a posição que
+    // ocupam na tela no enquadramento inicial da cena.
+    var fixedHotspots = [];
     data.linkHotspots.forEach(function(hotspot) {
       var element = createLinkHotspotElement(hotspot);
-      scene.hotspotContainer().createHotspot(element, { yaw: hotspot.yaw, pitch: hotspot.pitch });
+      element.classList.add('fixed-scene-hotspot');
+      element.setAttribute('data-scene-id', data.id);
+      screenOverlay.appendChild(element);
+      fixedHotspots.push({ element: element, coordinates: { yaw: hotspot.yaw, pitch: hotspot.pitch } });
     });
 
-    // Create info hotspots.
     data.infoHotspots.forEach(function(hotspot) {
       var element = createInfoHotspotElement(hotspot);
-      scene.hotspotContainer().createHotspot(element, { yaw: hotspot.yaw, pitch: hotspot.pitch });
+      element.classList.add('fixed-scene-hotspot');
+      element.setAttribute('data-scene-id', data.id);
+      screenOverlay.appendChild(element);
+      fixedHotspots.push({ element: element, coordinates: { yaw: hotspot.yaw, pitch: hotspot.pitch } });
     });
 
     return {
       data: data,
       scene: scene,
-      view: view
+      view: view,
+      fixedHotspots: fixedHotspots
     };
+  });
+
+  // Calcula a posição dos marcadores no enquadramento inicial e congela
+  // essa posição em pixels, sem acompanhar o movimento posterior da câmera.
+  function positionFixedHotspots() {
+    if (viewer.updateSize) viewer.updateSize();
+    scenes.forEach(function(sceneItem) {
+      var currentParameters = sceneItem.view.parameters();
+      sceneItem.view.setParameters(sceneItem.data.initialViewParameters);
+      sceneItem.fixedHotspots.forEach(function(item) {
+        var point = sceneItem.view.coordinatesToScreen(item.coordinates);
+        if (point) {
+          item.element.style.left = point.x + 'px';
+          item.element.style.top = point.y + 'px';
+          item.element.style.display = '';
+        } else {
+          item.element.style.display = 'none';
+        }
+      });
+      sceneItem.view.setParameters(currentParameters);
+    });
+  }
+
+  positionFixedHotspots();
+  window.addEventListener('resize', function() {
+    window.requestAnimationFrame(positionFixedHotspots);
   });
 
   // Set up autorotate, if enabled.
@@ -248,6 +282,13 @@
     updateSceneList(scene);
     var isLobby = scene.data.id === '0-lobby';
     var isPortfolio = scene.data.id === '1-portiflio';
+    var fixedHotspots = screenOverlay.querySelectorAll('.fixed-scene-hotspot');
+    for (var h = 0; h < fixedHotspots.length; h++) {
+      fixedHotspots[h].classList.toggle(
+        'is-current',
+        fixedHotspots[h].getAttribute('data-scene-id') === scene.data.id
+      );
+    }
     if (lobbyActionsElement) {
       lobbyActionsElement.classList.toggle('is-visible', isLobby);
     }
