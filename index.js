@@ -421,7 +421,7 @@
     var modal = document.createElement('div');
     modal.innerHTML = wrapper.innerHTML;
     modal.classList.add('info-hotspot-modal');
-    document.body.appendChild(modal);
+    screenOverlay.appendChild(modal);
 
     var toggle = function() {
       wrapper.classList.toggle('visible');
