@@ -38,16 +38,6 @@
   var aboutModalElement = document.querySelector('#aboutModal');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Portal de interface: move os controles para fora do BODY e de #pano.
-  // Assim, nenhum transform/estilo aplicado ao body ou ao viewer pode girá-los.
-  var fixedUiRoot = document.documentElement;
-  if (lobbyActionsElement && lobbyActionsElement.parentElement !== fixedUiRoot) {
-    fixedUiRoot.appendChild(lobbyActionsElement);
-  }
-  if (portfolioActionsElement && portfolioActionsElement.parentElement !== fixedUiRoot) {
-    fixedUiRoot.appendChild(portfolioActionsElement);
-  }
-
   aboutActionElement.addEventListener('click', function() {
     aboutModalElement.classList.add('is-open');
     aboutModalElement.setAttribute('aria-hidden', 'false');
