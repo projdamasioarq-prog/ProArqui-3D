@@ -47,24 +47,6 @@
   }
   document.documentElement.appendChild(screenOverlay);
 
-  var fixedInterfaceIds = [
-    'siteHeader',
-    'titleBar',
-    'sceneList',
-    'sceneListToggle',
-    'autorotateToggle',
-    'fullscreenToggle',
-    'bottomNote',
-    'viewUp',
-    'viewDown',
-    'viewLeft',
-    'viewRight',
-    'viewIn',
-    'viewOut',
-    'lobbyActions',
-    'portfolioActions',
-    'aboutModal'
-  ];
   var fixedInterfaceSelectors = [
     '.site-header',
     '#titleBar',
