@@ -70,7 +70,7 @@
 
   // Mesmo mecanismo do site de referência: o HUD é filho da camada
   // screenOverlay, que fica fora do body e do elemento #pano do Marzipano.
-  if (lobbyActionsElement) screenOverlay.appendChild(lobbyActionsElement);
+  if (lobbyActionsElement) document.body.appendChild(lobbyActionsElement);
   if (aboutPanelElement) screenOverlay.appendChild(aboutPanelElement);
 
   // Ações do Lobby: os botões ficam na camada fixa, fora do panorama.
