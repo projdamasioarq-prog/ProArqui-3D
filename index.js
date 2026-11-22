@@ -311,7 +311,7 @@
       portfolioActionsElement.style.display = isPortfolio ? 'block' : 'none';
       // Mantém o primeiro par na posição inicial, sem acompanhar o yaw da câmera.
       for (var i = 0; i < portfolioPairs.length; i++) {
-        portfolioPairs[i].classList.toggle('is-active', i === 0);
+        portfolioPairs[i].classList.add('is-active');
       }
     }
   }
