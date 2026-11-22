@@ -33,10 +33,6 @@
   var portfolioPairs = portfolioActionsElement ? portfolioActionsElement.querySelectorAll('.portfolio-pair') : [];
 
   // Ações fixas sobre a cena inicial, independentes da câmera 360°.
-  var lobbyActionsElement = document.querySelector('#lobbyActions');
-  var aboutActionElement = document.querySelector('#aboutAction');
-  var aboutModalElement = document.querySelector('#aboutModal');
-  var aboutCloseElement = document.querySelector('#aboutClose');
 
   // Toda a interface HTML fica numa camada fixa no viewport.
   // O Marzipano permanece isolado em #pano; nenhum controle de tela é filho dele.
@@ -68,23 +64,6 @@
     var element = document.querySelector(selector);
     if (element) screenOverlay.appendChild(element);
   });
-
-  aboutActionElement.addEventListener('click', function() {
-    aboutModalElement.classList.add('is-open');
-    aboutModalElement.setAttribute('aria-hidden', 'false');
-    aboutCloseElement.focus();
-  });
-  aboutCloseElement.addEventListener('click', closeAboutModal);
-  aboutModalElement.addEventListener('click', function(event) {
-    if (event.target === aboutModalElement) closeAboutModal();
-  });
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') closeAboutModal();
-  });
-  function closeAboutModal() {
-    aboutModalElement.classList.remove('is-open');
-    aboutModalElement.setAttribute('aria-hidden', 'true');
-  }
 
   // Detect desktop or mobile mode.
   if (window.matchMedia) {
@@ -279,7 +258,6 @@
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
-    var isLobby = scene.data.id === '0-lobby';
     var isPortfolio = scene.data.id === '1-portiflio';
     var fixedHotspots = screenOverlay.querySelectorAll('.fixed-scene-hotspot');
     for (var h = 0; h < fixedHotspots.length; h++) {
@@ -287,9 +265,6 @@
         'is-current',
         fixedHotspots[h].getAttribute('data-scene-id') === scene.data.id
       );
-    }
-    if (lobbyActionsElement) {
-      lobbyActionsElement.classList.toggle('is-visible', isLobby);
     }
     if (portfolioActionsElement) {
       portfolioActionsElement.classList.toggle('is-visible', isPortfolio);
@@ -299,7 +274,6 @@
         portfolioPairs[i].classList.toggle('is-active', i === 0);
       }
     }
-    if (!isLobby) closeAboutModal();
   }
 
   function updateSceneName(scene) {
