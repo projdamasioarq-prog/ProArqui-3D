@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="vendor/reset.min.css">
-  <link rel="stylesheet" href="style.css?v=20261122b">
+  <link rel="stylesheet" href="style.css?v=20261122c">
 </head>
 <body class="multiple-scenes">
   <div id="pano" aria-label="Visualização panorâmica 360 graus"></div>
@@ -68,6 +68,20 @@
   <a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5"><img class="icon" src="img/plus.png" alt=""></a>
   <a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6"><img class="icon" src="img/minus.png" alt=""></a>
 
+  <div id="lobbyActions" class="lobby-actions" aria-label="Ações do Lobby" aria-hidden="true">
+    <button type="button" class="lobby-action" id="aboutAction">Sobre Nós</button>
+    <a class="lobby-action" id="contactAction" href="https://api.whatsapp.com/send/?phone=5511947869761&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">Contato</a>
+  </div>
+
+  <div class="about-panel" id="aboutPanel" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="aboutPanelTitle">
+    <div class="about-card">
+      <button type="button" class="about-close" id="aboutClose" aria-label="Fechar">×</button>
+      <p class="about-eyebrow">PROARQUI 3D · ARQUITETURA & DESIGN</p>
+      <h2 id="aboutPanelTitle">Sobre Nós</h2>
+      <p>O ProArqui 3D desenvolve projetos de arquitetura, design de interiores e visualização 3D, conectando funcionalidade, estética e tecnologia para transformar ideias em espaços.</p>
+    </div>
+  </div>
+
   <div id="portfolioActions" class="portfolio-actions" aria-label="Projetos do portfólio">
     <div class="portfolio-pair is-active" data-pair="0">
       <button type="button" class="portfolio-project">VER PROJETO</button>
@@ -87,6 +101,6 @@
   <script src="vendor/bowser.min.js"></script>
   <script src="vendor/marzipano.js"></script>
   <script src="data.js"></script>
-  <script src="index.js?v=20261122b"></script>
+  <script src="index.js?v=20261122c"></script>
 </body>
 </html>
