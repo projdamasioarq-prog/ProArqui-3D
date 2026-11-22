@@ -162,10 +162,10 @@ html > #screenOverlay > .fixed-scene-hotspot .link-hotspot-tooltip {
 }
 
 
-/* HUD independente da cena 360: ações fixas no viewport. */
-body > #lobbyActions {
-  position:fixed!important;
-  z-index:1001!important;
+/* HUD do Lobby dentro da mesma camada screenOverlay do site de referência.
+   O overlay é irmão do body na raiz HTML; o panorama permanece em #pano. */
+html > #screenOverlay > #lobbyActions {
+  position:absolute!important;
   inset:0!important;
   width:100vw!important;
   height:100vh!important;
@@ -177,12 +177,12 @@ body > #lobbyActions {
   pointer-events:none;
   transition:opacity .22s ease,visibility .22s ease;
 }
-html > #lobbyActions.is-visible {
-  opacity:1;
-  visibility:visible;
+html > #screenOverlay > #lobbyActions.is-visible {
+  opacity:1!important;
+  visibility:visible!important;
 }
-html > #lobbyActions .lobby-action {
-  position:fixed!important;
+html > #screenOverlay > #lobbyActions .lobby-action {
+  position:absolute!important;
   top:54vh!important;
   display:inline-flex;
   align-items:center;
@@ -202,22 +202,22 @@ html > #lobbyActions .lobby-action {
   text-decoration:none;
   white-space:nowrap;
   cursor:pointer;
-  z-index:1101!important;
-  pointer-events:auto;
+  z-index:2!important;
+  pointer-events:auto!important;
   transform:translate(-50%,-50%)!important;
   transition:background .2s ease,border-color .2s ease;
 }
-html > #lobbyActions #aboutAction { left:27.5vw!important; }
-html > #lobbyActions #contactAction { left:72.5vw!important; }
-html > #lobbyActions .lobby-action:hover,
-html > #lobbyActions .lobby-action:focus-visible {
+html > #screenOverlay > #lobbyActions #aboutAction { left:27.5vw!important; }
+html > #screenOverlay > #lobbyActions #contactAction { left:72.5vw!important; }
+html > #screenOverlay > #lobbyActions .lobby-action:hover,
+html > #screenOverlay > #lobbyActions .lobby-action:focus-visible {
   background:rgba(25,25,23,.72);
   border-color:#fff;
   outline:none;
 }
-body > #aboutPanel {
-  position:fixed!important;
-  z-index:1002!important;
+html > #screenOverlay > #aboutPanel {
+  position:absolute!important;
+  z-index:3!important;
   inset:0!important;
   display:none;
   place-items:center;
@@ -225,7 +225,7 @@ body > #aboutPanel {
   background:rgba(0,0,0,.42);
   pointer-events:auto!important;
 }
-html > #aboutPanel.is-open { display:grid; }
+html > #screenOverlay > #aboutPanel.is-open { display:grid; }
 #aboutPanel .about-card {
   position:relative;
   width:min(440px,100%);
@@ -249,12 +249,12 @@ html > #aboutPanel.is-open { display:grid; }
   margin:0;color:rgba(255,255,255,.82);font-size:14px;line-height:1.65;
 }
 @media(max-width:700px) {
-  html > #lobbyActions .lobby-action {
+  html > #screenOverlay > #lobbyActions .lobby-action {
     top:54vh!important;min-width:92px;min-height:31px;padding:7px 9px;font-size:8px;
   }
 }
 @media(max-width:380px) {
-  html > #lobbyActions .lobby-action {
+  html > #screenOverlay > #lobbyActions .lobby-action {
     min-width:82px;min-height:29px;padding:6px 7px;font-size:8px;letter-spacing:.08em;
   }
 }
