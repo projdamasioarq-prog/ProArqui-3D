@@ -81,24 +81,6 @@ body.view-control-buttons .viewControlButton{display:block}
 }
 
 
-/* Camada fixa no viewport: os botões não acompanham a rotação nem o arraste do panorama. */
-.lobby-actions{position:fixed!important;z-index:2147483646!important;top:50vh!important;left:0!important;right:auto!important;bottom:auto!important;width:100vw!important;display:flex;align-items:center;justify-content:center;gap:clamp(150px,24vw,340px);padding:0!important;margin:0!important;transform:translate3d(0,-50%,0)!important;pointer-events:none;opacity:0;visibility:hidden}
-.lobby-actions.is-visible{visibility:visible;opacity:1}
-.glass-action{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;width:clamp(90px,7.8vw,108px);min-width:0;min-height:34px;padding:7px 10px;border:1px solid rgba(255,255,255,.68);border-radius:999px;background:rgba(255,255,255,.19);-webkit-backdrop-filter:blur(15px) saturate(145%);backdrop-filter:blur(15px) saturate(145%);box-shadow:0 8px 30px rgba(0,0,0,.10),inset 0 1px 0 rgba(255,255,255,.38);color:#fff;font-family:Manrope,"DM Sans",sans-serif;font-size:9px;font-weight:600;letter-spacing:.16em;text-decoration:none;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:background .28s ease,border-color .28s ease,box-shadow .28s ease}
-#contactAction{animation:none}
-.glass-action:hover,.glass-action:focus-visible{background:rgba(255,255,255,.30);border-color:rgba(255,255,255,.95);box-shadow:0 12px 34px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.55);outline:none}
-.about-modal{position:fixed;z-index:40;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(10,12,11,.54);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease}
-.about-modal.is-open{opacity:1;visibility:visible}
-.about-card{position:relative;width:min(590px,100%);max-height:min(78vh,720px);overflow:auto;padding:clamp(28px,5vw,48px);border:1px solid rgba(255,255,255,.25);border-radius:18px;background:rgba(24,27,24,.88);box-shadow:0 24px 80px rgba(0,0,0,.3);color:#f7f6f1}
-.about-eyebrow{margin:0 0 15px;font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.65)}
-.about-card h2{margin:0 0 22px;font:500 clamp(27px,4vw,38px)/1.1 Manrope,sans-serif;letter-spacing:-.04em}
-.about-card p:not(.about-eyebrow){font-size:14px;line-height:1.8;color:rgba(255,255,255,.83)}
-.about-close{position:absolute;top:15px;right:18px;width:34px;height:34px;border:1px solid rgba(255,255,255,.25);border-radius:50%;background:transparent;color:#fff;font-size:24px;line-height:1}
-.about-close:hover{background:rgba(255,255,255,.14)}
-@media(max-width:700px){.lobby-actions{top:50vh!important;gap:clamp(54px,18vw,120px)}.glass-action{width:clamp(82px,23vw,100px);min-width:0;min-height:32px;padding:7px 6px;font-size:7px;letter-spacing:.11em}.about-card{padding:30px 24px}.about-card p:not(.about-eyebrow){font-size:13px}}
-@media(prefers-reduced-motion:reduce){.glass-action{animation:none;transition:none}}
-
-
 /* Botões de projetos: camada fixa no viewport, independente da imagem 360°. */
 .portfolio-actions{position:fixed!important;inset:0!important;z-index:1001!important;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .2s ease}
 .portfolio-actions.is-visible{opacity:1;visibility:visible}
