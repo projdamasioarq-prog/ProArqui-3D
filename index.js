@@ -31,6 +31,10 @@
   var fullscreenToggleElement = document.querySelector('#fullscreenToggle');
   var portfolioActionsElement = document.querySelector('#portfolioActions');
   var portfolioPairs = portfolioActionsElement ? portfolioActionsElement.querySelectorAll('.portfolio-pair') : [];
+  var lobbyActionsElement = document.querySelector('#lobbyActions');
+  var aboutActionElement = document.querySelector('#aboutAction');
+  var aboutPanelElement = document.querySelector('#aboutPanel');
+  var aboutCloseElement = document.querySelector('#aboutClose');
 
   // Ações fixas sobre a cena inicial, independentes da câmera 360°.
 
@@ -57,14 +61,16 @@
     '#viewRight',
     '#viewIn',
     '#viewOut',
-    '#portfolioActions'
+    '#portfolioActions',
+    '#lobbyActions',
+    '#aboutPanel'
   ];
   fixedInterfaceSelectors.forEach(function(selector) {
     var element = document.querySelector(selector);
     if (element) screenOverlay.appendChild(element);
   });
 
-  // Detect desktop or mobile mode.
+  // Os botões do Lobby ficam na camada fixa, fora do visualizador panorâmico.\n  if (aboutActionElement && aboutPanelElement && aboutCloseElement) {\n    aboutActionElement.addEventListener('click', openAboutPanel);\n    aboutCloseElement.addEventListener('click', closeAboutPanel);\n    aboutPanelElement.addEventListener('click', function(event) {\n      if (event.target === aboutPanelElement) closeAboutPanel();\n    });\n    document.addEventListener('keydown', function(event) {\n      if (event.key === 'Escape') closeAboutPanel();\n    });\n  }\n\n  // Detect desktop or mobile mode.
   if (window.matchMedia) {
     var setMode = function() {
       if (mql.matches) {
@@ -250,14 +256,14 @@
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
   }
 
-  function switchScene(scene) {
+  function openAboutPanel() {\n    if (!aboutPanelElement) return;\n    aboutPanelElement.classList.add('is-open');\n    aboutPanelElement.setAttribute('aria-hidden', 'false');\n    if (aboutCloseElement) aboutCloseElement.focus();\n  }\n\n  function closeAboutPanel() {\n    if (!aboutPanelElement) return;\n    aboutPanelElement.classList.remove('is-open');\n    aboutPanelElement.setAttribute('aria-hidden', 'true');\n  }\n\n  function switchScene(scene) {
     stopAutorotate();
     scene.view.setParameters(scene.data.initialViewParameters);
     scene.scene.switchTo();
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
-    var isPortfolio = scene.data.id === '1-portiflio';
+    var isLobby = scene.data.id === '0-lobby';\n    var isPortfolio = scene.data.id === '1-portiflio';\n    if (lobbyActionsElement) {\n      lobbyActionsElement.classList.toggle('is-visible', isLobby);\n      lobbyActionsElement.style.display = isLobby ? 'block' : 'none';\n      lobbyActionsElement.setAttribute('aria-hidden', isLobby ? 'false' : 'true');\n    }\n    if (!isLobby) closeAboutPanel();
     var fixedHotspots = screenOverlay.querySelectorAll('.fixed-scene-hotspot');
     for (var h = 0; h < fixedHotspots.length; h++) {
       fixedHotspots[h].classList.toggle(
