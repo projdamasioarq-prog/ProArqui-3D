@@ -62,13 +62,16 @@
     '#viewIn',
     '#viewOut',
     '#portfolioActions',
-    '#lobbyActions',
-    '#aboutPanel'
   ];
   fixedInterfaceSelectors.forEach(function(selector) {
     var element = document.querySelector(selector);
     if (element) screenOverlay.appendChild(element);
   });
+
+  // HUD do Lobby em nós próprios na raiz do documento: não é descendente
+  // do viewer, do panorama ou da camada de controles que pode ser transformada.
+  if (lobbyActionsElement) document.documentElement.appendChild(lobbyActionsElement);
+  if (aboutPanelElement) document.documentElement.appendChild(aboutPanelElement);
 
   // Ações do Lobby: os botões ficam na camada fixa, fora do panorama.
   if (aboutActionElement && aboutPanelElement && aboutCloseElement) {
