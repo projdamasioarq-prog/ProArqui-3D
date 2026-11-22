@@ -109,7 +109,6 @@ html > #screenOverlay {
   pointer-events:none!important;
   isolation:isolate!important;
 }
-/* SOBRE NÓS e CONTATO ficam como elementos irmãos do #pano, fixos no viewport. */
 html > #screenOverlay #portfolioActions {
   position:absolute!important; inset:0!important; width:100%!important; height:100%!important;
   margin:0!important; padding:0!important; transform:none!important;
@@ -122,7 +121,6 @@ html > #screenOverlay #portfolioActions .portfolio-pair {
 }
 html > #screenOverlay #portfolioActions .portfolio-pair.is-active { pointer-events:auto!important; }
 html > #screenOverlay #portfolioActions .portfolio-project { pointer-events:auto!important; }
-html > #screenOverlay .about-modal { position:absolute!important; z-index:3!important; }
 @media(max-width:700px) {
   html > #screenOverlay #portfolioActions .portfolio-pair { top:64%!important; gap:clamp(42px,13vw,100px)!important; }
 }
