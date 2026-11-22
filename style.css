@@ -163,8 +163,9 @@ html > #screenOverlay > .fixed-scene-hotspot .link-hotspot-tooltip {
 
 
 /* HUD independente da cena 360: ações fixas no viewport. */
-html > #screenOverlay > #lobbyActions {
+html > #lobbyActions {
   position:fixed!important;
+  z-index:2147483646!important;
   inset:0!important;
   z-index:1100!important;
   width:100vw!important;
@@ -177,11 +178,11 @@ html > #screenOverlay > #lobbyActions {
   pointer-events:none;
   transition:opacity .22s ease,visibility .22s ease;
 }
-html > #screenOverlay > #lobbyActions.is-visible {
+html > #lobbyActions.is-visible {
   opacity:1;
   visibility:visible;
 }
-html > #screenOverlay > #lobbyActions .lobby-action {
+html > #lobbyActions .lobby-action {
   position:fixed!important;
   top:54vh!important;
   display:inline-flex;
@@ -207,16 +208,17 @@ html > #screenOverlay > #lobbyActions .lobby-action {
   transform:translate(-50%,-50%)!important;
   transition:background .2s ease,border-color .2s ease;
 }
-html > #screenOverlay > #lobbyActions #aboutAction { left:27.5vw!important; }
-html > #screenOverlay > #lobbyActions #contactAction { left:72.5vw!important; }
-html > #screenOverlay > #lobbyActions .lobby-action:hover,
-html > #screenOverlay > #lobbyActions .lobby-action:focus-visible {
+html > #lobbyActions #aboutAction { left:27.5vw!important; }
+html > #lobbyActions #contactAction { left:72.5vw!important; }
+html > #lobbyActions .lobby-action:hover,
+html > #lobbyActions .lobby-action:focus-visible {
   background:rgba(25,25,23,.72);
   border-color:#fff;
   outline:none;
 }
-html > #screenOverlay > #aboutPanel {
+html > #aboutPanel {
   position:fixed!important;
+  z-index:2147483647!important;
   inset:0!important;
   z-index:1102!important;
   display:none;
@@ -225,7 +227,7 @@ html > #screenOverlay > #aboutPanel {
   background:rgba(0,0,0,.42);
   pointer-events:auto!important;
 }
-html > #screenOverlay > #aboutPanel.is-open { display:grid; }
+html > #aboutPanel.is-open { display:grid; }
 #aboutPanel .about-card {
   position:relative;
   width:min(440px,100%);
@@ -249,12 +251,12 @@ html > #screenOverlay > #aboutPanel.is-open { display:grid; }
   margin:0;color:rgba(255,255,255,.82);font-size:14px;line-height:1.65;
 }
 @media(max-width:700px) {
-  html > #screenOverlay > #lobbyActions .lobby-action {
+  html > #lobbyActions .lobby-action {
     top:54vh!important;min-width:92px;min-height:31px;padding:7px 9px;font-size:8px;
   }
 }
 @media(max-width:380px) {
-  html > #screenOverlay > #lobbyActions .lobby-action {
+  html > #lobbyActions .lobby-action {
     min-width:82px;min-height:29px;padding:6px 7px;font-size:8px;letter-spacing:.08em;
   }
 }
