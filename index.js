@@ -57,8 +57,7 @@
     '#viewRight',
     '#viewIn',
     '#viewOut',
-    '#portfolioActions',
-    '#aboutModal'
+    '#portfolioActions'
   ];
   fixedInterfaceSelectors.forEach(function(selector) {
     var element = document.querySelector(selector);
