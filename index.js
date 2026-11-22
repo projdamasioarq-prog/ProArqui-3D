@@ -68,10 +68,10 @@
     if (element) screenOverlay.appendChild(element);
   });
 
-  // O panorama (#pano) e o HUD são irmãos diretos no body, como no site de referência.
-  // Assim, a câmera do Marzipano só transforma a imagem dentro de #pano.
-  if (lobbyActionsElement) document.body.appendChild(lobbyActionsElement);
-  if (aboutPanelElement) document.body.appendChild(aboutPanelElement);
+  // Mesmo mecanismo do site de referência: o HUD é filho da camada
+  // screenOverlay, que fica fora do body e do elemento #pano do Marzipano.
+  if (lobbyActionsElement) screenOverlay.appendChild(lobbyActionsElement);
+  if (aboutPanelElement) screenOverlay.appendChild(aboutPanelElement);
 
   // Ações do Lobby: os botões ficam na camada fixa, fora do panorama.
   if (aboutActionElement && aboutPanelElement && aboutCloseElement) {
