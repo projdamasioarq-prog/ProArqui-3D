@@ -81,7 +81,8 @@
       if (event.key === 'Escape') closeAboutPanel();
     });
   }
-\n  // Detect desktop or mobile mode.
+
+  // Detect desktop or mobile mode.
   if (window.matchMedia) {
     var setMode = function() {
       if (mql.matches) {
@@ -267,14 +268,34 @@
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
   }
 
-  function openAboutPanel() {\n    if (!aboutPanelElement) return;\n    aboutPanelElement.classList.add('is-open');\n    aboutPanelElement.setAttribute('aria-hidden', 'false');\n    if (aboutCloseElement) aboutCloseElement.focus();\n  }\n\n  function closeAboutPanel() {\n    if (!aboutPanelElement) return;\n    aboutPanelElement.classList.remove('is-open');\n    aboutPanelElement.setAttribute('aria-hidden', 'true');\n  }\n\n  function switchScene(scene) {
+  function openAboutPanel() {
+    if (!aboutPanelElement) return;
+    aboutPanelElement.classList.add('is-open');
+    aboutPanelElement.setAttribute('aria-hidden', 'false');
+    if (aboutCloseElement) aboutCloseElement.focus();
+  }
+
+  function closeAboutPanel() {
+    if (!aboutPanelElement) return;
+    aboutPanelElement.classList.remove('is-open');
+    aboutPanelElement.setAttribute('aria-hidden', 'true');
+  }
+
+  function switchScene(scene) {
     stopAutorotate();
     scene.view.setParameters(scene.data.initialViewParameters);
     scene.scene.switchTo();
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
-    var isLobby = scene.data.id === '0-lobby';\n    var isPortfolio = scene.data.id === '1-portiflio';\n    if (lobbyActionsElement) {\n      lobbyActionsElement.classList.toggle('is-visible', isLobby);\n      lobbyActionsElement.style.display = isLobby ? 'block' : 'none';\n      lobbyActionsElement.setAttribute('aria-hidden', isLobby ? 'false' : 'true');\n    }\n    if (!isLobby) closeAboutPanel();
+    var isLobby = scene.data.id === '0-lobby';
+    var isPortfolio = scene.data.id === '1-portiflio';
+    if (lobbyActionsElement) {
+      lobbyActionsElement.classList.toggle('is-visible', isLobby);
+      lobbyActionsElement.style.display = isLobby ? 'block' : 'none';
+      lobbyActionsElement.setAttribute('aria-hidden', isLobby ? 'false' : 'true');
+    }
+    if (!isLobby) closeAboutPanel();
     var fixedHotspots = screenOverlay.querySelectorAll('.fixed-scene-hotspot');
     for (var h = 0; h < fixedHotspots.length; h++) {
       fixedHotspots[h].classList.toggle(
