@@ -180,7 +180,7 @@ html > #screenOverlay > #lobbyActions.is-visible {
 }
 html > #screenOverlay > #lobbyActions .lobby-action {
   position:absolute;
-  top:41.2%;
+  top:54%;
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -203,8 +203,8 @@ html > #screenOverlay > #lobbyActions .lobby-action {
   transform:translate(-50%,-50%);
   transition:background .2s ease,border-color .2s ease;
 }
-html > #screenOverlay > #lobbyActions #aboutAction { left:45.2%; }
-html > #screenOverlay > #lobbyActions #contactAction { left:76.6%; }
+html > #screenOverlay > #lobbyActions #aboutAction { left:27.5%; }
+html > #screenOverlay > #lobbyActions #contactAction { left:72.5%; }
 html > #screenOverlay > #lobbyActions .lobby-action:hover,
 html > #screenOverlay > #lobbyActions .lobby-action:focus-visible {
   background:rgba(25,25,23,.72);
@@ -246,7 +246,7 @@ html > #screenOverlay > #aboutPanel.is-open { display:grid; }
 }
 @media(max-width:700px) {
   html > #screenOverlay > #lobbyActions .lobby-action {
-    top:41.2%;min-width:92px;min-height:31px;padding:7px 9px;font-size:8px;
+    top:54%;min-width:92px;min-height:31px;padding:7px 9px;font-size:8px;
   }
 }
 @media(max-width:380px) {
