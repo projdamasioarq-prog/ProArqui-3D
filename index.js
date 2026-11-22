@@ -31,10 +31,6 @@
   var fullscreenToggleElement = document.querySelector('#fullscreenToggle');
   var portfolioActionsElement = document.querySelector('#portfolioActions');
   var portfolioPairs = portfolioActionsElement ? portfolioActionsElement.querySelectorAll('.portfolio-pair') : [];
-  var lobbyActionsElement = document.querySelector('#lobbyActions');
-  var aboutActionElement = document.querySelector('#aboutAction');
-  var aboutPanelElement = document.querySelector('#aboutPanel');
-  var aboutCloseElement = document.querySelector('#aboutClose');
 
   // Ações fixas sobre a cena inicial, independentes da câmera 360°.
 
@@ -61,26 +57,12 @@
     '#viewRight',
     '#viewIn',
     '#viewOut',
-    '#portfolioActions',
-    '#lobbyActions',
-    '#aboutPanel'
+    '#portfolioActions'
   ];
   fixedInterfaceSelectors.forEach(function(selector) {
     var element = document.querySelector(selector);
     if (element) screenOverlay.appendChild(element);
   });
-
-  // Os botões do Lobby ficam na camada fixa, fora do visualizador panorâmico.
-  if (aboutActionElement && aboutPanelElement && aboutCloseElement) {
-    aboutActionElement.addEventListener('click', openAboutPanel);
-    aboutCloseElement.addEventListener('click', closeAboutPanel);
-    aboutPanelElement.addEventListener('click', function(event) {
-      if (event.target === aboutPanelElement) closeAboutPanel();
-    });
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') closeAboutPanel();
-    });
-  }
 
   // Detect desktop or mobile mode.
   if (window.matchMedia) {
@@ -268,19 +250,6 @@
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
   }
 
-  function openAboutPanel() {
-    if (!aboutPanelElement) return;
-    aboutPanelElement.classList.add('is-open');
-    aboutPanelElement.setAttribute('aria-hidden', 'false');
-    if (aboutCloseElement) aboutCloseElement.focus();
-  }
-
-  function closeAboutPanel() {
-    if (!aboutPanelElement) return;
-    aboutPanelElement.classList.remove('is-open');
-    aboutPanelElement.setAttribute('aria-hidden', 'true');
-  }
-
   function switchScene(scene) {
     stopAutorotate();
     scene.view.setParameters(scene.data.initialViewParameters);
@@ -288,14 +257,7 @@
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
-    var isLobby = scene.data.id === '0-lobby';
     var isPortfolio = scene.data.id === '1-portiflio';
-    if (lobbyActionsElement) {
-      lobbyActionsElement.classList.toggle('is-visible', isLobby);
-      lobbyActionsElement.style.display = isLobby ? 'block' : 'none';
-      lobbyActionsElement.setAttribute('aria-hidden', isLobby ? 'false' : 'true');
-    }
-    if (!isLobby) closeAboutPanel();
     var fixedHotspots = screenOverlay.querySelectorAll('.fixed-scene-hotspot');
     for (var h = 0; h < fixedHotspots.length; h++) {
       fixedHotspots[h].classList.toggle(
