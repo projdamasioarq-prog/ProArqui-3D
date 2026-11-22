@@ -68,10 +68,10 @@
     if (element) screenOverlay.appendChild(element);
   });
 
-  // HUD do Lobby em nós próprios na raiz do documento: não é descendente
-  // do viewer, do panorama ou da camada de controles que pode ser transformada.
-  if (lobbyActionsElement) document.documentElement.appendChild(lobbyActionsElement);
-  if (aboutPanelElement) document.documentElement.appendChild(aboutPanelElement);
+  // O panorama (#pano) e o HUD são irmãos diretos no body, como no site de referência.
+  // Assim, a câmera do Marzipano só transforma a imagem dentro de #pano.
+  if (lobbyActionsElement) document.body.appendChild(lobbyActionsElement);
+  if (aboutPanelElement) document.body.appendChild(aboutPanelElement);
 
   // Ações do Lobby: os botões ficam na camada fixa, fora do panorama.
   if (aboutActionElement && aboutPanelElement && aboutCloseElement) {
