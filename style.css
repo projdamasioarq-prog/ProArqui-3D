@@ -162,13 +162,16 @@ html > #screenOverlay > .fixed-scene-hotspot .link-hotspot-tooltip {
 }
 
 
-/* CAMADA FIXA DOS BOTÕES SOBRE NÓS E CONTATO — posição da parede do Lobby. */
+/* HUD independente da cena 360: ações fixas no viewport. */
 html > #screenOverlay > #lobbyActions {
-  position:absolute!important;
+  position:fixed!important;
   inset:0!important;
   z-index:1100!important;
-  width:100%!important;
-  height:100%!important;
+  width:100vw!important;
+  height:100vh!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
   opacity:0;
   visibility:hidden;
   pointer-events:none;
@@ -179,8 +182,8 @@ html > #screenOverlay > #lobbyActions.is-visible {
   visibility:visible;
 }
 html > #screenOverlay > #lobbyActions .lobby-action {
-  position:absolute;
-  top:54%;
+  position:fixed!important;
+  top:54vh!important;
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -199,12 +202,13 @@ html > #screenOverlay > #lobbyActions .lobby-action {
   text-decoration:none;
   white-space:nowrap;
   cursor:pointer;
+  z-index:1101!important;
   pointer-events:auto;
-  transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%)!important;
   transition:background .2s ease,border-color .2s ease;
 }
-html > #screenOverlay > #lobbyActions #aboutAction { left:27.5%; }
-html > #screenOverlay > #lobbyActions #contactAction { left:72.5%; }
+html > #screenOverlay > #lobbyActions #aboutAction { left:27.5vw!important; }
+html > #screenOverlay > #lobbyActions #contactAction { left:72.5vw!important; }
 html > #screenOverlay > #lobbyActions .lobby-action:hover,
 html > #screenOverlay > #lobbyActions .lobby-action:focus-visible {
   background:rgba(25,25,23,.72);
@@ -212,7 +216,7 @@ html > #screenOverlay > #lobbyActions .lobby-action:focus-visible {
   outline:none;
 }
 html > #screenOverlay > #aboutPanel {
-  position:absolute!important;
+  position:fixed!important;
   inset:0!important;
   z-index:1102!important;
   display:none;
@@ -246,7 +250,7 @@ html > #screenOverlay > #aboutPanel.is-open { display:grid; }
 }
 @media(max-width:700px) {
   html > #screenOverlay > #lobbyActions .lobby-action {
-    top:54%;min-width:92px;min-height:31px;padding:7px 9px;font-size:8px;
+    top:54vh!important;min-width:92px;min-height:31px;padding:7px 9px;font-size:8px;
   }
 }
 @media(max-width:380px) {
