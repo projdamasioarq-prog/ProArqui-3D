@@ -70,7 +70,18 @@
     if (element) screenOverlay.appendChild(element);
   });
 
-  // Os botões do Lobby ficam na camada fixa, fora do visualizador panorâmico.\n  if (aboutActionElement && aboutPanelElement && aboutCloseElement) {\n    aboutActionElement.addEventListener('click', openAboutPanel);\n    aboutCloseElement.addEventListener('click', closeAboutPanel);\n    aboutPanelElement.addEventListener('click', function(event) {\n      if (event.target === aboutPanelElement) closeAboutPanel();\n    });\n    document.addEventListener('keydown', function(event) {\n      if (event.key === 'Escape') closeAboutPanel();\n    });\n  }\n\n  // Detect desktop or mobile mode.
+  // Os botões do Lobby ficam na camada fixa, fora do visualizador panorâmico.
+  if (aboutActionElement && aboutPanelElement && aboutCloseElement) {
+    aboutActionElement.addEventListener('click', openAboutPanel);
+    aboutCloseElement.addEventListener('click', closeAboutPanel);
+    aboutPanelElement.addEventListener('click', function(event) {
+      if (event.target === aboutPanelElement) closeAboutPanel();
+    });
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') closeAboutPanel();
+    });
+  }
+\n  // Detect desktop or mobile mode.
   if (window.matchMedia) {
     var setMode = function() {
       if (mql.matches) {
