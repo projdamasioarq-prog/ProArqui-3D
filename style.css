@@ -100,7 +100,7 @@ html > #screenOverlay {
   inset:0!important;
   width:100vw!important;
   height:100vh!important;
-  z-index:2147483647!important;
+  z-index:1000!important;
   margin:0!important;
   padding:0!important;
   transform:none!important;
@@ -163,11 +163,10 @@ html > #screenOverlay > .fixed-scene-hotspot .link-hotspot-tooltip {
 
 
 /* HUD independente da cena 360: ações fixas no viewport. */
-html > #lobbyActions {
+body > #lobbyActions {
   position:fixed!important;
-  z-index:2147483646!important;
+  z-index:1001!important;
   inset:0!important;
-  z-index:1100!important;
   width:100vw!important;
   height:100vh!important;
   margin:0!important;
@@ -216,11 +215,10 @@ html > #lobbyActions .lobby-action:focus-visible {
   border-color:#fff;
   outline:none;
 }
-html > #aboutPanel {
+body > #aboutPanel {
   position:fixed!important;
-  z-index:2147483647!important;
+  z-index:1002!important;
   inset:0!important;
-  z-index:1102!important;
   display:none;
   place-items:center;
   padding:24px;
