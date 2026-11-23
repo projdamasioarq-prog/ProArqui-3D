@@ -68,7 +68,7 @@
       });
     }
     projectPdfViewer.querySelector('.project-pdf-title').textContent = title;
-    projectPdfViewer.querySelector('.project-pdf-frame').src = url;
+    projectPdfViewer.querySelector('.project-pdf-frame').src = url + (url.indexOf('#') === -1 ? '#zoom=33' : '&zoom=33');
     projectPdfViewer.classList.add('is-open');
     stopAutorotate();
   }
