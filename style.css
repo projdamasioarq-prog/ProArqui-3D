@@ -372,3 +372,49 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
   #projectPdfViewer .project-pdf-download,
   #projectPdfViewer .project-pdf-close { padding:7px 8px; font-size:8px; }
 }
+
+
+/* Seletor de arquivos de projetos com mais de um documento. */
+#projectChoiceViewer {
+  position:fixed; inset:0; z-index:10001; display:none;
+  align-items:center; justify-content:center; padding:20px;
+  background:rgba(0,0,0,.38); pointer-events:auto;
+}
+#projectChoiceViewer.is-open { display:flex; }
+#projectChoiceViewer .project-choice-card {
+  width:min(460px, 92vw); padding:26px;
+  border:1px solid rgba(255,255,255,.24); border-radius:3px;
+  background:#171714; color:#f4f1eb;
+  box-shadow:0 18px 70px rgba(0,0,0,.48);
+}
+#projectChoiceViewer .project-choice-heading {
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  padding-bottom:17px; border-bottom:1px solid rgba(255,255,255,.14);
+}
+#projectChoiceViewer .project-choice-title {
+  font:500 12px Manrope,"DM Sans",sans-serif; letter-spacing:.12em;
+}
+#projectChoiceViewer .project-choice-close,
+#projectChoiceViewer .project-choice-option {
+  border:1px solid rgba(255,255,255,.35); border-radius:2px;
+  background:transparent; color:#fff; cursor:pointer;
+  font:500 10px Manrope,"DM Sans",sans-serif; letter-spacing:.09em;
+}
+#projectChoiceViewer .project-choice-close { padding:8px 10px; }
+#projectChoiceViewer .project-choice-subtitle {
+  margin:20px 0 14px; color:rgba(244,241,235,.68);
+  font:400 10px Manrope,"DM Sans",sans-serif; letter-spacing:.06em;
+}
+#projectChoiceViewer .project-choice-options { display:grid; gap:10px; }
+#projectChoiceViewer .project-choice-option {
+  width:100%; padding:16px; text-align:left;
+  background:rgba(255,255,255,.045);
+}
+#projectChoiceViewer .project-choice-option:hover,
+#projectChoiceViewer .project-choice-close:hover {
+  background:rgba(255,255,255,.13); border-color:rgba(255,255,255,.8);
+}
+@media(max-width:600px) {
+  #projectChoiceViewer .project-choice-card { padding:20px; }
+  #projectChoiceViewer .project-choice-option { padding:14px; }
+}
