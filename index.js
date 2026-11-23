@@ -29,8 +29,6 @@
   var sceneListToggleElement = document.querySelector('#sceneListToggle');
   var autorotateToggleElement = document.querySelector('#autorotateToggle');
   var fullscreenToggleElement = document.querySelector('#fullscreenToggle');
-  var portfolioActionsElement = document.querySelector('#portfolioActions');
-  var portfolioPairs = portfolioActionsElement ? portfolioActionsElement.querySelectorAll('.portfolio-pair') : [];
   var lobbyActionsElement = document.querySelector('#lobbyActions');
   var aboutActionElement = document.querySelector('#aboutAction');
   var aboutPanelElement = document.querySelector('#aboutPanel');
@@ -61,7 +59,6 @@
     '#viewRight',
     '#viewIn',
     '#viewOut',
-    '#portfolioActions',
   ];
   fixedInterfaceSelectors.forEach(function(selector) {
     var element = document.querySelector(selector);
@@ -292,7 +289,6 @@
     updateSceneName(scene);
     updateSceneList(scene);
     var isLobby = scene.data.id === '0-lobby';
-    var isPortfolio = scene.data.id === '1-portiflio';
     if (lobbyActionsElement) {
       lobbyActionsElement.classList.toggle('is-visible', isLobby);
       lobbyActionsElement.style.display = isLobby ? 'block' : 'none';
@@ -305,14 +301,6 @@
         'is-current',
         fixedHotspots[h].getAttribute('data-scene-id') === scene.data.id
       );
-    }
-    if (portfolioActionsElement) {
-      portfolioActionsElement.classList.toggle('is-visible', isPortfolio);
-      portfolioActionsElement.style.display = isPortfolio ? 'block' : 'none';
-      // Mantém o primeiro par na posição inicial, sem acompanhar o yaw da câmera.
-      for (var i = 0; i < portfolioPairs.length; i++) {
-        portfolioPairs[i].classList.add('is-active');
-      }
     }
   }
 
