@@ -278,28 +278,3 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 }
 
 
-/* Portfólio: um botão visual sobre cada um dos seis totens.
-   Os botões ficam fixos na tela e, por enquanto, não abrem links nem painéis. */
-html > #screenOverlay #portfolioActions .portfolio-pair {
-  top: 67% !important;
-  display: flex !important;
-  gap: 8px !important;
-  width: max-content !important;
-}
-html > #screenOverlay #portfolioActions .portfolio-pair[data-pair="0"] { left: 17% !important; }
-html > #screenOverlay #portfolioActions .portfolio-pair[data-pair="1"] { left: 50% !important; }
-html > #screenOverlay #portfolioActions .portfolio-pair[data-pair="2"] { left: 83% !important; }
-html > #screenOverlay #portfolioActions .portfolio-pair.is-active {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-@media (max-width: 700px) {
-  html > #screenOverlay #portfolioActions .portfolio-pair {
-    left: 50% !important;
-    gap: 8px !important;
-  }
-  html > #screenOverlay #portfolioActions .portfolio-pair[data-pair="0"] { top: 57% !important; }
-  html > #screenOverlay #portfolioActions .portfolio-pair[data-pair="1"] { top: 70% !important; }
-  html > #screenOverlay #portfolioActions .portfolio-pair[data-pair="2"] { top: 83% !important; }
-}
