@@ -341,29 +341,26 @@
   }
 
   function createLobbyActionHotspotElement(hotspot) {
-    var element;
-    if (hotspot.action === 'about') {
-      element = document.createElement('button');
-      element.type = 'button';
-      element.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
+    // Mesmo padrão de hotspot dos projetos: botão HTML dentro do container
+    // nativo do Marzipano, ancorado em yaw/pitch e sem vínculo com a câmera.
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'project-hotspot lobby-wall-hotspot';
+    button.textContent = hotspot.title;
+    button.setAttribute('aria-label', hotspot.title);
+    button.setAttribute('title', hotspot.title);
+
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (hotspot.action === 'about') {
         openAboutPanel();
-      });
-    } else {
-      element = document.createElement('a');
-      element.href = hotspot.href;
-      element.target = '_blank';
-      element.rel = 'noopener noreferrer';
-      element.addEventListener('click', function(event) {
-        event.stopPropagation();
-      });
-    }
-    element.className = 'lobby-wall-hotspot';
-    element.textContent = hotspot.title;
-    element.setAttribute('aria-label', hotspot.title);
-    stopTouchAndScrollEventPropagation(element);
-    return element;
+      } else if (hotspot.href) {
+        window.open(hotspot.href, '_blank', 'noopener,noreferrer');
+      }
+    });
+    stopTouchAndScrollEventPropagation(button);
+    return button;
   }
 
   function createProjectHotspotElement(hotspot) {
