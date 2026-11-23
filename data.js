@@ -23,7 +23,7 @@ var APP_DATA = {
       "infoHotspots": [],
       "projectHotspots": [
         {"title":"Residencial Itapema","imageName":"Residencial Itapema","yaw":-0.424,"pitch":-0.18},
-        {"title":"Residencial Vivaci","imageName":"Residencial Vivaci","yaw":0.344,"pitch":-0.18},
+        {"title":"Residencial Vivaci","imageName":"Residencial Vivaci","href":"Projetos/Projeto%20Vivaci/Projeto.pdf","yaw":0.344,"pitch":-0.18},
         {"title":"Chalé Fusion","imageName":"Chalé Fusion","yaw":1.227,"pitch":-0.18},
         {"title":"Colégio CAM","imageName":"Colégio Anhembi","yaw":2.074,"pitch":-0.18},
         {"title":"Clínica Blank","imageName":"Clínica Blank","yaw":-2.034,"pitch":-0.18},

@@ -47,6 +47,39 @@
   }
   document.documentElement.appendChild(screenOverlay);
 
+  // Visualizador interno de PDF, sobreposto ao tour sem sair do site.
+  var projectPdfViewer = null;
+  function openProjectPdf(url, title) {
+    if (!projectPdfViewer) {
+      projectPdfViewer = document.createElement('div');
+      projectPdfViewer.id = 'projectPdfViewer';
+      projectPdfViewer.innerHTML =
+        '<div class="project-pdf-toolbar">' +
+          '<span class="project-pdf-title"></span>' +
+          '<div class="project-pdf-actions">' +
+            '<button type="button" class="project-pdf-close" aria-label="Fechar visualizador">Fechar ×</button>' +
+          '</div>' +
+        '</div>' +
+        '<iframe class="project-pdf-frame" title="Projeto em PDF"></iframe>';
+      screenOverlay.appendChild(projectPdfViewer);
+      projectPdfViewer.querySelector('.project-pdf-close').addEventListener('click', closeProjectPdf);
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') closeProjectPdf();
+      });
+    }
+    projectPdfViewer.querySelector('.project-pdf-title').textContent = title;
+    projectPdfViewer.querySelector('.project-pdf-frame').src = url;
+    projectPdfViewer.classList.add('is-open');
+    stopAutorotate();
+  }
+
+  function closeProjectPdf() {
+    if (!projectPdfViewer) return;
+    projectPdfViewer.classList.remove('is-open');
+    projectPdfViewer.querySelector('.project-pdf-frame').src = 'about:blank';
+    startAutorotate();
+  }
+
   var fixedInterfaceSelectors = [
     '.site-header',
     '#titleBar',
@@ -376,6 +409,7 @@
     button.addEventListener('click', function(event) {
       event.preventDefault();
       event.stopPropagation();
+      if (hotspot.href) openProjectPdf(hotspot.href, projectName);
     });
     stopTouchAndScrollEventPropagation(button);
     return button;
