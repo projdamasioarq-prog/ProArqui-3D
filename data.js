@@ -26,7 +26,7 @@ var APP_DATA = {
         {"title":"Residencial Vivaci","imageName":"Residencial Vivaci","href":"Projetos/Projeto%20Vivaci/Projeto.pdf","yaw":0.344,"pitch":-0.18},
         {"title":"Chalé Fusion","imageName":"Chalé Fusion","yaw":1.227,"pitch":-0.18},
         {"title":"Colégio CAM","imageName":"Colégio Anhembi","yaw":2.074,"pitch":-0.18},
-        {"title":"Clínica Blank","imageName":"Clínica Blank","yaw":-2.034,"pitch":-0.18},
+        {"title":"Clínica Blank","imageName":"Clínica Blank","documents":[{"title":"Clínica | Mobiliário","href":"Projetos/Clinic%20Blank/Clinica%20Mobiliario%20.pdf"},{"title":"Clínica | Projeto Layout","href":"Projetos/Clinic%20Blank/PL%20-%20Clinic%20Blanc.pdf"}],"yaw":-2.034,"pitch":-0.18},
         {"title":"Hostel 197","imageName":"Hostel 197","href":"Projetos/Hostel/Projeto%20Hostel%20197.pdf","yaw":-1.187,"pitch":-0.18}
       ]
     },
