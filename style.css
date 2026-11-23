@@ -278,3 +278,62 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 }
 
 
+
+
+/* Hotspots de projetos da aba Portfólio — ancorados ao panorama 360°. */
+#pano .project-hotspot {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 94px;
+  height: 29px;
+  margin: -15px 0 0 -47px;
+  padding: 0 10px;
+  border: 1px solid rgba(255,255,255,.82);
+  border-radius: 2px;
+  background: rgba(24,24,21,.76);
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(0,0,0,.28);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  font: 600 8px Manrope,"DM Sans",sans-serif;
+  letter-spacing: .13em;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  z-index: 12;
+}
+#pano .project-hotspot::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.16);
+}
+#pano .project-hotspot:hover,
+#pano .project-hotspot:focus-visible {
+  background: rgba(255,255,255,.94);
+  border-color: #fff;
+  color: #171714;
+  outline: none;
+  transform: scale(1.04);
+}
+#pano .project-hotspot:hover::before,
+#pano .project-hotspot:focus-visible::before {
+  background: #171714;
+  box-shadow: 0 0 0 3px rgba(23,23,20,.12);
+}
+@media(max-width:700px) {
+  #pano .project-hotspot {
+    min-width: 86px;
+    height: 27px;
+    margin: -14px 0 0 -43px;
+    padding: 0 8px;
+    font-size: 7px;
+    letter-spacing: .1em;
+  }
+}
