@@ -163,8 +163,9 @@
       });
     });
 
-    // Hotspots dos projetos: posição presa ao panorama, mas elemento sempre
-    // frontal à câmera (billboard), sem inclinar junto com a textura da parede.
+    // Hotspots dos projetos são pontos do próprio ambiente 360°.
+    // O Marzipano projeta cada coordenada yaw/pitch na tela conforme a câmera
+    // gira; assim, o marcador não fica preso ao viewport nem gira com a câmera.
     (data.projectHotspots || []).forEach(function(hotspot) {
       var element = createProjectHotspotElement(hotspot);
       hotspotContainer.createHotspot(element, {
@@ -341,16 +342,21 @@
     var button = document.createElement('button');
     button.type = 'button';
     button.className = 'project-hotspot';
-    button.setAttribute('aria-label', 'Ver projeto: ' + hotspot.title);
-    button.title = hotspot.title;
+    button.setAttribute('aria-label', 'Projeto: ' + hotspot.title);
+    button.setAttribute('title', hotspot.title);
+
+    var marker = document.createElement('span');
+    marker.className = 'project-hotspot-marker';
+    marker.setAttribute('aria-hidden', 'true');
 
     var label = document.createElement('span');
     label.className = 'project-hotspot-label';
-    label.textContent = 'VER PROJETO';
+    label.textContent = hotspot.title;
+
+    button.appendChild(marker);
     button.appendChild(label);
 
-    // A ação de detalhes será adicionada quando os conteúdos dos projetos
-    // forem definidos; por enquanto, o hotspot preserva a posição no 360°.
+    // O clique não altera a câmera nem desloca o ponto ancorado no ambiente.
     button.addEventListener('click', function(event) {
       event.preventDefault();
       event.stopPropagation();
