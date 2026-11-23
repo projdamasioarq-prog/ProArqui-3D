@@ -16,7 +16,17 @@ var APP_DATA = {
       "faceSize": 1024,
       "initialViewParameters": {"pitch":0,"yaw":0,"fov":1.5707963267948966},
       "linkHotspots": [{"yaw":3.1050856214418543,"pitch":0.49147626854354876,"rotation":0,"target":"0-lobby"}],
-      "infoHotspots": []
+      "infoHotspots": [],
+      "projectHotspots": [
+        {"title":"Chalé Fusion","yaw":-0.52,"pitch":0.08},
+        {"title":"Colégio CAM","yaw":0.12,"pitch":0.08},
+        {"title":"Projeto Comercial","yaw":0.76,"pitch":0.08},
+        {"title":"Residencial Itapema 01","yaw":1.38,"pitch":0.08},
+        {"title":"Residencial Itapema 02","yaw":2.00,"pitch":0.08},
+        {"title":"Clínica Blank","yaw":2.62,"pitch":0.08},
+        {"title":"Hostel 197","yaw":-3.04,"pitch":0.08},
+        {"title":"Residencial","yaw":-2.42,"pitch":0.08}
+      ]
     },
     {
       "id": "2-servios",
