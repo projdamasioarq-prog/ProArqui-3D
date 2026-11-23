@@ -9,8 +9,8 @@ var APP_DATA = {
       "linkHotspots": [{"yaw":1.351161397145491,"pitch":0.4307484180665142,"rotation":0,"target":"2-servios"}],
       "infoHotspots": [],
       "lobbyHotspots": [
-        {"title":"Sobre Nós","action":"about","yaw":0.55,"pitch":-0.05},
-        {"title":"Contato","action":"contact","href":"https://api.whatsapp.com/send/?phone=5511947869761&text&type=phone_number&app_absent=0","yaw":-0.55,"pitch":-0.05}
+        {"title":"Sobre Nós","action":"about","yaw":-0.55,"pitch":-0.05},
+        {"title":"Contato","action":"contact","href":"https://api.whatsapp.com/send/?phone=5511947869761&text&type=phone_number&app_absent=0","yaw":0.55,"pitch":-0.05}
       ]
     },
     {
