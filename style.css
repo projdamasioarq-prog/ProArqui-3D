@@ -280,67 +280,45 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 
 
 
-/* Marcadores circulares dos projetos: hotspots nativos do Marzipano,
-   ancorados por yaw/pitch no ambiente 360°, nunca no viewport. */
+/* Botões minimalistas dos projetos: hotspots nativos ancorados no ambiente 360°. */
 #pano .project-hotspot {
   position: absolute;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  margin: -11px 0 0 -11px;
-  padding: 0;
-  border: 1px solid rgba(255,255,255,.95);
-  border-radius: 50%;
-  background: rgba(20,20,18,.42);
-  box-shadow: 0 2px 12px rgba(0,0,0,.38), 0 0 0 4px rgba(255,255,255,.14);
+  min-width: 92px;
+  min-height: 32px;
+  margin: -16px 0 0 -46px;
+  padding: 8px 13px;
+  border: 1px solid rgba(255,255,255,.58);
+  border-radius: 2px;
+  background: rgba(25,25,23,.48);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font: 500 9px Manrope,"DM Sans",sans-serif;
+  letter-spacing: .13em;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
   cursor: pointer;
   z-index: 12;
-  transition: background .2s ease, box-shadow .2s ease, scale .2s ease;
-}
-#pano .project-hotspot-marker {
-  display: block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 8px rgba(255,255,255,.9);
-}
-#pano .project-hotspot-label {
-  position: absolute;
-  left: 50%;
-  bottom: 29px;
-  padding: 7px 10px;
-  border: 1px solid rgba(255,255,255,.35);
-  border-radius: 2px;
-  background: rgba(20,20,18,.86);
-  color: #fff;
-  font: 600 9px Manrope,"DM Sans",sans-serif;
-  letter-spacing: .1em;
-  line-height: 1.2;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translate(-50%, 4px);
-  transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 #pano .project-hotspot:hover,
 #pano .project-hotspot:focus-visible {
-  background: rgba(255,255,255,.22);
-  box-shadow: 0 2px 14px rgba(0,0,0,.45), 0 0 0 6px rgba(255,255,255,.2);
-  scale: 1.08;
+  background: rgba(25,25,23,.76);
+  border-color: rgba(255,255,255,.95);
+  box-shadow: 0 3px 14px rgba(0,0,0,.25);
   outline: none;
 }
-#pano .project-hotspot:hover .project-hotspot-label,
-#pano .project-hotspot:focus-visible .project-hotspot-label {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, 0);
-}
 @media(max-width:700px) {
-  #pano .project-hotspot { width: 20px; height: 20px; margin: -10px 0 0 -10px; }
-  #pano .project-hotspot-marker { width: 6px; height: 6px; }
-  #pano .project-hotspot-label { bottom: 26px; font-size: 8px; }
+  #pano .project-hotspot {
+    min-width: 84px;
+    min-height: 30px;
+    margin: -15px 0 0 -42px;
+    padding: 7px 10px;
+    font-size: 8px;
+    letter-spacing: .1em;
+  }
 }
