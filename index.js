@@ -82,6 +82,23 @@
     });
   }
 
+  // Galeria provisória de projetos: camada fixa no viewport, independente
+  // da rotação e do zoom do panorama.
+  var projectOverlay = document.createElement('div');
+  projectOverlay.id = 'projectHotspotsOverlay';
+  projectOverlay.setAttribute('aria-label', 'Projetos do portfólio');
+  projectOverlay.setAttribute('aria-hidden', 'true');
+  screenOverlay.appendChild(projectOverlay);
+
+  var portfolioData = data.scenes.filter(function(scene) {
+    return scene.id === '1-portiflio';
+  })[0];
+  if (portfolioData) {
+    (portfolioData.projectHotspots || []).forEach(function(hotspot) {
+      projectOverlay.appendChild(createProjectHotspotElement(hotspot));
+    });
+  }
+
   // Detect desktop or mobile mode.
   if (window.matchMedia) {
     var setMode = function() {
@@ -160,13 +177,8 @@
       });
     });
 
-    (data.projectHotspots || []).forEach(function(hotspot) {
-      var element = createProjectHotspotElement(hotspot);
-      hotspotContainer.createHotspot(element, {
-        yaw: hotspot.yaw,
-        pitch: hotspot.pitch
-      });
-    });
+    // Os projetos não são hotspots do panorama. A galeria fixa é criada
+    // uma única vez na camada de interface, fora do canvas 360°.
 
     return {
       data: data,
@@ -271,6 +283,11 @@
     updateSceneName(scene);
     updateSceneList(scene);
     var isLobby = scene.data.id === '0-lobby';
+    var isPortfolio = scene.data.id === '1-portiflio';
+    if (projectOverlay) {
+      projectOverlay.classList.toggle('is-visible', isPortfolio);
+      projectOverlay.setAttribute('aria-hidden', isPortfolio ? 'false' : 'true');
+    }
     if (lobbyActionsElement) {
       lobbyActionsElement.classList.toggle('is-visible', isLobby);
       lobbyActionsElement.style.display = isLobby ? 'block' : 'none';
