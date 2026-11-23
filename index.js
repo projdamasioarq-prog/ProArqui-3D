@@ -64,7 +64,7 @@
       screenOverlay.appendChild(projectPdfViewer);
       projectPdfViewer.querySelector('.project-pdf-close').addEventListener('click', closeProjectPdf);
       document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') closeProjectPdf();
+        if (event.key === 'Escape') { closeProjectPdf(); closeProjectChoices(); }
       });
     }
     projectPdfViewer.querySelector('.project-pdf-title').textContent = title;
@@ -77,6 +77,47 @@
     if (!projectPdfViewer) return;
     projectPdfViewer.classList.remove('is-open');
     projectPdfViewer.querySelector('.project-pdf-frame').src = 'about:blank';
+    startAutorotate();
+  }
+
+  // Seletor de documentos para projetos que possuem mais de um PDF.
+  var projectChoiceViewer = null;
+  function openProjectChoices(title, documents) {
+    if (!projectChoiceViewer) {
+      projectChoiceViewer = document.createElement('div');
+      projectChoiceViewer.id = 'projectChoiceViewer';
+      screenOverlay.appendChild(projectChoiceViewer);
+    }
+    projectChoiceViewer.innerHTML =
+      '<div class="project-choice-card">' +
+        '<div class="project-choice-heading">' +
+          '<span class="project-choice-title"></span>' +
+          '<button type="button" class="project-choice-close">Fechar ×</button>' +
+        '</div>' +
+        '<p class="project-choice-subtitle">Escolha o material que deseja visualizar</p>' +
+        '<div class="project-choice-options"></div>' +
+      '</div>';
+    projectChoiceViewer.querySelector('.project-choice-title').textContent = title;
+    projectChoiceViewer.querySelector('.project-choice-close').addEventListener('click', closeProjectChoices);
+    var options = projectChoiceViewer.querySelector('.project-choice-options');
+    documents.forEach(function(documentInfo) {
+      var option = document.createElement('button');
+      option.type = 'button';
+      option.className = 'project-choice-option';
+      option.textContent = documentInfo.title;
+      option.addEventListener('click', function() {
+        closeProjectChoices();
+        openProjectPdf(documentInfo.href, title + ' | ' + documentInfo.title);
+      });
+      options.appendChild(option);
+    });
+    projectChoiceViewer.classList.add('is-open');
+    stopAutorotate();
+  }
+
+  function closeProjectChoices() {
+    if (!projectChoiceViewer) return;
+    projectChoiceViewer.classList.remove('is-open');
     startAutorotate();
   }
 
@@ -409,7 +450,8 @@
     button.addEventListener('click', function(event) {
       event.preventDefault();
       event.stopPropagation();
-      if (hotspot.href) openProjectPdf(hotspot.href, projectName);
+      if (hotspot.documents && hotspot.documents.length) openProjectChoices(projectName, hotspot.documents);
+      else if (hotspot.href) openProjectPdf(hotspot.href, projectName);
     });
     stopTouchAndScrollEventPropagation(button);
     return button;
