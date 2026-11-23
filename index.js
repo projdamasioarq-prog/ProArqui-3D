@@ -339,26 +339,15 @@
   }
 
   function createProjectHotspotElement(hotspot) {
-    // O nome exato da imagem é a referência principal do botão.
     var projectName = hotspot.imageName || hotspot.title;
     var button = document.createElement('button');
     button.type = 'button';
     button.className = 'project-hotspot';
-    button.setAttribute('aria-label', 'Projeto: ' + projectName);
+    button.setAttribute('aria-label', 'Ver projeto: ' + projectName);
     button.setAttribute('title', projectName);
+    button.textContent = 'Ver Projeto';
 
-    var marker = document.createElement('span');
-    marker.className = 'project-hotspot-marker';
-    marker.setAttribute('aria-hidden', 'true');
-
-    var label = document.createElement('span');
-    label.className = 'project-hotspot-label';
-    label.textContent = projectName;
-
-    button.appendChild(marker);
-    button.appendChild(label);
-
-    // O clique não altera a câmera nem desloca o ponto ancorado no ambiente.
+    // O clique preserva o ponto ancorado no ambiente 360°.
     button.addEventListener('click', function(event) {
       event.preventDefault();
       event.stopPropagation();
