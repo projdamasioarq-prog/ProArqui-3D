@@ -57,7 +57,6 @@
         '<div class="project-pdf-toolbar">' +
           '<span class="project-pdf-title"></span>' +
           '<div class="project-pdf-actions">' +
-            '<a class="project-pdf-download" target="_blank" rel="noopener noreferrer">Abrir PDF</a>' +
             '<button type="button" class="project-pdf-close" aria-label="Fechar visualizador">Fechar ×</button>' +
           '</div>' +
         '</div>' +
@@ -70,7 +69,6 @@
     }
     projectPdfViewer.querySelector('.project-pdf-title').textContent = title;
     projectPdfViewer.querySelector('.project-pdf-frame').src = url;
-    projectPdfViewer.querySelector('.project-pdf-download').href = url;
     projectPdfViewer.classList.add('is-open');
     stopAutorotate();
   }
