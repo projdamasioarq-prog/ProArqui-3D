@@ -376,6 +376,9 @@
     button.addEventListener('click', function(event) {
       event.preventDefault();
       event.stopPropagation();
+      if (hotspot.href) {
+        window.open(hotspot.href, '_blank', 'noopener,noreferrer');
+      }
     });
     stopTouchAndScrollEventPropagation(button);
     return button;
