@@ -34,7 +34,9 @@
   var aboutPanelElement = document.querySelector('#aboutPanel');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Ações fixas sobre a cena inicial, independentes da câmera 360°.
+  // Ações do Lobby serão criadas como hotspots nativos, ancorados ao panorama.
+  // Remove o antigo conjunto de botões fixos no viewport.
+  if (lobbyActionsElement) lobbyActionsElement.remove();
 
   // Toda a interface HTML fica numa camada fixa no viewport.
   // O Marzipano permanece isolado em #pano; nenhum controle de tela é filho dele.
@@ -65,14 +67,10 @@
     if (element) screenOverlay.appendChild(element);
   });
 
-  // Mesmo mecanismo do site de referência: o HUD é filho da camada
-  // screenOverlay, que fica fora do body e do elemento #pano do Marzipano.
-  if (lobbyActionsElement) document.body.appendChild(lobbyActionsElement);
+  // O painel Sobre Nós permanece na interface fixa; os botões ficam no panorama.
   if (aboutPanelElement) screenOverlay.appendChild(aboutPanelElement);
 
-  // Ações do Lobby: os botões ficam na camada fixa, fora do panorama.
-  if (aboutActionElement && aboutPanelElement && aboutCloseElement) {
-    aboutActionElement.addEventListener('click', openAboutPanel);
+  if (aboutPanelElement && aboutCloseElement) {
     aboutCloseElement.addEventListener('click', closeAboutPanel);
     aboutPanelElement.addEventListener('click', function(event) {
       if (event.target === aboutPanelElement) closeAboutPanel();
@@ -157,6 +155,15 @@
 
     data.infoHotspots.forEach(function(hotspot) {
       var element = createInfoHotspotElement(hotspot);
+      hotspotContainer.createHotspot(element, {
+        yaw: hotspot.yaw,
+        pitch: hotspot.pitch
+      });
+    });
+
+    // Botões Sobre Nós e Contato: pontos ancorados às paredes do Lobby.
+    (data.lobbyHotspots || []).forEach(function(hotspot) {
+      var element = createLobbyActionHotspotElement(hotspot);
       hotspotContainer.createHotspot(element, {
         yaw: hotspot.yaw,
         pitch: hotspot.pitch
@@ -277,11 +284,6 @@
     updateSceneName(scene);
     updateSceneList(scene);
     var isLobby = scene.data.id === '0-lobby';
-    if (lobbyActionsElement) {
-      lobbyActionsElement.classList.toggle('is-visible', isLobby);
-      lobbyActionsElement.style.display = isLobby ? 'block' : 'none';
-      lobbyActionsElement.setAttribute('aria-hidden', isLobby ? 'false' : 'true');
-    }
     if (!isLobby) closeAboutPanel();
   }
 
@@ -336,6 +338,32 @@
       autorotateToggleElement.classList.add('enabled');
       startAutorotate();
     }
+  }
+
+  function createLobbyActionHotspotElement(hotspot) {
+    var element;
+    if (hotspot.action === 'about') {
+      element = document.createElement('button');
+      element.type = 'button';
+      element.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        openAboutPanel();
+      });
+    } else {
+      element = document.createElement('a');
+      element.href = hotspot.href;
+      element.target = '_blank';
+      element.rel = 'noopener noreferrer';
+      element.addEventListener('click', function(event) {
+        event.stopPropagation();
+      });
+    }
+    element.className = 'lobby-wall-hotspot';
+    element.textContent = hotspot.title;
+    element.setAttribute('aria-label', hotspot.title);
+    stopTouchAndScrollEventPropagation(element);
+    return element;
   }
 
   function createProjectHotspotElement(hotspot) {
