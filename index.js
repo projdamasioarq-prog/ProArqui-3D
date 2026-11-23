@@ -140,57 +140,39 @@
       pinFirstLevel: true
     });
 
-    // Os marcadores são desenhados na camada fixa usando a posição que
-    // ocupam na tela no enquadramento inicial da cena.
-    var fixedHotspots = [];
+    // Hotspots nativos do Marzipano: ficam ancorados às coordenadas do
+    // panorama e acompanham a rotação da câmera, sem flutuar na tela.
+    var hotspotContainer = scene.hotspotContainer();
+
     data.linkHotspots.forEach(function(hotspot) {
       var element = createLinkHotspotElement(hotspot);
-      element.classList.add('fixed-scene-hotspot');
-      element.setAttribute('data-scene-id', data.id);
-      screenOverlay.appendChild(element);
-      fixedHotspots.push({ element: element, coordinates: { yaw: hotspot.yaw, pitch: hotspot.pitch } });
+      hotspotContainer.createHotspot(element, {
+        yaw: hotspot.yaw,
+        pitch: hotspot.pitch
+      });
     });
 
     data.infoHotspots.forEach(function(hotspot) {
       var element = createInfoHotspotElement(hotspot);
-      element.classList.add('fixed-scene-hotspot');
-      element.setAttribute('data-scene-id', data.id);
-      screenOverlay.appendChild(element);
-      fixedHotspots.push({ element: element, coordinates: { yaw: hotspot.yaw, pitch: hotspot.pitch } });
+      hotspotContainer.createHotspot(element, {
+        yaw: hotspot.yaw,
+        pitch: hotspot.pitch
+      });
+    });
+
+    (data.projectHotspots || []).forEach(function(hotspot) {
+      var element = createProjectHotspotElement(hotspot);
+      hotspotContainer.createHotspot(element, {
+        yaw: hotspot.yaw,
+        pitch: hotspot.pitch
+      });
     });
 
     return {
       data: data,
       scene: scene,
-      view: view,
-      fixedHotspots: fixedHotspots
+      view: view
     };
-  });
-
-  // Calcula a posição dos marcadores no enquadramento inicial e congela
-  // essa posição em pixels, sem acompanhar o movimento posterior da câmera.
-  function positionFixedHotspots() {
-    if (viewer.updateSize) viewer.updateSize();
-    scenes.forEach(function(sceneItem) {
-      var currentParameters = sceneItem.view.parameters();
-      sceneItem.view.setParameters(sceneItem.data.initialViewParameters);
-      sceneItem.fixedHotspots.forEach(function(item) {
-        var point = sceneItem.view.coordinatesToScreen(item.coordinates);
-        if (point) {
-          item.element.style.left = point.x + 'px';
-          item.element.style.top = point.y + 'px';
-          item.element.style.display = '';
-        } else {
-          item.element.style.display = 'none';
-        }
-      });
-      sceneItem.view.setParameters(currentParameters);
-    });
-  }
-
-  positionFixedHotspots();
-  window.addEventListener('resize', function() {
-    window.requestAnimationFrame(positionFixedHotspots);
   });
 
   // Set up autorotate, if enabled.
@@ -295,13 +277,6 @@
       lobbyActionsElement.setAttribute('aria-hidden', isLobby ? 'false' : 'true');
     }
     if (!isLobby) closeAboutPanel();
-    var fixedHotspots = screenOverlay.querySelectorAll('.fixed-scene-hotspot');
-    for (var h = 0; h < fixedHotspots.length; h++) {
-      fixedHotspots[h].classList.toggle(
-        'is-current',
-        fixedHotspots[h].getAttribute('data-scene-id') === scene.data.id
-      );
-    }
   }
 
   function updateSceneName(scene) {
@@ -355,6 +330,28 @@
       autorotateToggleElement.classList.add('enabled');
       startAutorotate();
     }
+  }
+
+  function createProjectHotspotElement(hotspot) {
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'project-hotspot';
+    button.setAttribute('aria-label', 'Ver projeto: ' + hotspot.title);
+    button.title = hotspot.title + ' — link será configurado posteriormente';
+
+    var label = document.createElement('span');
+    label.className = 'project-hotspot-label';
+    label.textContent = 'VER PROJETO';
+    button.appendChild(label);
+
+    // Por enquanto o botão é apenas demonstrativo; o destino será incluído
+    // quando os links dos projetos estiverem definidos.
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+    });
+    stopTouchAndScrollEventPropagation(button);
+    return button;
   }
 
   function createLinkHotspotElement(hotspot) {
