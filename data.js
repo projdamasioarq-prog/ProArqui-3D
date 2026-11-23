@@ -21,7 +21,7 @@ var APP_DATA = {
         {"title":"Residencial Itapema","imageName":"Residencial Itapema","yaw":-0.404,"pitch":-0.18},
         {"title":"Residencial Vivaci","imageName":"Residencial Vivaci","yaw":0.344,"pitch":-0.18},
         {"title":"Chalé Fusion","imageName":"Chalé Fusion","yaw":1.227,"pitch":-0.18},
-        {"title":"Colégio CAM","imageName":"Colégio Anhembi","yaw":2.154,"pitch":-0.18},
+        {"title":"Colégio CAM","imageName":"Colégio Anhembi","yaw":2.114,"pitch":-0.18},
         {"title":"Clínica Blank","imageName":"Clínica Blank","yaw":-2.034,"pitch":-0.18},
         {"title":"Hostel 197","imageName":"Hostel 197","yaw":-1.227,"pitch":-0.18}
       ]
