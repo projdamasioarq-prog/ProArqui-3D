@@ -29,14 +29,14 @@
   var sceneListToggleElement = document.querySelector('#sceneListToggle');
   var autorotateToggleElement = document.querySelector('#autorotateToggle');
   var fullscreenToggleElement = document.querySelector('#fullscreenToggle');
-  var portfolioActionsElement = document.querySelector('#portfolioActions');
-  var portfolioPairs = portfolioActionsElement ? portfolioActionsElement.querySelectorAll('.portfolio-pair') : [];
   var lobbyActionsElement = document.querySelector('#lobbyActions');
   var aboutActionElement = document.querySelector('#aboutAction');
   var aboutPanelElement = document.querySelector('#aboutPanel');
   var aboutCloseElement = document.querySelector('#aboutClose');
 
-  // Ações fixas sobre a cena inicial, independentes da câmera 360°.
+  // Ações do Lobby serão criadas como hotspots nativos, ancorados ao panorama.
+  // Remove o antigo conjunto de botões fixos no viewport.
+  if (lobbyActionsElement) lobbyActionsElement.remove();
 
   // Toda a interface HTML fica numa camada fixa no viewport.
   // O Marzipano permanece isolado em #pano; nenhum controle de tela é filho dele.
@@ -61,18 +61,16 @@
     '#viewRight',
     '#viewIn',
     '#viewOut',
-    '#portfolioActions',
-    '#lobbyActions',
-    '#aboutPanel'
   ];
   fixedInterfaceSelectors.forEach(function(selector) {
     var element = document.querySelector(selector);
     if (element) screenOverlay.appendChild(element);
   });
 
-  // Ações do Lobby: os botões ficam na camada fixa, fora do panorama.
-  if (aboutActionElement && aboutPanelElement && aboutCloseElement) {
-    aboutActionElement.addEventListener('click', openAboutPanel);
+  // O painel Sobre Nós permanece na interface fixa; os botões ficam no panorama.
+  if (aboutPanelElement) screenOverlay.appendChild(aboutPanelElement);
+
+  if (aboutPanelElement && aboutCloseElement) {
     aboutCloseElement.addEventListener('click', closeAboutPanel);
     aboutPanelElement.addEventListener('click', function(event) {
       if (event.target === aboutPanelElement) closeAboutPanel();
@@ -81,6 +79,9 @@
       if (event.key === 'Escape') closeAboutPanel();
     });
   }
+
+  // Os hotspots de projetos são criados dentro da cena 360° e permanecem
+  // ancorados às coordenadas do ambiente, sempre voltados para a câmera.
 
   // Detect desktop or mobile mode.
   if (window.matchMedia) {
@@ -140,57 +141,51 @@
       pinFirstLevel: true
     });
 
-    // Os marcadores são desenhados na camada fixa usando a posição que
-    // ocupam na tela no enquadramento inicial da cena.
-    var fixedHotspots = [];
+    // Hotspots nativos do Marzipano: ficam ancorados às coordenadas do
+    // panorama e acompanham a rotação da câmera, sem flutuar na tela.
+    var hotspotContainer = scene.hotspotContainer();
+
     data.linkHotspots.forEach(function(hotspot) {
       var element = createLinkHotspotElement(hotspot);
-      element.classList.add('fixed-scene-hotspot');
-      element.setAttribute('data-scene-id', data.id);
-      screenOverlay.appendChild(element);
-      fixedHotspots.push({ element: element, coordinates: { yaw: hotspot.yaw, pitch: hotspot.pitch } });
+      hotspotContainer.createHotspot(element, {
+        yaw: hotspot.yaw,
+        pitch: hotspot.pitch
+      });
     });
 
     data.infoHotspots.forEach(function(hotspot) {
       var element = createInfoHotspotElement(hotspot);
-      element.classList.add('fixed-scene-hotspot');
-      element.setAttribute('data-scene-id', data.id);
-      screenOverlay.appendChild(element);
-      fixedHotspots.push({ element: element, coordinates: { yaw: hotspot.yaw, pitch: hotspot.pitch } });
+      hotspotContainer.createHotspot(element, {
+        yaw: hotspot.yaw,
+        pitch: hotspot.pitch
+      });
+    });
+
+    // Botões Sobre Nós e Contato: pontos ancorados às paredes do Lobby.
+    (data.lobbyHotspots || []).forEach(function(hotspot) {
+      var element = createLobbyActionHotspotElement(hotspot);
+      hotspotContainer.createHotspot(element, {
+        yaw: hotspot.yaw,
+        pitch: hotspot.pitch
+      });
+    });
+
+    // Hotspots dos projetos são pontos do próprio ambiente 360°.
+    // O Marzipano projeta cada coordenada yaw/pitch na tela conforme a câmera
+    // gira; assim, o marcador não fica preso ao viewport nem gira com a câmera.
+    (data.projectHotspots || []).forEach(function(hotspot) {
+      var element = createProjectHotspotElement(hotspot);
+      hotspotContainer.createHotspot(element, {
+        yaw: hotspot.yaw,
+        pitch: hotspot.pitch
+      });
     });
 
     return {
       data: data,
       scene: scene,
-      view: view,
-      fixedHotspots: fixedHotspots
+      view: view
     };
-  });
-
-  // Calcula a posição dos marcadores no enquadramento inicial e congela
-  // essa posição em pixels, sem acompanhar o movimento posterior da câmera.
-  function positionFixedHotspots() {
-    if (viewer.updateSize) viewer.updateSize();
-    scenes.forEach(function(sceneItem) {
-      var currentParameters = sceneItem.view.parameters();
-      sceneItem.view.setParameters(sceneItem.data.initialViewParameters);
-      sceneItem.fixedHotspots.forEach(function(item) {
-        var point = sceneItem.view.coordinatesToScreen(item.coordinates);
-        if (point) {
-          item.element.style.left = point.x + 'px';
-          item.element.style.top = point.y + 'px';
-          item.element.style.display = '';
-        } else {
-          item.element.style.display = 'none';
-        }
-      });
-      sceneItem.view.setParameters(currentParameters);
-    });
-  }
-
-  positionFixedHotspots();
-  window.addEventListener('resize', function() {
-    window.requestAnimationFrame(positionFixedHotspots);
   });
 
   // Set up autorotate, if enabled.
@@ -289,28 +284,7 @@
     updateSceneName(scene);
     updateSceneList(scene);
     var isLobby = scene.data.id === '0-lobby';
-    var isPortfolio = scene.data.id === '1-portiflio';
-    if (lobbyActionsElement) {
-      lobbyActionsElement.classList.toggle('is-visible', isLobby);
-      lobbyActionsElement.style.display = isLobby ? 'block' : 'none';
-      lobbyActionsElement.setAttribute('aria-hidden', isLobby ? 'false' : 'true');
-    }
     if (!isLobby) closeAboutPanel();
-    var fixedHotspots = screenOverlay.querySelectorAll('.fixed-scene-hotspot');
-    for (var h = 0; h < fixedHotspots.length; h++) {
-      fixedHotspots[h].classList.toggle(
-        'is-current',
-        fixedHotspots[h].getAttribute('data-scene-id') === scene.data.id
-      );
-    }
-    if (portfolioActionsElement) {
-      portfolioActionsElement.classList.toggle('is-visible', isPortfolio);
-      portfolioActionsElement.style.display = isPortfolio ? 'block' : 'none';
-      // Mantém o primeiro par na posição inicial, sem acompanhar o yaw da câmera.
-      for (var i = 0; i < portfolioPairs.length; i++) {
-        portfolioPairs[i].classList.toggle('is-active', i === 0);
-      }
-    }
   }
 
   function updateSceneName(scene) {
@@ -364,6 +338,47 @@
       autorotateToggleElement.classList.add('enabled');
       startAutorotate();
     }
+  }
+
+  function createLobbyActionHotspotElement(hotspot) {
+    // Mesmo padrão de hotspot dos projetos: botão HTML dentro do container
+    // nativo do Marzipano, ancorado em yaw/pitch e sem vínculo com a câmera.
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'project-hotspot lobby-wall-hotspot';
+    button.textContent = hotspot.title;
+    button.setAttribute('aria-label', hotspot.title);
+    button.setAttribute('title', hotspot.title);
+
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (hotspot.action === 'about') {
+        openAboutPanel();
+      } else if (hotspot.href) {
+        window.open(hotspot.href, '_blank', 'noopener,noreferrer');
+      }
+    });
+    stopTouchAndScrollEventPropagation(button);
+    return button;
+  }
+
+  function createProjectHotspotElement(hotspot) {
+    var projectName = hotspot.imageName || hotspot.title;
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'project-hotspot';
+    button.setAttribute('aria-label', 'Ver projeto: ' + projectName);
+    button.setAttribute('title', projectName);
+    button.textContent = 'Ver Projeto';
+
+    // O clique preserva o ponto ancorado no ambiente 360°.
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+    });
+    stopTouchAndScrollEventPropagation(button);
+    return button;
   }
 
   function createLinkHotspotElement(hotspot) {

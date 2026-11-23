@@ -81,17 +81,6 @@ body.view-control-buttons .viewControlButton{display:block}
 }
 
 
-/* Botões de projetos: camada fixa no viewport, independente da imagem 360°. */
-.portfolio-actions{position:fixed!important;inset:0!important;z-index:1001!important;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .2s ease}
-.portfolio-actions.is-visible{opacity:1;visibility:visible}
-.portfolio-pair{position:absolute;left:50%;top:67%;display:flex;align-items:center;justify-content:center;gap:clamp(90px,19vw,270px);width:max-content;transform:translate(-50%,-50%);opacity:0;visibility:hidden}
-.portfolio-pair.is-active{opacity:1;visibility:visible}
-.portfolio-project{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;min-width:104px;min-height:34px;padding:8px 13px;border:1px solid rgba(255,255,255,.72);border-radius:3px;background:rgba(248,247,242,.22);-webkit-backdrop-filter:blur(13px) saturate(135%);backdrop-filter:blur(13px) saturate(135%);box-shadow:0 5px 22px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.34);color:#fff;font:600 9px Manrope,"DM Sans",sans-serif;letter-spacing:.14em;text-shadow:0 1px 8px rgba(0,0,0,.55);cursor:pointer;white-space:nowrap;transition:background .2s ease,border-color .2s ease}
-.portfolio-project:hover,.portfolio-project:focus-visible{background:rgba(255,255,255,.36);border-color:#fff;outline:none}
-@media(max-width:700px){.portfolio-pair{top:64%;gap:clamp(42px,13vw,100px)}.portfolio-project{min-width:88px;min-height:31px;padding:7px 9px;font-size:7px;letter-spacing:.1em}}
-
-
-
 /* CAMADA DE INTERFACE NA RAIZ HTML — completamente fora do body/Marzipano. */
 html { width:100%; height:100%; transform:none!important; perspective:none!important; filter:none!important; }
 #pano { position:fixed!important; inset:0!important; z-index:0!important; }
@@ -100,7 +89,7 @@ html > #screenOverlay {
   inset:0!important;
   width:100vw!important;
   height:100vh!important;
-  z-index:2147483647!important;
+  z-index:1000!important;
   margin:0!important;
   padding:0!important;
   transform:none!important;
@@ -109,22 +98,6 @@ html > #screenOverlay {
   pointer-events:none!important;
   isolation:isolate!important;
 }
-html > #screenOverlay #portfolioActions {
-  position:absolute!important; inset:0!important; width:100%!important; height:100%!important;
-  margin:0!important; padding:0!important; transform:none!important;
-  opacity:0!important; visibility:hidden!important; pointer-events:none!important;
-}
-html > #screenOverlay #portfolioActions.is-visible { opacity:1!important; visibility:visible!important; }
-html > #screenOverlay #portfolioActions .portfolio-pair {
-  position:absolute!important; left:50%!important; top:67%!important;
-  transform:translate(-50%,-50%)!important; pointer-events:none!important;
-}
-html > #screenOverlay #portfolioActions .portfolio-pair.is-active { pointer-events:auto!important; }
-html > #screenOverlay #portfolioActions .portfolio-project { pointer-events:auto!important; }
-@media(max-width:700px) {
-  html > #screenOverlay #portfolioActions .portfolio-pair { top:64%!important; gap:clamp(42px,13vw,100px)!important; }
-}
-
 
 /* Controles da interface agora são irmãos do body, fora do canvas do Marzipano. */
 html > #screenOverlay > #sceneListToggle,
@@ -162,25 +135,28 @@ html > #screenOverlay > .fixed-scene-hotspot .link-hotspot-tooltip {
 }
 
 
-/* CAMADA FIXA DOS BOTÕES SOBRE NÓS E CONTATO — posição da parede do Lobby. */
+/* HUD do Lobby dentro da mesma camada screenOverlay do site de referência.
+   O overlay é irmão do body na raiz HTML; o panorama permanece em #pano. */
 html > #screenOverlay > #lobbyActions {
   position:absolute!important;
   inset:0!important;
-  z-index:1100!important;
-  width:100%!important;
-  height:100%!important;
+  width:100vw!important;
+  height:100vh!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
   opacity:0;
   visibility:hidden;
   pointer-events:none;
   transition:opacity .22s ease,visibility .22s ease;
 }
 html > #screenOverlay > #lobbyActions.is-visible {
-  opacity:1;
-  visibility:visible;
+  opacity:1!important;
+  visibility:visible!important;
 }
 html > #screenOverlay > #lobbyActions .lobby-action {
-  position:absolute;
-  top:41.2%;
+  position:absolute!important;
+  top:54vh!important;
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -199,12 +175,13 @@ html > #screenOverlay > #lobbyActions .lobby-action {
   text-decoration:none;
   white-space:nowrap;
   cursor:pointer;
-  pointer-events:auto;
-  transform:translate(-50%,-50%);
+  z-index:2!important;
+  pointer-events:auto!important;
+  transform:translate(-50%,-50%)!important;
   transition:background .2s ease,border-color .2s ease;
 }
-html > #screenOverlay > #lobbyActions #aboutAction { left:45.2%; }
-html > #screenOverlay > #lobbyActions #contactAction { left:76.6%; }
+html > #screenOverlay > #lobbyActions #aboutAction { left:27.5vw!important; }
+html > #screenOverlay > #lobbyActions #contactAction { left:72.5vw!important; }
 html > #screenOverlay > #lobbyActions .lobby-action:hover,
 html > #screenOverlay > #lobbyActions .lobby-action:focus-visible {
   background:rgba(25,25,23,.72);
@@ -213,8 +190,8 @@ html > #screenOverlay > #lobbyActions .lobby-action:focus-visible {
 }
 html > #screenOverlay > #aboutPanel {
   position:absolute!important;
+  z-index:3!important;
   inset:0!important;
-  z-index:1102!important;
   display:none;
   place-items:center;
   padding:24px;
@@ -246,7 +223,7 @@ html > #screenOverlay > #aboutPanel.is-open { display:grid; }
 }
 @media(max-width:700px) {
   html > #screenOverlay > #lobbyActions .lobby-action {
-    top:41.2%;min-width:92px;min-height:31px;padding:7px 9px;font-size:8px;
+    top:54vh!important;min-width:92px;min-height:31px;padding:7px 9px;font-size:8px;
   }
 }
 @media(max-width:380px) {
@@ -254,3 +231,98 @@ html > #screenOverlay > #aboutPanel.is-open { display:grid; }
     min-width:82px;min-height:29px;padding:6px 7px;font-size:8px;letter-spacing:.08em;
   }
 }
+
+
+/* Ações do Lobby: mesmo princípio estrutural do site de referência.
+   O panorama e os botões são elementos irmãos no body; os botões não
+   pertencem ao canvas nem a qualquer camada transformada pelo Marzipano. */
+#pano {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0 !important;
+}
+body > #lobbyActions {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+  z-index: 1001 !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+body > #lobbyActions.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+body > #lobbyActions .lobby-action {
+  position: absolute !important;
+  top: 54vh !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: auto !important;
+  z-index: 2 !important;
+}
+body > #lobbyActions #aboutAction { left: 27.5vw !important; }
+body > #lobbyActions #contactAction { left: 72.5vw !important; }
+@media (max-width: 700px) {
+  body > #lobbyActions .lobby-action { top: 54vh !important; }
+}
+
+
+
+
+/* Botões minimalistas dos projetos: hotspots nativos ancorados no ambiente 360°. */
+#pano .project-hotspot {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+  min-height: 32px;
+  margin: -16px 0 0 -46px;
+  padding: 8px 13px;
+  border: 1px solid rgba(255,255,255,.58);
+  border-radius: 2px;
+  background: rgba(25,25,23,.48);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font: 500 9px Manrope,"DM Sans",sans-serif;
+  letter-spacing: .13em;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
+  cursor: pointer;
+  z-index: 12;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+#pano .project-hotspot:hover,
+#pano .project-hotspot:focus-visible {
+  background: rgba(25,25,23,.76);
+  border-color: rgba(255,255,255,.95);
+  box-shadow: 0 3px 14px rgba(0,0,0,.25);
+  outline: none;
+}
+@media(max-width:700px) {
+  #pano .project-hotspot {
+    min-width: 84px;
+    min-height: 30px;
+    margin: -15px 0 0 -42px;
+    padding: 7px 10px;
+    font-size: 8px;
+    letter-spacing: .1em;
+  }
+}
+
+
+/* Lobby reutiliza integralmente o padrão visual .project-hotspot do Portfólio. */
+#pano .lobby-wall-hotspot { min-width: 92px; }
