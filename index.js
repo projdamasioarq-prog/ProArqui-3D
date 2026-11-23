@@ -339,11 +339,13 @@
   }
 
   function createProjectHotspotElement(hotspot) {
+    // O nome exato da imagem é a referência principal do botão.
+    var projectName = hotspot.imageName || hotspot.title;
     var button = document.createElement('button');
     button.type = 'button';
     button.className = 'project-hotspot';
-    button.setAttribute('aria-label', 'Projeto: ' + hotspot.title);
-    button.setAttribute('title', hotspot.title);
+    button.setAttribute('aria-label', 'Projeto: ' + projectName);
+    button.setAttribute('title', projectName);
 
     var marker = document.createElement('span');
     marker.className = 'project-hotspot-marker';
@@ -351,7 +353,7 @@
 
     var label = document.createElement('span');
     label.className = 'project-hotspot-label';
-    label.textContent = hotspot.title;
+    label.textContent = projectName;
 
     button.appendChild(marker);
     button.appendChild(label);
