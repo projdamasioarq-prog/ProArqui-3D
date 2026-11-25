@@ -19,10 +19,23 @@
   document.body.appendChild(root);
   var modal=root.querySelector("#floorModal"), canvas=root.querySelector("#floorCanvas"), ctx=canvas.getContext("2d");
   var items=[], start=null, preview=null, tool=root.querySelector("#floorTool").value;
-  var grid=25;\n  var metersPerGrid=0.25;
+  var grid=25;
+  var metersPerGrid=0.25;
   function snap(v){return Math.round(v/grid)*grid;}
   function point(e){var r=canvas.getBoundingClientRect();return {x:snap((e.clientX-r.left)*canvas.width/r.width),y:snap((e.clientY-r.top)*canvas.height/r.height)};}
-  function measure(it){return Math.hypot(it.x2-it.x1,it.y2-it.y1)/grid*metersPerGrid;}\n  function drawDimension(c,it){\n    if(it.type!=="wall")return;\n    var dx=it.x2-it.x1,dy=it.y2-it.y1,len=Math.hypot(dx,dy);if(len<grid)return;\n    var nx=-dy/len,ny=dx/len,offset=25,ax=it.x1+nx*offset,ay=it.y1+ny*offset,bx=it.x2+nx*offset,by=it.y2+ny*offset;\n    c.save();c.strokeStyle="#b18443";c.fillStyle="#76572e";c.lineWidth=1.5;\n    c.setLineDash([5,4]);c.beginPath();c.moveTo(it.x1,it.y1);c.lineTo(ax,ay);c.moveTo(it.x2,it.y2);c.lineTo(bx,by);c.stroke();c.setLineDash([]);\n    c.beginPath();c.moveTo(ax,ay);c.lineTo(bx,by);c.stroke();\n    var tick=6,tx=-dy/len,ty=dx/len;c.beginPath();c.moveTo(ax-tx*tick,ay-ty*tick);c.lineTo(ax+tx*tick,ay+ty*tick);c.moveTo(bx-tx*tick,by-ty*tick);c.lineTo(bx+tx*tick,by+ty*tick);c.stroke();\n    var label=measure(it).toFixed(2).replace(".",",")+" m",mx=(ax+bx)/2,my=(ay+by)/2;\n    c.font="bold 18px Arial";var w=c.measureText(label).width+16;c.fillStyle="#fbfaf7";c.fillRect(mx-w/2,my-14,w,27);c.fillStyle="#76572e";c.textAlign="center";c.textBaseline="middle";c.fillText(label,mx,my);c.restore();\n  }\n  function drawItem(c,it){
+  function measure(it){return Math.hypot(it.x2-it.x1,it.y2-it.y1)/grid*metersPerGrid;}
+  function drawDimension(c,it){
+    if(it.type!=="wall")return;
+    var dx=it.x2-it.x1,dy=it.y2-it.y1,len=Math.hypot(dx,dy);if(len<grid)return;
+    var nx=-dy/len,ny=dx/len,offset=25,ax=it.x1+nx*offset,ay=it.y1+ny*offset,bx=it.x2+nx*offset,by=it.y2+ny*offset;
+    c.save();c.strokeStyle="#b18443";c.fillStyle="#76572e";c.lineWidth=1.5;
+    c.setLineDash([5,4]);c.beginPath();c.moveTo(it.x1,it.y1);c.lineTo(ax,ay);c.moveTo(it.x2,it.y2);c.lineTo(bx,by);c.stroke();c.setLineDash([]);
+    c.beginPath();c.moveTo(ax,ay);c.lineTo(bx,by);c.stroke();
+    var tick=6,tx=-dy/len,ty=dx/len;c.beginPath();c.moveTo(ax-tx*tick,ay-ty*tick);c.lineTo(ax+tx*tick,ay+ty*tick);c.moveTo(bx-tx*tick,by-ty*tick);c.lineTo(bx+tx*tick,by+ty*tick);c.stroke();
+    var label=measure(it).toFixed(2).replace(".",",")+" m",mx=(ax+bx)/2,my=(ay+by)/2;
+    c.font="bold 18px Arial";var w=c.measureText(label).width+16;c.fillStyle="#fbfaf7";c.fillRect(mx-w/2,my-14,w,27);c.fillStyle="#76572e";c.textAlign="center";c.textBaseline="middle";c.fillText(label,mx,my);c.restore();
+  }
+  function drawItem(c,it){
     c.save();c.lineCap="square";c.lineJoin="miter";
     if(it.type==="wall"){c.strokeStyle="#252521";c.lineWidth=9;c.beginPath();c.moveTo(it.x1,it.y1);c.lineTo(it.x2,it.y2);c.stroke();}
     if(it.type==="room"){c.fillStyle="rgba(201,170,112,.10)";c.strokeStyle="#8c7958";c.lineWidth=4;c.fillRect(it.x1,it.y1,it.x2-it.x1,it.y2-it.y1);c.strokeRect(it.x1,it.y1,it.x2-it.x1,it.y2-it.y1);if(it.label){c.fillStyle="#6c604d";c.font="22px Arial";c.textAlign="center";c.fillText(it.label,(it.x1+it.x2)/2,(it.y1+it.y2)/2);}}
