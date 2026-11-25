@@ -731,3 +731,14 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
  .floor-furniture-picker select{width:100%}
  .floor-hint{max-width:none}
 }
+
+
+/* Inspetor de propriedades e escala métrica de 10 cm do editor */
+.floor-inspector{display:flex;align-items:end;flex-wrap:wrap;gap:10px;margin:10px 0 2px;padding:12px;border:1px solid rgba(201,170,112,.35);background:#22221d}
+.floor-inspector[hidden]{display:none!important}
+.floor-inspector strong{width:100%;color:#d8bd8c;font-size:11px;font-weight:600}
+.floor-inspector label{display:grid;gap:5px;color:rgba(244,241,235,.7);font-size:10px}
+.floor-inspector input,.floor-inspector select{width:112px;height:33px;padding:0 8px;border:1px solid rgba(255,255,255,.22);background:#171714;color:#fff;font:11px "DM Sans",Arial,sans-serif}
+.floor-inspector button{height:33px;padding:0 12px;border:1px solid rgba(255,255,255,.25);background:#34342e;color:#fff;font-size:10px}
+.floor-inspector button:hover{border-color:#c9aa70}
+@media(max-width:650px){.floor-inspector{align-items:stretch}.floor-inspector label{flex:1;min-width:calc(50% - 10px)}.floor-inspector input,.floor-inspector select{width:100%}.floor-inspector button{flex:1}}
