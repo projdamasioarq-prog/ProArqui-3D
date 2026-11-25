@@ -960,3 +960,32 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 @media(prefers-reduced-motion:reduce) {
   #servicePanel .service-item,#servicePanel .service-close{transition:none}
 }
+
+
+/* Posicionamento definitivo do atalho de criação de planta. */
+#floorPlanApp {
+  position:fixed !important;
+  inset:0 !important;
+  z-index:10020 !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+}
+#floorPlanApp .floor-launch {
+  position:fixed !important;
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  right:22px !important;
+  left:auto !important;
+  bottom:78px !important;
+  z-index:10021 !important;
+  pointer-events:auto !important;
+}
+#floorPlanApp .floor-modal { z-index:10022 !important; pointer-events:auto !important; }
+@media(max-width:650px) {
+  #floorPlanApp .floor-launch {
+    right:14px !important;
+    bottom:76px !important;
+    max-width:calc(100vw - 28px);
+  }
+}
