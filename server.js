@@ -42,6 +42,33 @@ const upload = multer({
   fileFilter: (req, file, cb) => cb(allowed.has(file.mimetype) ? null : new Error('Tipo de arquivo não permitido.'), allowed.has(file.mimetype))
 });
 
+function estimateFor(service, area, rules) {
+  const matches = rules.filter(rule => rule.service === service);
+  if (matches.length !== 1) return null;
+  const rule = matches[0];
+  if (rule.type === 'fixed' && Number.isFinite(rule.amount) && rule.amount >= 0) {
+    return { amount: rule.amount, currency: rule.currency || 'BRL', basis: 'valor fixo cadastrado' };
+  }
+  if (rule.type === 'per_m2' && Number.isFinite(rule.rate) && rule.rate >= 0 && Number.isFinite(area) && area > 0) {
+    const amount = rule.rate * area;
+    if (Number.isFinite(rule.minTotal) && amount < rule.minTotal) return { amount: rule.minTotal, currency: rule.currency || 'BRL', basis: 'valor mínimo cadastrado' };
+    if (Number.isFinite(rule.maxTotal) && amount > rule.maxTotal) return null;
+    return { amount, currency: rule.currency || 'BRL', basis: 'área informada × valor por m² cadastrado' };
+  }
+  return null;
+}
+function deadlineFor(service, rules) {
+  const matches = rules.filter(rule => rule.service === service && Number.isInteger(rule.days) && rule.days > 0);
+  return matches.length === 1 ? { days: matches[0].days, basis: 'prazo cadastrado pela empresa' } : null;
+}
+app.post('/api/estimate', (req, res) => {
+  const c = readConfig();
+  const service = String(req.body.service || '');
+  const area = Number(req.body.area);
+  const estimate = estimateFor(service, area, c.pricingRules || []);
+  const deadline = deadlineFor(service, c.deadlines || []);
+  res.json({ estimate, deadline, preliminary: true, message: estimate || deadline ? 'Estimativa baseada somente nas regras cadastradas; depende de validação da equipe.' : 'Não há regra comercial suficiente para calcular preço ou prazo. Encaminhe para análise humana.' });
+});
 app.get('/api/assistant/config', (req, res) => {
   const c = readConfig();
   res.json({ companyName: c.companyName, services: c.services, whatsappNumber: c.whatsappNumber,
@@ -76,4 +103,4 @@ app.use((err, req, res, next) => {
 });
 const port = Number(process.env.PORT || 3000);
 if (require.main === module) app.listen(port, () => console.log('ProArqui Karen disponível na porta ' + port));
-module.exports = { app, validConfig };
+module.exports = { app, validConfig, estimateFor, deadlineFor };
