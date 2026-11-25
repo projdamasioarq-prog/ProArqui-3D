@@ -753,3 +753,31 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 .floor-canvas-wrap{max-height:62vh;overflow:auto;overscroll-behavior:contain;touch-action:pan-x pan-y}
 #floorCanvas{width:2000px;height:1200px;max-width:none;min-width:0;aspect-ratio:auto;touch-action:none;cursor:crosshair}
 @media(max-width:650px){.floor-zoom-controls{gap:5px}.floor-zoom-controls small{line-height:1.4}.floor-canvas-wrap{max-height:55vh}}
+
+
+/* Correção de camada e posição do botão de criação de planta. */
+#floorPlanApp {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10002 !important;
+  pointer-events: none !important;
+}
+#floorPlanApp .floor-launch {
+  position: absolute !important;
+  right: 22px !important;
+  left: auto !important;
+  bottom: 78px !important;
+  z-index: 10003 !important;
+  pointer-events: auto !important;
+}
+#floorPlanApp .floor-modal {
+  z-index: 10010 !important;
+  pointer-events: auto !important;
+}
+@media(max-width:650px) {
+  #floorPlanApp .floor-launch {
+    right: 14px !important;
+    bottom: 76px !important;
+    max-width: calc(100vw - 28px);
+  }
+}
