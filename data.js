@@ -41,7 +41,7 @@ var APP_DATA = {
       "infoHotspots": [],
       "serviceHotspots": [
         {"title":"Modelagem 3D","service":"modelagem","color":"red","yaw":-0.012,"pitch":-0.015},
-        {"title":"Projeto arquitetônico","service":"arquitetura","color":"green","yaw":-0.671,"pitch":0.065},
+        {"title":"Projeto Arquitetônico","service":"arquitetura","color":"green","yaw":-0.671,"pitch":0.065},
         {"title":"Consultoria","service":"consultoria","color":"yellow","yaw":0.720,"pitch":0.068}
       ]
     }
