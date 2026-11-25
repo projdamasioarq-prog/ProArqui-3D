@@ -40,7 +40,8 @@
     if(it.type==="wall"){c.strokeStyle="#252521";c.lineWidth=9;c.beginPath();c.moveTo(it.x1,it.y1);c.lineTo(it.x2,it.y2);c.stroke();}
     if(it.type==="room"){c.fillStyle="rgba(201,170,112,.10)";c.strokeStyle="#8c7958";c.lineWidth=4;c.fillRect(it.x1,it.y1,it.x2-it.x1,it.y2-it.y1);c.strokeRect(it.x1,it.y1,it.x2-it.x1,it.y2-it.y1);if(it.label){c.fillStyle="#6c604d";c.font="22px Arial";c.textAlign="center";c.fillText(it.label,(it.x1+it.x2)/2,(it.y1+it.y2)/2);}}
     if(it.type==="door"){c.strokeStyle="#a77b45";c.lineWidth=5;c.beginPath();c.moveTo(it.x1,it.y1);c.lineTo(it.x2,it.y2);c.stroke();c.strokeStyle="#c9aa70";c.lineWidth=2;c.beginPath();c.arc(it.x1,it.y1,Math.hypot(it.x2-it.x1,it.y2-it.y1),0,Math.PI/2);c.stroke();}
-    if(it.type==="window"){c.strokeStyle="#438b9b";c.lineWidth=8;c.beginPath();c.moveTo(it.x1,it.y1);c.lineTo(it.x2,it.y2);c.stroke();c.strokeStyle="#e4f4f5";c.lineWidth=2;c.beginPath();c.moveTo(it.x1,it.y1-5);c.lineTo(it.x2,it.y2-5);c.moveTo(it.x1,it.y1+5);c.lineTo(it.x2,it.y2+5);c.stroke();}\n    if(it.type==="text"){c.fillStyle="#33332d";c.font="bold 22px Arial";c.textAlign="left";c.textBaseline="top";c.fillText(it.text||"Texto",it.x1,it.y1);}
+    if(it.type==="window"){c.strokeStyle="#438b9b";c.lineWidth=8;c.beginPath();c.moveTo(it.x1,it.y1);c.lineTo(it.x2,it.y2);c.stroke();c.strokeStyle="#e4f4f5";c.lineWidth=2;c.beginPath();c.moveTo(it.x1,it.y1-5);c.lineTo(it.x2,it.y2-5);c.moveTo(it.x1,it.y1+5);c.lineTo(it.x2,it.y2+5);c.stroke();}
+    if(it.type==="text"){c.fillStyle="#33332d";c.font="bold 22px Arial";c.textAlign="left";c.textBaseline="top";c.fillText(it.text||"Texto",it.x1,it.y1);}
     c.restore();
   }
   function render(){
@@ -62,7 +63,7 @@
   canvas.addEventListener("pointerup",function(){if(!start||!preview)return;var it=preview;preview=null;start=null;if(it.type==="erase"){var cx=(it.x1+it.x2)/2,cy=(it.y1+it.y2)/2;var idx=-1,dist=Infinity;items.forEach(function(v,i){var d=Math.hypot((v.x1+v.x2)/2-cx,(v.y1+v.y2)/2-cy);if(d<dist){dist=d;idx=i;}});if(idx>=0&&dist<70)items.splice(idx,1);}else if(Math.hypot(it.x2-it.x1,it.y2-it.y1)>8){items.push(it);}render();});
   root.querySelector("#floorUndo").addEventListener("click",function(){items.pop();render();});
   root.querySelector("#floorClear").addEventListener("click",function(){if(confirm("Apagar todo o desenho?")){items=[];render();}});
-  function exportPng(){var out=document.createElement("canvas");out.width=canvas.width;out.height=canvas.height;var c=out.getContext("2d");c.fillStyle="#fff";c.fillRect(0,0,out.width,out.height);c.drawImage(canvas,0,0);items.forEach(function(it){drawDimension(c,it);});c.fillStyle="#222";c.font="18px Arial";c.fillText("Estudo inicial de planta · ProArqui 3D",28,32);return out.toDataURL("image/png");}
+  function exportPng(){var out=document.createElement("canvas");out.width=canvas.width;out.height=canvas.height;var c=out.getContext("2d");c.fillStyle="#fff";c.fillRect(0,0,out.width,out.height);c.drawImage(canvas,0,0);c.fillStyle="#222";c.font="18px Arial";c.fillText("Estudo inicial de planta · ProArqui 3D",28,32);return out.toDataURL("image/png");}
   root.querySelector("#floorPng").addEventListener("click",function(){var a=document.createElement("a");a.href=exportPng();a.download="planta-inicial-proarqui.png";a.click();});
   root.querySelector("#floorSend").addEventListener("click",function(){
     if(!items.length){alert("Desenhe pelo menos um elemento na planta antes de continuar.");return;}
