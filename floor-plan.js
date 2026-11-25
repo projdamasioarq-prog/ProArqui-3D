@@ -116,7 +116,8 @@
     if(!modal.classList.contains("is-open"))return;var p=point(e);
     var hit=itemAt(p);
     if(tool!=="erase"&&hit>=0&&(items[hit].type==="door"||items[hit].type==="window"||items[hit].type==="furniture")){showInspector(hit);dragItem=hit;canvas.setPointerCapture(e.pointerId);return;}
-    if(hit<0){selectedItem=null;inspector.hidden=true;}\n    if(tool==="text"){var label=prompt("Digite o texto para inserir na planta:");if(label&&label.trim())items.push({type:"text",x1:p.x,y1:p.y,text:label.trim()});render();return;}
+    if(hit<0){selectedItem=null;inspector.hidden=true;}
+    if(tool==="text"){var label=prompt("Digite o texto para inserir na planta:");if(label&&label.trim())items.push({type:"text",x1:p.x,y1:p.y,text:label.trim()});render();return;}
     if(tool==="door"||tool==="window"){addOpening(tool,p);if(items.length)showInspector(items.length-1);render();return;}
     if(tool==="furniture"){var kind=furniturePicker.value;var def=furniture[kind];items.push({type:"furniture",kind:kind,x:p.x,y:p.y,w:def.w*100,h:def.h*100});showInspector(items.length-1);render();return;}
     start=p;preview={type:tool,x1:p.x,y1:p.y,x2:p.x,y2:p.y};canvas.setPointerCapture(e.pointerId);render();
