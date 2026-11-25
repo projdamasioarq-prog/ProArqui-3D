@@ -15,6 +15,20 @@ const MAX_MB = Math.max(1, Math.min(Number(process.env.MAX_FILE_MB || 10), 20));
 fs.mkdirSync(path.dirname(CONFIG), { recursive: true });
 fs.mkdirSync(PRIVATE_DIR, { recursive: true });
 app.use(helmet({ contentSecurityPolicy: false }));
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  const allowed = process.env.CORS_ORIGIN;
+  if (origin && allowed && origin === allowed) {
+    res.setHeader('Access-Control-Allow-Origin', allowed);
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+  } else if (req.method === 'OPTIONS') {
+    return res.sendStatus(403);
+  }
+  next();
+});
 app.use(express.json({ limit: '100kb' }));
 app.use('/api/', rateLimit({ windowMs: 15 * 60 * 1000, limit: 60, standardHeaders: true, legacyHeaders: false }));
 
