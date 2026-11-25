@@ -25,10 +25,10 @@ Não há preço, prazo, desconto ou condição fictícia pré-configurada. A lis
 ## Arquivos e privacidade
 O servidor aceita até 8 arquivos por envio, PDF ou imagem (JPEG/PNG/WebP/HEIC), até o limite definido em `MAX_FILE_MB`. Os arquivos são armazenados fora da pasta pública e não são executados. A remoção administrativa usa DELETE `/api/admin/files/:id`. Configure backup, retenção, controle de acesso, HTTPS e rotina de exclusão antes de receber documentos reais.
 
-A interface desta branch ainda mantém os anexos no navegador durante a sessão e não os envia automaticamente. A conexão do envio ao endpoint privado deve ser validada antes de produção. Não publique o diretório de uploads.
+Com consentimento, a interface envia os anexos ao endpoint privado configurado. A resposta informa os nomes recebidos. Antes de produção, valide CORS, HTTPS, limites, backups, política de retenção e exclusão. Não publique o diretório de uploads.
 
 ## Limitações e revisão antes de uso real
-- A conversa atual é guiada por etapas, não por um modelo de IA generativa. Conectar um provedor de IA requer endpoint servidor, chave em variável de ambiente, política de retenção, filtros e testes.
+- A conversa usa etapas guiadas e pode chamar o endpoint de IA no servidor para respostas contextuais quando `aiEnabled` estiver como `true`. Para ativar, configure `OPENAI_API_KEY` e `OPENAI_MODEL` no `.env` do servidor e avalie custos e limites da conta. A chave nunca deve ir para o navegador. O nome e o contato coletados não são encaminhados ao modelo; as mensagens restantes podem ser processadas pelo provedor.
 - GitHub Pages não executa Node/Express. Para usar endpoints privados, hospede o servidor em infraestrutura própria e configure domínio/API com HTTPS e CORS restrito.
 - Implementar consentimento LGPD completo, aviso de privacidade, canal para direitos do titular, retenção e exclusão automatizada.
 - Profissional responsável deve revisar escopo, critérios de complexidade, cálculos, prazos, exclusões, condições e linguagem técnica.
