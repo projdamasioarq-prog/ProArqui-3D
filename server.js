@@ -69,10 +69,35 @@ app.post('/api/estimate', (req, res) => {
   const deadline = deadlineFor(service, c.deadlines || []);
   res.json({ estimate, deadline, preliminary: true, message: estimate || deadline ? 'Estimativa baseada somente nas regras cadastradas; depende de validação da equipe.' : 'Não há regra comercial suficiente para calcular preço ou prazo. Encaminhe para análise humana.' });
 });
+app.post('/api/assistant/chat', async (req, res) => {
+  if (!process.env.OPENAI_API_KEY || !process.env.OPENAI_MODEL) return res.status(503).json({ error: 'Integração de IA ainda não configurada no servidor.' });
+  const messages = Array.isArray(req.body.messages) ? req.body.messages.slice(-8) : [];
+  if (!messages.length || messages.some(m => !m || !['user','assistant'].includes(m.role) || typeof m.content !== 'string' || m.content.length > 2000)) {
+    return res.status(400).json({ error: 'Histórico de conversa inválido.' });
+  }
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + process.env.OPENAI_API_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: process.env.OPENAI_MODEL,
+        messages: [
+          { role: 'developer', content: 'Você é Karen, assistente virtual da ProArqui 3D. Responda em português brasileiro, com cordialidade e concisão. Ajude apenas a organizar a solicitação de proposta. Não invente preços, prazos, descontos, garantias, disponibilidade ou condições. Não aprove contratação. Não dê parecer definitivo sobre estrutura, segurança, normas, licenças ou viabilidade; encaminhe dúvidas técnicas incertas para profissional responsável. Não solicite dados pessoais além do necessário. Não peça novamente informações já dadas. Não substitua a pergunta estruturada seguinte; apenas reconheça brevemente a resposta e, se apropriado, peça um esclarecimento indispensável.' },
+          ...messages
+        ]
+      })
+    });
+    const payload = await response.json();
+    if (!response.ok) return res.status(502).json({ error: 'O serviço de IA não respondeu. Continue pelo roteiro guiado.' });
+    res.json({ reply: payload.choices && payload.choices[0] && payload.choices[0].message ? payload.choices[0].message.content : '' });
+  } catch (error) {
+    res.status(502).json({ error: 'Falha ao consultar o serviço de IA.' });
+  }
+});
 app.get('/api/assistant/config', (req, res) => {
   const c = readConfig();
   res.json({ companyName: c.companyName, services: c.services, whatsappNumber: c.whatsappNumber,
-    conditions: c.conditions, scopeExclusions: c.scopeExclusions, pricingRules: c.pricingRules, deadlines: c.deadlines });
+    conditions: c.conditions, scopeExclusions: c.scopeExclusions, pricingRules: c.pricingRules, deadlines: c.deadlines, aiEnabled: !!c.aiEnabled });
 });
 app.post('/api/intake/files', upload.array('files', 8), (req, res) => {
   if (req.body.consent !== 'true') {
