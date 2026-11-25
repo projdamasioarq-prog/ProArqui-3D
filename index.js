@@ -420,17 +420,27 @@
     }
   }
 
-  // Painel de avaliações públicas do perfil 99Freelas.
+  // Histórico de projetos e avaliações fornecidos para o portfólio.
   var reviewsPanel = null;
   var reviewItems = [
-    { project: 'Projeto arquitetônico e executivo 3D para farmácia', rating: 4.8, date: 'mar. 2026', text: 'Cliente destacou competência, atenção, dedicação, cumprimento do prazo e sugestões apresentadas.' },
-    { project: 'Projeto visual para estande 12x12 em feira', rating: 5, date: 'fev. 2026 – mar. 2026', text: 'Cliente destacou atenção, dedicação e qualidade profissional da entrega dentro do prazo.' },
-    { project: 'Renderização de piscina em condomínio', rating: 5, date: 'fev. 2026', text: 'Cliente elogiou a atenção, disponibilidade para ajustes e dedicação mesmo com prazo apertado.' },
-    { project: 'Planta baixa para 5 pavimentos em 2 prédios', rating: 5, date: 'fev. 2026', text: 'Cliente ressaltou profissionalismo, agilidade, interpretação do projeto e qualidade das soluções.' },
-    { project: 'Modelagem de apartamento 24 m² no SketchUp', rating: 5, date: 'dez. 2025', text: 'Cliente destacou paciência, pontualidade, atenção e cordialidade.' },
-    { project: 'Projeto de repaginação para sala comercial de 45 m²', rating: 5, date: 'fev. 2025 – nov. 2025', text: 'Avaliação máxima registrada, sem comentário público.' },
-    { project: 'Design de interiores para apartamento', rating: 5, date: 'set. 2024 – out. 2024', text: 'Cliente elogiou profissionalismo, conhecimento técnico, atenção, educação e disponibilidade.' },
-    { project: 'Projeto executivo de design de interiores 3D', rating: 5, date: 'mar. 2024 – jun. 2024', text: 'Cliente demonstrou satisfação com o projeto e o resultado final.' }
+    { category: 'Projetos arquitetônicos e executivos', project: 'Projeto arquitetônico e executivo para farmácia', rating: 4.8, text: 'Profissional muito competente, atencioso e dedicado. Fez o projeto no prazo acordado e apresentou várias sugestões interessantes.' },
+    { category: 'Projetos arquitetônicos e executivos', project: 'Projeto residencial de dois pavimentos', rating: 5, text: 'Profissional atencioso, dedicado e entregou o trabalho dentro do prazo.' },
+    { category: 'Projetos arquitetônicos e executivos', project: 'Planta para apartamento de dois pavimentos', rating: 5, text: 'Daniel foi muito atencioso durante todo o processo. Mesmo com o prazo apertado, se dedicou ao máximo para entregar com as alterações solicitadas. Recomendo!' },
+    { category: 'Projetos arquitetônicos e executivos', project: 'Projeto de interiores para apartamento', rating: 5, text: 'Um cara com um profissionalismo ímpar, super atencioso, educado e solícito, com grande conhecimento técnico. Sem dúvida ficarei feliz em retomar os trabalhos. Recomendo!' },
+    { category: 'Projetos arquitetônicos e executivos', project: 'Projeto para sala comercial de 45 m²', rating: 5, text: 'Não há comentário visível na imagem.' },
+    { category: 'Projetos arquitetônicos e executivos', project: 'Projeto para loja de bijuterias e eletrônicos', rating: 5, text: 'Já está em fase de aprovação e trabalho ficou bom. É um bom profissional e a pessoa certa além de trabalhar bem e é comunicativo e entende o que você quer.' },
+    { category: 'Projetos arquitetônicos e executivos', project: 'Planta baixa para shopping de pequeno porte', rating: 5, text: 'Obrigada, Daniel, pela dedicação e por ter entregado o projeto em tempo hábil! Com certeza indicarei seu trabalho, pois o resultado ficou excelente. Obrigada, espero em breve que tenhamos outros trabalhos juntos.' },
+    { category: 'Projetos arquitetônicos e executivos', project: 'Planta baixa para apartamento', rating: 5, text: 'Daniel entregou o projeto dentro das especificações solicitadas antes do prazo acordado. Recomendo.' },
+    { category: 'Modelagem 3D e imagens', project: 'Renderização de piscina em condomínio', rating: 5, text: 'O Daniel foi muito atencioso durante todo o processo. Mesmo com o prazo apertado, se dedicou ao máximo para entregar com as alterações solicitadas. Recomendo!' },
+    { category: 'Modelagem 3D e imagens', project: 'Modelagem 3D de apartamento', rating: 5, text: 'Muito paciente e cordial, atencioso e competente.' },
+    { category: 'Modelagem 3D e imagens', project: 'Modelagem 3D de unidade de franquia de lavanderia de autosserviço', rating: 4.8, text: 'Foi conscrito de acordo com o pedido. Trecho do comentário difícil de ler na imagem.' },
+    { category: 'Modelagem 3D e imagens', project: 'Câmera de eventos para YouTube', rating: 5, text: 'Você busca por serviços de arquitetura que vão além do convencional? Acabou de encontrar! Sua experiência e paixão pela criação se refletem em cada detalhe dos projetos que realiza. Profissional extremamente atencioso e dedicado, sempre entregando soluções que superam as expectativas.' },
+    { category: 'Desenhos técnicos e detalhamento', project: 'Detalhamento executivo em AutoCAD', rating: 5, text: 'Profissional rápido e atencioso, recomendo muito!' },
+    { category: 'Desenhos técnicos e detalhamento', project: 'Ilustração em AutoCAD', rating: 5, text: 'Daniel desempenhou sua tarefa com muito profissionalismo e competência, comunicação clara e execução conforme combinado. Recomendo!' },
+    { category: 'Desenhos técnicos e detalhamento', project: 'Desenho de cortes, fachadas e volumetria', rating: 5, text: 'Profissional comprometido, cumpriu o prazo mesmo sendo bem curto e apertado. Bom comunicativo, proativo.' },
+    { category: 'Desenhos técnicos e detalhamento', project: 'Estudo de fachada para supermercado', rating: 5, text: 'Não há comentário visível na imagem.' },
+    { category: 'Desenhos técnicos e detalhamento', project: 'Paginação de projeto', rating: 4.2, text: 'Excelente profissional, respondeu rapidamente às demandas.' },
+    { category: 'Desenhos técnicos e detalhamento', project: 'Projeto de design de interiores', rating: 5, text: 'O projeto ficou bom.' }
   ];
 
   function closeReviewsPanel() {
@@ -453,32 +463,35 @@
     }
     reviewsPanel.innerHTML =
       '<div class="reviews-card">' +
-        '<header class="reviews-header"><div><p class="reviews-eyebrow">PROARQUI 3D · EXPERIÊNCIA DE CLIENTES</p><h2 id="reviewsPanelTitle">Histórico de projetos &amp; Avaliações</h2></div><button type="button" class="reviews-close" aria-label="Fechar avaliações">×</button></header>' +
-        '<div class="reviews-summary"><div class="reviews-score"><strong>4,98</strong><span class="reviews-stars" aria-label="4,98 de 5 estrelas">★★★★★</span><small>Média das 8 avaliações positivas exibidas</small></div><div class="reviews-stats"><span><strong>22</strong> projetos concluídos</span><span><strong>24</strong> recomendações</span></div></div>' +
-        '<p class="reviews-caption">Avaliações positivas e projetos concluídos exibidos no perfil público.</p><div class="reviews-list"></div>' +
-        '<footer class="reviews-footer"><span>Avaliações de clientes</span></footer>' +
+        '<header class="reviews-header"><div><p class="reviews-eyebrow">PROARQUI 3D · EXPERIÊNCIA DE CLIENTES</p><h2 id="reviewsPanelTitle">Histórico de Projetos e Avaliações</h2></div><button type="button" class="reviews-close" aria-label="Fechar avaliações">×</button></header>' +
+        '<p class="reviews-caption">Projetos realizados e avaliações recebidas.</p><div class="reviews-list"></div>' +
+        '<footer class="reviews-footer"><span>Histórico de projetos e avaliações</span></footer>' +
       '</div>';
     var list = reviewsPanel.querySelector('.reviews-list');
+    var currentCategory = '';
     reviewItems.forEach(function(item) {
+      if (item.category !== currentCategory) {
+        currentCategory = item.category;
+        var categoryHeading = document.createElement('h3');
+        categoryHeading.className = 'review-category';
+        categoryHeading.textContent = currentCategory;
+        list.appendChild(categoryHeading);
+      }
       var card = document.createElement('article');
       card.className = 'review-item';
       var top = document.createElement('div');
       top.className = 'review-item-top';
-      var project = document.createElement('h3');
+      var project = document.createElement('h4');
       project.textContent = item.project;
       var rating = document.createElement('span');
       rating.className = 'review-rating';
-      rating.setAttribute('aria-label', item.rating.toFixed(1) + ' de 5 estrelas');
-      rating.textContent = '★'.repeat(Math.round(item.rating)) + ' ' + item.rating.toFixed(1).replace('.', ',');
+      rating.setAttribute('aria-label', item.rating.toFixed(1).replace('.', ',') + ' de 5');
+      rating.textContent = '★ ' + item.rating.toFixed(1).replace('.', ',') + '/5';
       top.appendChild(project);
       top.appendChild(rating);
-      var date = document.createElement('small');
-      date.className = 'review-date';
-      date.textContent = item.date;
       var note = document.createElement('p');
       note.textContent = item.text;
       card.appendChild(top);
-      card.appendChild(date);
       card.appendChild(note);
       list.appendChild(card);
     });
