@@ -12,7 +12,7 @@ var APP_DATA = {
         {"title":"Sobre Nós","action":"about","yaw":-0.45,"pitch":-0.05},
         {"title":"Contato","action":"contact","href":"https://api.whatsapp.com/send/?phone=5511947869761&text&type=phone_number&app_absent=0","yaw":0.368,"pitch":-0.05},
         {"title":"Avaliações","action":"reviews","yaw":-0.75,"pitch":0.40},
-        {"title":"Karen","action":"karen","yaw":0.05,"pitch":-0.38}
+        {"title":"Karen","action":"karen","yaw":0.0,"pitch":0.20}
       ]
     },
     {
