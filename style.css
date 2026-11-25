@@ -675,3 +675,46 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
   .whatsapp-float span { display: none; }
   .whatsapp-float svg { width: 23px; height: 23px; flex-basis: 23px; }
 }
+
+
+/* Editor inicial de planta baixa ProArqui 3D */
+#floorPlanApp{font-family:"DM Sans",Arial,sans-serif}
+.floor-launch{position:fixed;left:22px;bottom:22px;z-index:10002;display:flex;align-items:center;gap:9px;min-height:44px;padding:0 15px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(24,24,21,.88);color:#fff;box-shadow:0 5px 22px rgba(0,0,0,.28);font:600 10px Manrope,"DM Sans",sans-serif;letter-spacing:.02em;cursor:pointer;backdrop-filter:blur(12px)}
+.floor-launch:hover{background:#34342e;border-color:#d4bd91}
+.floor-launch-mark{font-size:19px;color:#d4bd91}
+.floor-modal{position:fixed;inset:0;z-index:10010;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.68);pointer-events:auto}
+.floor-modal.is-open{display:flex}
+.floor-card{width:min(1060px,96vw);max-height:94vh;overflow:auto;padding:24px 27px;border:1px solid rgba(255,255,255,.18);background:#171714;color:#f4f1eb;box-shadow:0 22px 80px rgba(0,0,0,.55)}
+.floor-head{display:flex;justify-content:space-between;gap:20px;padding-bottom:17px;border-bottom:1px solid rgba(255,255,255,.14)}
+.floor-head p{margin:0 0 7px;color:#c9aa70;font-size:9px;letter-spacing:.17em}
+.floor-head h2{margin:0 0 6px;font:500 22px Manrope,sans-serif}
+.floor-head span{color:rgba(244,241,235,.62);font-size:11px}
+.floor-close{width:34px;height:34px;flex:0 0 34px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font-size:23px}
+.floor-tools{display:flex;align-items:end;gap:9px;flex-wrap:wrap;padding:15px 0}
+.floor-tools label,.floor-fields label{display:grid;gap:6px;color:rgba(244,241,235,.68);font-size:10px}
+.floor-tools select,.floor-tools button{height:34px;padding:0 11px;border:1px solid rgba(255,255,255,.24);background:#252520;color:#fff;font-size:10px}
+.floor-hint{margin-left:auto;color:rgba(244,241,235,.48);font-size:10px}
+.floor-canvas-wrap{width:100%;overflow:auto;border:1px solid #d6d0c4;background:#fbfaf7;touch-action:pan-y}
+#floorCanvas{display:block;width:100%;min-width:540px;height:auto;aspect-ratio:1200/650;touch-action:none;cursor:crosshair}
+.floor-help{margin:8px 0 16px;color:rgba(244,241,235,.48);font-size:9px;line-height:1.5}
+.floor-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.floor-fields input,.floor-fields select,.floor-fields textarea{width:100%;min-height:36px;padding:9px 10px;border:1px solid rgba(255,255,255,.2);border-radius:0;background:#24241f;color:#fff;font:400 11px "DM Sans",sans-serif}
+.floor-fields textarea{resize:vertical}
+.floor-wide{grid-column:1/-1}
+.floor-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:17px}
+.floor-actions button{min-height:40px;padding:0 16px;border:1px solid rgba(255,255,255,.3);font:600 10px Manrope,sans-serif;cursor:pointer}
+.floor-secondary{background:transparent;color:#fff}
+.floor-primary{background:#c9aa70;color:#171714;border-color:#c9aa70!important}
+.floor-disclaimer{margin:11px 0 0;color:rgba(244,241,235,.43);font-size:9px;line-height:1.5;text-align:right}
+@media(max-width:650px){
+ .floor-launch{left:12px;bottom:76px;min-height:40px;padding:0 11px;font-size:9px}
+ .floor-modal{padding:7px;align-items:flex-start}
+ .floor-card{width:100%;max-height:98vh;padding:17px 13px}
+ .floor-head h2{font-size:18px}
+ .floor-fields{grid-template-columns:1fr 1fr;gap:9px}
+ .floor-fields label{font-size:9px}
+ .floor-hint{width:100%;margin:0}
+ .floor-actions{flex-direction:column}
+ .floor-actions button{width:100%}
+ .floor-disclaimer{text-align:left}
+}
