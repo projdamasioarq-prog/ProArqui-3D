@@ -718,3 +718,16 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
  .floor-actions button{width:100%}
  .floor-disclaimer{text-align:left}
 }
+
+
+/* Controles adicionais do editor de planta */
+.floor-furniture-picker[hidden]{display:none!important}
+.floor-furniture-picker{display:grid;gap:6px;color:rgba(244,241,235,.68);font-size:10px}
+.floor-furniture-picker select{height:34px;min-width:150px;padding:0 10px;border:1px solid rgba(255,255,255,.24);background:#252520;color:#fff;font-size:10px}
+.floor-tools{align-items:end}
+.floor-hint{max-width:360px;line-height:1.45}
+@media(max-width:650px){
+ .floor-furniture-picker{width:100%}
+ .floor-furniture-picker select{width:100%}
+ .floor-hint{max-width:none}
+}
