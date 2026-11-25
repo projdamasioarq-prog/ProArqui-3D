@@ -38,7 +38,12 @@ var APP_DATA = {
       "faceSize": 2048,
       "initialViewParameters": {"pitch":0,"yaw":0,"fov":1.5707963267948966},
       "linkHotspots": [{"yaw":0.30341248141331256,"pitch":0.775389188252479,"rotation":0,"target":"0-lobby"}],
-      "infoHotspots": []
+      "infoHotspots": [],
+      "serviceHotspots": [
+        {"title":"Modelagem 3D","service":"modelagem","color":"red","yaw":-0.012,"pitch":0.147},
+        {"title":"Projeto arquitetônico","service":"arquitetura","color":"green","yaw":-0.671,"pitch":0.111},
+        {"title":"Consultoria","service":"consultoria","color":"yellow","yaw":0.720,"pitch":0.068}
+      ]
     }
   ],
   "name": "ProArqui 3D | Tour Virtual",
