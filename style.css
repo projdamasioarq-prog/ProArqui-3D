@@ -578,3 +578,13 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 #servicePanel .service-title--modelagem { color:#d65b55; }
 #servicePanel .service-title--arquitetura { color:#67ad79; }
 #servicePanel .service-title--consultoria { color:#e0bd55; }
+
+
+/* Identificação por cor no próprio texto dos hotspots; a aba mantém título neutro. */
+#pano .service-hotspot-label--modelagem { color:#d65b55; }
+#pano .service-hotspot-label--arquitetura { color:#67ad79; }
+#pano .service-hotspot-label--consultoria { color:#e0bd55; }
+#servicePanel .service-title,
+#servicePanel .service-title--modelagem,
+#servicePanel .service-title--arquitetura,
+#servicePanel .service-title--consultoria { color:#f4f1eb; }
