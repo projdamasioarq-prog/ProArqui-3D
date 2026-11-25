@@ -3,7 +3,16 @@
   "companyName": "ProArqui 3D",
   "whatsappNumber": "",
   "apiBaseUrl": "",
-  "services": ["Projeto novo", "Reforma", "Design de interiores", "Consultoria", "Regularização", "Modelagem 3D", "Projeto executivo", "Outro serviço"],
+  "services": [
+    "Projeto novo",
+    "Reforma",
+    "Design de interiores",
+    "Consultoria",
+    "Regularização",
+    "Modelagem 3D",
+    "Projeto executivo",
+    "Outro serviço"
+  ],
   "companyDetails": {
     "legalName": "",
     "email": "",
@@ -14,5 +23,6 @@
   "deadlines": [],
   "conditions": [],
   "scopeExclusions": [],
-  "complexityCriteria": []
+  "complexityCriteria": [],
+  "aiEnabled": false
 }
