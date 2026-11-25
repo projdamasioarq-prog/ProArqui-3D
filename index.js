@@ -582,6 +582,7 @@
     }
     servicePanel.innerHTML = '<div class="service-card"><header class="service-header"><div><p class="service-eyebrow">PROARQUI 3D · SERVIÇOS</p><h2 class="service-title"></h2></div><button type="button" class="service-close" aria-label="Fechar">×</button></header><div class="service-body"><p class="service-intro"></p><ul class="service-items"></ul></div></div>';
     servicePanel.querySelector('.service-title').textContent = service.title;
+    servicePanel.querySelector('.service-title').className = 'service-title service-title--' + serviceKey;
     servicePanel.querySelector('.service-intro').textContent = service.intro;
     var list = servicePanel.querySelector('.service-items');
     service.items.forEach(function(item) {
