@@ -64,7 +64,7 @@
       screenOverlay.appendChild(projectPdfViewer);
       projectPdfViewer.querySelector('.project-pdf-close').addEventListener('click', closeProjectPdf);
       document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') { closeProjectPdf(); closeProjectChoices(); closeReviewsPanel(); }
+        if (event.key === 'Escape') { closeProjectPdf(); closeProjectChoices(); closeReviewsPanel(); closeServicePanel(); }
       });
     }
     projectPdfViewer.querySelector('.project-pdf-title').textContent = title;
@@ -242,6 +242,12 @@
         yaw: hotspot.yaw,
         pitch: hotspot.pitch
       });
+    });
+
+    // Hotspots coloridos dos serviços, posicionados sobre as marcações da imagem.
+    (data.serviceHotspots || []).forEach(function(hotspot) {
+      var element = createServiceHotspotElement(hotspot);
+      hotspotContainer.createHotspot(element, { yaw: hotspot.yaw, pitch: hotspot.pitch });
     });
 
     // Hotspots dos projetos são pontos do próprio ambiente 360°.
@@ -505,6 +511,103 @@
       } else if (hotspot.href) {
         window.open(hotspot.href, '_blank', 'noopener,noreferrer');
       }
+    });
+    stopTouchAndScrollEventPropagation(button);
+    return button;
+  }
+
+  var servicePanel = null;
+  var serviceContent = {
+    arquitetura: {
+      title: 'Projeto arquitetônico',
+      intro: 'Desenvolvemos projetos pensados para unir funcionalidade, estética e as necessidades de cada cliente. Atuamos desde o estudo inicial e a definição dos espaços até o detalhamento do projeto, com soluções personalizadas para residências, espaços comerciais, reformas e ampliações. O escopo é definido de acordo com cada projeto e pode incluir modelagem 3D, compatibilização e documentação para aprovação.',
+      items: [
+        'Estudo preliminar — análise do terreno, necessidades do cliente, referências e possibilidades para o projeto.',
+        'Projeto arquitetônico residencial — casas, apartamentos, reformas e ampliações.',
+        'Projeto arquitetônico comercial e corporativo — lojas, escritórios, clínicas, restaurantes e outros espaços de atendimento.',
+        'Projeto de interiores — layout, materiais, acabamentos, iluminação e detalhamento dos ambientes.',
+        'Reformas e ampliações — reconfiguração de espaços existentes, com soluções para melhorar circulação, conforto e funcionalidade.',
+        'Projetos de fachadas — composição estética e definição de materiais e elementos externos.',
+        'Projeto legal e aprovação — documentação e desenhos para encaminhamento à prefeitura ou a outros órgãos, conforme o escopo contratado.'
+      ]
+    },
+    modelagem: {
+      title: 'Modelagem 3D',
+      intro: 'Transformamos plantas, projetos e ideias em modelos tridimensionais para facilitar a visualização dos espaços antes da execução. A modelagem pode incluir ambientes internos, fachadas, áreas externas e elementos personalizados, com definição de materiais, cores e acabamentos. Conforme o escopo contratado, também podem ser produzidas imagens renderizadas, animações ou passeios virtuais.',
+      items: [
+        'Modelagem 3D de ambientes — criação de modelos de espaços residenciais, comerciais e corporativos.',
+        'Modelagem de interiores — representação de móveis, revestimentos, iluminação, cores e elementos decorativos.',
+        'Modelagem de fachadas e áreas externas — visualização de fachadas, jardins, varandas, piscinas e áreas de lazer.',
+        'Modelagem a partir de plantas e desenhos — conversão de projetos 2D em modelos tridimensionais.',
+        'Modelagem de móveis e objetos personalizados — representação de peças sob medida ou itens específicos do projeto.',
+        'Imagens renderizadas — criação de imagens realistas para apresentar materiais, acabamentos, luzes e composição dos ambientes.',
+        'Passeios virtuais e animações — vídeos ou visualizações interativas para explorar o espaço, caso você ofereça esse recurso.',
+        'Ajustes e revisões do modelo — alterações de materiais, mobiliário, cores ou elementos conforme o escopo combinado.'
+      ]
+    },
+    consultoria: {
+      title: 'Consultoria',
+      intro: 'Oferecemos orientação personalizada para quem precisa tomar decisões sobre um imóvel, ambiente, reforma ou espaço comercial. Analisamos suas necessidades e apresentamos recomendações para melhorar a funcionalidade, o aproveitamento e a estética do espaço. O atendimento pode ser presencial ou remoto, com escopo definido de acordo com cada demanda.',
+      items: [
+        'Consultoria para reforma — orientação sobre possibilidades, prioridades e soluções para transformar um espaço.',
+        'Análise de layout — sugestões para melhorar a organização, a circulação e o aproveitamento dos ambientes.',
+        'Consultoria para escolha de imóvel ou terreno — avaliação inicial de aspectos como potencial de uso, distribuição dos espaços e necessidades de adaptação.',
+        'Orientação sobre materiais e acabamentos — apoio na escolha de revestimentos, cores, louças, metais e outros elementos.',
+        'Consultoria de interiores — recomendações de mobiliário, iluminação, decoração e composição dos ambientes.',
+        'Estudo de viabilidade inicial — análise preliminar das necessidades, possibilidades e limitações do espaço ou terreno.',
+        'Consultoria para espaços comerciais — orientações para melhorar a experiência dos clientes, a funcionalidade e a apresentação do ambiente.',
+        'Atendimento presencial ou remoto — reunião no local ou por videochamada, conforme o serviço oferecido.'
+      ]
+    }
+  };
+
+  function closeServicePanel() {
+    if (!servicePanel) return;
+    servicePanel.classList.remove('is-open');
+    servicePanel.setAttribute('aria-hidden', 'true');
+    startAutorotate();
+  }
+
+  function openServicePanel(serviceKey) {
+    var service = serviceContent[serviceKey];
+    if (!service) return;
+    if (!servicePanel) {
+      servicePanel = document.createElement('section');
+      servicePanel.id = 'servicePanel';
+      servicePanel.className = 'service-panel';
+      servicePanel.setAttribute('role', 'dialog');
+      servicePanel.setAttribute('aria-modal', 'true');
+      servicePanel.setAttribute('aria-hidden', 'true');
+      screenOverlay.appendChild(servicePanel);
+    }
+    servicePanel.innerHTML = '<div class="service-card"><header class="service-header"><div><p class="service-eyebrow">PROARQUI 3D · SERVIÇOS</p><h2 class="service-title"></h2></div><button type="button" class="service-close" aria-label="Fechar">×</button></header><div class="service-body"><p class="service-intro"></p><ul class="service-items"></ul></div></div>';
+    servicePanel.querySelector('.service-title').textContent = service.title;
+    servicePanel.querySelector('.service-intro').textContent = service.intro;
+    var list = servicePanel.querySelector('.service-items');
+    service.items.forEach(function(item) {
+      var li = document.createElement('li');
+      li.textContent = item;
+      list.appendChild(li);
+    });
+    servicePanel.querySelector('.service-close').addEventListener('click', closeServicePanel);
+    servicePanel.addEventListener('click', function(event) {
+      if (event.target === servicePanel) closeServicePanel();
+    });
+    servicePanel.classList.add('is-open');
+    servicePanel.setAttribute('aria-hidden', 'false');
+    stopAutorotate();
+  }
+
+  function createServiceHotspotElement(hotspot) {
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'service-hotspot service-hotspot--' + hotspot.color;
+    button.textContent = hotspot.title;
+    button.setAttribute('aria-label', 'Ver serviço: ' + hotspot.title);
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      openServicePanel(hotspot.service);
     });
     stopTouchAndScrollEventPropagation(button);
     return button;
