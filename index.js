@@ -64,7 +64,7 @@
       screenOverlay.appendChild(projectPdfViewer);
       projectPdfViewer.querySelector('.project-pdf-close').addEventListener('click', closeProjectPdf);
       document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') { closeProjectPdf(); closeProjectChoices(); }
+        if (event.key === 'Escape') { closeProjectPdf(); closeProjectChoices(); closeReviewsPanel(); }
       });
     }
     projectPdfViewer.querySelector('.project-pdf-title').textContent = title;
@@ -414,6 +414,77 @@
     }
   }
 
+  // Painel de avaliações públicas do perfil 99Freelas.
+  var reviewsPanel = null;
+  var reviewItems = [
+    { project: 'Projeto arquitetônico e executivo 3D para farmácia', rating: 4.8, date: 'mar. 2026', text: 'Cliente destacou competência, atenção, dedicação, cumprimento do prazo e sugestões apresentadas.' },
+    { project: 'Projeto visual para estande 12x12 em feira', rating: 5, date: 'fev. 2026 – mar. 2026', text: 'Cliente destacou atenção, dedicação e qualidade profissional da entrega dentro do prazo.' },
+    { project: 'Renderização de piscina em condomínio', rating: 5, date: 'fev. 2026', text: 'Cliente elogiou a atenção, disponibilidade para ajustes e dedicação mesmo com prazo apertado.' },
+    { project: 'Planta baixa para 5 pavimentos em 2 prédios', rating: 5, date: 'fev. 2026', text: 'Cliente ressaltou profissionalismo, agilidade, interpretação do projeto e qualidade das soluções.' },
+    { project: 'Modelagem de apartamento 24 m² no SketchUp', rating: 5, date: 'dez. 2025', text: 'Cliente destacou paciência, pontualidade, atenção e cordialidade.' },
+    { project: 'Projeto de repaginação para sala comercial de 45 m²', rating: 5, date: 'fev. 2025 – nov. 2025', text: 'Avaliação máxima registrada, sem comentário público.' },
+    { project: 'Design de interiores para apartamento', rating: 5, date: 'set. 2024 – out. 2024', text: 'Cliente elogiou profissionalismo, conhecimento técnico, atenção, educação e disponibilidade.' },
+    { project: 'Projeto executivo de design de interiores 3D', rating: 5, date: 'mar. 2024 – jun. 2024', text: 'Cliente demonstrou satisfação com o projeto e o resultado final.' }
+  ];
+
+  function closeReviewsPanel() {
+    if (!reviewsPanel) return;
+    reviewsPanel.classList.remove('is-open');
+    reviewsPanel.setAttribute('aria-hidden', 'true');
+    startAutorotate();
+  }
+
+  function openReviewsPanel() {
+    if (!reviewsPanel) {
+      reviewsPanel = document.createElement('section');
+      reviewsPanel.id = 'reviewsPanel';
+      reviewsPanel.className = 'reviews-panel';
+      reviewsPanel.setAttribute('role', 'dialog');
+      reviewsPanel.setAttribute('aria-modal', 'true');
+      reviewsPanel.setAttribute('aria-labelledby', 'reviewsPanelTitle');
+      reviewsPanel.setAttribute('aria-hidden', 'true');
+      screenOverlay.appendChild(reviewsPanel);
+    }
+    reviewsPanel.innerHTML =
+      '<div class="reviews-card">' +
+        '<header class="reviews-header"><div><p class="reviews-eyebrow">PROARQUI 3D · EXPERIÊNCIA DE CLIENTES</p><h2 id="reviewsPanelTitle">Histórico de projetos &amp; Avaliações</h2></div><button type="button" class="reviews-close" aria-label="Fechar avaliações">×</button></header>' +
+        '<div class="reviews-summary"><div class="reviews-score"><strong>4,68</strong><span class="reviews-stars" aria-label="4,68 de 5 estrelas">★★★★★</span><small>26 avaliações no 99Freelas</small></div><div class="reviews-stats"><span><strong>22</strong> projetos concluídos</span><span><strong>24</strong> recomendações</span></div></div>' +
+        '<p class="reviews-caption">Avaliações positivas e projetos concluídos exibidos no perfil público.</p><div class="reviews-list"></div>' +
+        '<footer class="reviews-footer"><span>Perfil público · 99Freelas</span><a href="https://www.99freelas.com.br/user/Danmasio" target="_blank" rel="noopener noreferrer">Ver perfil completo ↗</a></footer>' +
+      '</div>';
+    var list = reviewsPanel.querySelector('.reviews-list');
+    reviewItems.forEach(function(item) {
+      var card = document.createElement('article');
+      card.className = 'review-item';
+      var top = document.createElement('div');
+      top.className = 'review-item-top';
+      var project = document.createElement('h3');
+      project.textContent = item.project;
+      var rating = document.createElement('span');
+      rating.className = 'review-rating';
+      rating.setAttribute('aria-label', item.rating.toFixed(1) + ' de 5 estrelas');
+      rating.textContent = '★'.repeat(Math.round(item.rating)) + ' ' + item.rating.toFixed(1).replace('.', ',');
+      top.appendChild(project);
+      top.appendChild(rating);
+      var date = document.createElement('small');
+      date.className = 'review-date';
+      date.textContent = item.date;
+      var note = document.createElement('p');
+      note.textContent = item.text;
+      card.appendChild(top);
+      card.appendChild(date);
+      card.appendChild(note);
+      list.appendChild(card);
+    });
+    reviewsPanel.querySelector('.reviews-close').addEventListener('click', closeReviewsPanel);
+    reviewsPanel.addEventListener('click', function(event) {
+      if (event.target === reviewsPanel) closeReviewsPanel();
+    });
+    reviewsPanel.classList.add('is-open');
+    reviewsPanel.setAttribute('aria-hidden', 'false');
+    stopAutorotate();
+  }
+
   function createLobbyActionHotspotElement(hotspot) {
     // Mesmo padrão de hotspot dos projetos: botão HTML dentro do container
     // nativo do Marzipano, ancorado em yaw/pitch e sem vínculo com a câmera.
@@ -429,6 +500,8 @@
       event.stopPropagation();
       if (hotspot.action === 'about') {
         openAboutPanel();
+      } else if (hotspot.action === 'reviews') {
+        openReviewsPanel();
       } else if (hotspot.href) {
         window.open(hotspot.href, '_blank', 'noopener,noreferrer');
       }
