@@ -9,7 +9,8 @@ Esta branch adiciona a interface de conversa guiada, hotspot no lobby, coleta pr
 3. Execute `npm install`.
 4. Copie `.env.example` para `.env`, gere um ADMIN_TOKEN forte e defina um diretório privado de uploads fora da pasta do site.
 5. Execute `npm start` e abra http://localhost:3000.
-6. Rode `npm test` para validar a configuração básica.
+6. Abra http://localhost:3000/admin.html, informe o `ADMIN_TOKEN` e carregue/edite a configuração.
+7. Rode `npm test` para validar a configuração básica.
 
 ## Configuração comercial
 Edite `config/assistant.json` no servidor ou use os endpoints administrativos protegidos:
@@ -17,7 +18,7 @@ Edite `config/assistant.json` no servidor ou use os endpoints administrativos pr
 - Cadastre serviços em `services`.
 - Cadastre regras em `pricingRules` somente depois de aprovar fórmula, unidade, mínimo/máximo e critérios de complexidade.
 - Cadastre prazos em `deadlines`, condições em `conditions`, exclusões em `scopeExclusions`.
-- Informe `whatsappNumber` com DDI e DDD, somente após confirmar o número oficial.
+- Informe `whatsappNumber` com DDI e DDD, somente após confirmar o número oficial. Para habilitar respostas com IA, configure `OPENAI_API_KEY` e `OPENAI_MODEL` no servidor e marque `aiEnabled: true` no painel.
 - Preencha dados da empresa em `companyDetails`.
 
 Não há preço, prazo, desconto ou condição fictícia pré-configurada. A lista vazia significa que não existe cálculo comercial habilitado.
