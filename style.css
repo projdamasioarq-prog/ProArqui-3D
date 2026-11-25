@@ -679,7 +679,7 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 
 /* Editor inicial de planta baixa ProArqui 3D */
 #floorPlanApp{font-family:"DM Sans",Arial,sans-serif}
-.floor-launch{position:fixed;left:22px;bottom:22px;z-index:10002;display:flex;align-items:center;gap:9px;min-height:44px;padding:0 15px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(24,24,21,.88);color:#fff;box-shadow:0 5px 22px rgba(0,0,0,.28);font:600 10px Manrope,"DM Sans",sans-serif;letter-spacing:.02em;cursor:pointer;backdrop-filter:blur(12px)}
+.floor-launch{position:fixed;right:22px;left:auto;bottom:78px;z-index:10002;display:flex;align-items:center;gap:9px;min-height:44px;padding:0 15px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(24,24,21,.88);color:#fff;box-shadow:0 5px 22px rgba(0,0,0,.28);font:600 10px Manrope,"DM Sans",sans-serif;letter-spacing:.02em;cursor:pointer;backdrop-filter:blur(12px)}
 .floor-launch:hover{background:#34342e;border-color:#d4bd91}
 .floor-launch-mark{font-size:19px;color:#d4bd91}
 .floor-modal{position:fixed;inset:0;z-index:10010;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.68);pointer-events:auto}
@@ -707,7 +707,7 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 .floor-primary{background:#c9aa70;color:#171714;border-color:#c9aa70!important}
 .floor-disclaimer{margin:11px 0 0;color:rgba(244,241,235,.43);font-size:9px;line-height:1.5;text-align:right}
 @media(max-width:650px){
- .floor-launch{left:12px;bottom:76px;min-height:40px;padding:0 11px;font-size:9px}
+ .floor-launch{right:14px;left:auto;bottom:70px;min-height:40px;padding:0 11px;font-size:9px}
  .floor-modal{padding:7px;align-items:flex-start}
  .floor-card{width:100%;max-height:98vh;padding:17px 13px}
  .floor-head h2{font-size:18px}
