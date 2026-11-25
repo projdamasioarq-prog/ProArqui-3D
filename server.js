@@ -111,7 +111,7 @@ app.post('/api/assistant/chat', async (req, res) => {
 app.get('/api/assistant/config', (req, res) => {
   const c = readConfig();
   res.json({ companyName: c.companyName, services: c.services, whatsappNumber: c.whatsappNumber,
-    conditions: c.conditions, scopeExclusions: c.scopeExclusions, pricingRules: c.pricingRules, deadlines: c.deadlines, aiEnabled: !!c.aiEnabled });
+    conditions: c.conditions, scopeInclusions: c.scopeInclusions, scopeExclusions: c.scopeExclusions, complexityCriteria: c.complexityCriteria, companyDetails: c.companyDetails, pricingRules: c.pricingRules, deadlines: c.deadlines, aiEnabled: !!c.aiEnabled });
 });
 app.post('/api/intake/files', upload.array('files', 8), (req, res) => {
   if (req.body.consent !== 'true') {
