@@ -521,6 +521,8 @@
         openAboutPanel();
       } else if (hotspot.action === 'reviews') {
         openReviewsPanel();
+      } else if (hotspot.action === 'karen') {
+        window.dispatchEvent(new CustomEvent('openKarenAssistant'));
       } else if (hotspot.href) {
         window.open(hotspot.href, '_blank', 'noopener,noreferrer');
       }
