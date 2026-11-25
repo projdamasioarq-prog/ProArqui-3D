@@ -1,0 +1,18 @@
+{
+  "_notice": "CONFIGURAÇÃO DEMONSTRATIVA. Preencha somente após aprovação comercial.",
+  "companyName": "ProArqui 3D",
+  "whatsappNumber": "",
+  "apiBaseUrl": "",
+  "services": ["Projeto novo", "Reforma", "Design de interiores", "Consultoria", "Regularização", "Modelagem 3D", "Projeto executivo", "Outro serviço"],
+  "companyDetails": {
+    "legalName": "",
+    "email": "",
+    "city": "",
+    "state": ""
+  },
+  "pricingRules": [],
+  "deadlines": [],
+  "conditions": [],
+  "scopeExclusions": [],
+  "complexityCriteria": []
+}
