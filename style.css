@@ -624,3 +624,38 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 #pano .service-hotspot-label--arquitetura,
 #pano .service-hotspot-label--consultoria { color:#fff; }
 #servicePanel .service-title { color:#f4f1eb; }
+
+
+/* Karen: recepcionista virtual do tour 360 */
+#pano .karen-hotspot {
+  width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.92);background:linear-gradient(145deg,#d9c29a,#8e7049);
+  color:#171714;display:grid;place-items:center;font:700 17px Manrope,sans-serif;
+  box-shadow:0 0 0 7px rgba(201,170,112,.16),0 5px 22px rgba(0,0,0,.35);
+  cursor:pointer;position:relative;z-index:20;
+}
+#pano .karen-hotspot:after {content:"";position:absolute;inset:-8px;border:1px solid rgba(220,194,154,.55);border-radius:50%;animation:karenPulse 2.2s infinite;}
+@keyframes karenPulse {0%{transform:scale(.86);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+#karenAssistant {position:fixed;z-index:10020;right:24px;bottom:24px;width:min(420px,calc(100vw - 28px));height:min(680px,calc(100dvh - 40px));display:none;flex-direction:column;background:#191916;color:#f4f1eb;border:1px solid rgba(220,194,154,.42);border-radius:16px;box-shadow:0 18px 70px rgba(0,0,0,.5);overflow:hidden;font-family:"DM Sans",sans-serif}
+#karenAssistant.is-open{display:flex}
+.karen-head{padding:17px 18px;background:#24231f;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;gap:12px}
+.karen-avatar{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:#c9aa70;color:#191916;font-weight:700}
+.karen-head strong{display:block;font:600 14px Manrope,sans-serif}.karen-head small{display:block;color:#bcb6aa;font-size:11px;margin-top:3px}
+.karen-close{margin-left:auto;background:none;border:0;color:#eee;font-size:25px;cursor:pointer}
+.karen-progress{height:3px;background:#35332e}.karen-progress span{display:block;height:100%;background:#c9aa70;transition:width .2s}
+.karen-messages{padding:16px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:11px}
+.karen-msg{max-width:88%;padding:11px 13px;border-radius:12px;font-size:13px;line-height:1.55;white-space:pre-wrap}
+.karen-msg.bot{align-self:flex-start;background:#2a2924;color:#f4f1eb;border:1px solid rgba(255,255,255,.07)}
+.karen-msg.user{align-self:flex-end;background:#c9aa70;color:#191916}
+.karen-options{display:flex;flex-wrap:wrap;gap:7px;margin-top:3px}
+.karen-option{border:1px solid rgba(201,170,112,.65);background:transparent;color:#e8d6b6;border-radius:20px;padding:8px 11px;font-size:11px;cursor:pointer}
+.karen-option:hover{background:rgba(201,170,112,.14)}
+.karen-compose{padding:12px;border-top:1px solid rgba(255,255,255,.1);display:flex;gap:8px}
+.karen-compose input{min-width:0;flex:1;background:#25241f;color:#fff;border:1px solid #49463e;border-radius:8px;padding:11px;font-size:13px}
+.karen-send{background:#c9aa70;color:#191916;border:0;border-radius:8px;padding:0 15px;font-weight:700;cursor:pointer}
+.karen-tools{padding:0 12px 10px;display:flex;gap:8px;flex-wrap:wrap}
+.karen-tools button{background:none;border:0;color:#c9aa70;font-size:11px;text-decoration:underline;cursor:pointer}
+.karen-disclaimer{padding:8px 13px;background:#211f1b;color:#aaa294;font-size:10px;line-height:1.45}
+.karen-summary{background:#24231f;border:1px solid #51483a;padding:12px;border-radius:9px;font-size:12px;line-height:1.6;white-space:pre-wrap}
+.karen-file{font-size:11px;color:#d9c29a;padding:5px 0}
+@media(max-width:600px){#karenAssistant{right:8px;bottom:8px;width:calc(100vw - 16px);height:min(78dvh,690px);border-radius:13px}.karen-head{padding:13px}}
