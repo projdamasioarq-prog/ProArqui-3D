@@ -742,3 +742,14 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
 .floor-inspector button{height:33px;padding:0 12px;border:1px solid rgba(255,255,255,.25);background:#34342e;color:#fff;font-size:10px}
 .floor-inspector button:hover{border-color:#c9aa70}
 @media(max-width:650px){.floor-inspector{align-items:stretch}.floor-inspector label{flex:1;min-width:calc(50% - 10px)}.floor-inspector input,.floor-inspector select{width:100%}.floor-inspector button{flex:1}}
+
+
+/* Navegação ampliada da folha de desenho */
+.floor-zoom-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:0 0 9px;color:rgba(244,241,235,.58);font-size:9px}
+.floor-zoom-controls span{font-weight:700;letter-spacing:.08em;margin-right:4px}
+.floor-zoom-controls button{min-width:34px;height:30px;padding:0 9px;border:1px solid rgba(255,255,255,.24);background:#292923;color:#fff;font-size:12px;cursor:pointer}
+.floor-zoom-controls button:hover{border-color:#c9aa70;color:#d8bd8c}
+.floor-zoom-controls small{flex:1 1 100%;font-size:9px;color:rgba(244,241,235,.42)}
+.floor-canvas-wrap{max-height:62vh;overflow:auto;overscroll-behavior:contain;touch-action:pan-x pan-y}
+#floorCanvas{width:2000px;height:1200px;max-width:none;min-width:0;aspect-ratio:auto;touch-action:none;cursor:crosshair}
+@media(max-width:650px){.floor-zoom-controls{gap:5px}.floor-zoom-controls small{line-height:1.4}.floor-canvas-wrap{max-height:55vh}}
