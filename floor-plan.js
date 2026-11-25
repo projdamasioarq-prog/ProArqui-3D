@@ -71,6 +71,7 @@
     c.save();c.lineCap="butt";c.strokeStyle="#fbfaf7";c.lineWidth=13;c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke();
     if(it.type==="window"){c.strokeStyle="#438b9b";c.lineWidth=2;c.beginPath();c.moveTo(x1+nx*4,y1+ny*4);c.lineTo(x2+nx*4,y2+ny*4);c.moveTo(x1-nx*4,y1-ny*4);c.lineTo(x2-nx*4,y2-ny*4);c.stroke();c.strokeStyle="#438b9b";c.lineWidth=1;c.beginPath();c.moveTo(cx+nx*8,cy+ny*8);c.lineTo(cx-nx*8,cy-ny*8);c.stroke();}
     else{c.strokeStyle="#a77b45";c.lineWidth=2;c.beginPath();c.moveTo(cx,cy);c.lineTo(cx+ux*it.width*100,cy+uy*it.width*100);c.stroke();c.beginPath();c.arc(cx,cy,it.width*100,Math.atan2(uy,ux),Math.atan2(uy,ux)+Math.PI/2);c.stroke();}
+    c.fillStyle="#52636a";c.font="10px Arial";c.textAlign="center";c.textBaseline="middle";var note=it.type==="window"?"J "+it.width.toFixed(2).replace(".",",")+" m · P "+it.sill.toFixed(2).replace(".",",")+" m":"P "+it.width.toFixed(2).replace(".",",")+" m";c.fillText(note,cx+nx*19,cy+ny*19);
     c.restore();
   }
   function drawItem(c,it){
