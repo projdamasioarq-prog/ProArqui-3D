@@ -548,3 +548,27 @@ body > #lobbyActions #contactAction { left: 72.5vw !important; }
   #servicePanel .service-intro { font-size:12px; }
   #servicePanel .service-items { grid-template-columns:1fr; }
 }
+
+
+/* Serviços: os hotspots usam exatamente o mesmo padrão visual do Portfólio. */
+#pano .service-hotspot {
+  min-width:92px; min-height:32px; margin:-16px 0 0 -46px;
+  padding:8px 13px; border:1px solid rgba(255,255,255,.58);
+  border-radius:2px; background:rgba(25,25,23,.48);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  color:#fff; font:500 9px Manrope,"DM Sans",sans-serif;
+  letter-spacing:.13em; line-height:1; text-transform:none;
+  white-space:nowrap; cursor:pointer; z-index:12; box-shadow:none;
+  transition:background .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+#pano .service-hotspot:hover,
+#pano .service-hotspot:focus-visible {
+  background:rgba(25,25,23,.76); border-color:rgba(255,255,255,.95);
+  box-shadow:0 3px 14px rgba(0,0,0,.25); outline:none; transform:none; filter:none;
+}
+@media(max-width:700px) {
+  #pano .service-hotspot {
+    min-width:84px; min-height:30px; margin:-15px 0 0 -42px;
+    padding:7px 10px; font-size:8px; letter-spacing:.1em;
+  }
+}
