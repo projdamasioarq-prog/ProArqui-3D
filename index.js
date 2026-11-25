@@ -509,8 +509,8 @@
     // nativo do Marzipano, ancorado em yaw/pitch e sem vínculo com a câmera.
     var button = document.createElement('button');
     button.type = 'button';
-    button.className = 'project-hotspot lobby-wall-hotspot';
-    button.textContent = hotspot.title;
+    button.className = hotspot.action === 'karen' ? 'karen-hotspot' : 'project-hotspot lobby-wall-hotspot';
+    button.textContent = hotspot.action === 'karen' ? 'K' : hotspot.title;
     button.setAttribute('aria-label', hotspot.title);
     button.setAttribute('title', hotspot.title);
 
