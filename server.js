@@ -107,6 +107,19 @@ app.post('/api/intake/files', upload.array('files', 8), (req, res) => {
   res.status(201).json({ received: (req.files || []).map(f => ({ id: path.basename(f.filename, path.extname(f.filename)), name: f.originalname, size: f.size })),
     message: 'Arquivos armazenados em diretório privado, fora da pasta pública.' });
 });
+app.delete('/api/intake/files', (req, res) => {
+  const ids = Array.isArray(req.body.ids) ? req.body.ids : [];
+  if (!ids.length || ids.length > 8 || ids.some(id => typeof id !== 'string' || !/^[0-9a-f-]{36}$/i.test(id))) {
+    return res.status(400).json({ error: 'Identificadores de arquivo inválidos.' });
+  }
+  let deleted = 0;
+  const stored = fs.readdirSync(PRIVATE_DIR);
+  ids.forEach(id => {
+    const name = stored.find(file => path.basename(file, path.extname(file)) === id);
+    if (name) { fs.unlinkSync(path.join(PRIVATE_DIR, name)); deleted++; }
+  });
+  res.json({ deleted, message: 'Arquivos correspondentes foram excluídos do armazenamento privado.' });
+});
 app.get('/api/admin/config', adminOnly, (req, res) => res.json(readConfig()));
 app.put('/api/admin/config', adminOnly, (req, res) => {
   if (!validConfig(req.body)) return res.status(400).json({ error: 'Configuração inválida. Verifique os campos obrigatórios.' });
