@@ -40,8 +40,8 @@ var APP_DATA = {
       "linkHotspots": [{"yaw":0.30341248141331256,"pitch":0.775389188252479,"rotation":0,"target":"0-lobby"}],
       "infoHotspots": [],
       "serviceHotspots": [
-        {"title":"Modelagem 3D","service":"modelagem","color":"red","yaw":-0.012,"pitch":0.147},
-        {"title":"Projeto arquitetônico","service":"arquitetura","color":"green","yaw":-0.671,"pitch":0.111},
+        {"title":"Modelagem 3D","service":"modelagem","color":"red","yaw":-0.012,"pitch":0.245},
+        {"title":"Projeto arquitetônico","service":"arquitetura","color":"green","yaw":-0.671,"pitch":0.225},
         {"title":"Consultoria","service":"consultoria","color":"yellow","yaw":0.720,"pitch":0.068}
       ]
     }
