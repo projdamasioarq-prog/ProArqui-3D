@@ -448,7 +448,7 @@
     reviewsPanel.innerHTML =
       '<div class="reviews-card">' +
         '<header class="reviews-header"><div><p class="reviews-eyebrow">PROARQUI 3D · EXPERIÊNCIA DE CLIENTES</p><h2 id="reviewsPanelTitle">Histórico de projetos &amp; Avaliações</h2></div><button type="button" class="reviews-close" aria-label="Fechar avaliações">×</button></header>' +
-        '<div class="reviews-summary"><div class="reviews-score"><strong>4,68</strong><span class="reviews-stars" aria-label="4,68 de 5 estrelas">★★★★★</span><small>26 avaliações no 99Freelas</small></div><div class="reviews-stats"><span><strong>22</strong> projetos concluídos</span><span><strong>24</strong> recomendações</span></div></div>' +
+        '<div class="reviews-summary"><div class="reviews-score"><strong>4,98</strong><span class="reviews-stars" aria-label="4,98 de 5 estrelas">★★★★★</span><small>Média das 8 avaliações positivas exibidas</small></div><div class="reviews-stats"><span><strong>22</strong> projetos concluídos</span><span><strong>24</strong> recomendações</span></div></div>' +
         '<p class="reviews-caption">Avaliações positivas e projetos concluídos exibidos no perfil público.</p><div class="reviews-list"></div>' +
         '<footer class="reviews-footer"><span>Perfil público · 99Freelas</span><a href="https://www.99freelas.com.br/user/Danmasio" target="_blank" rel="noopener noreferrer">Ver perfil completo ↗</a></footer>' +
       '</div>';
