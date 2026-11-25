@@ -601,8 +601,8 @@
   function createServiceHotspotElement(hotspot) {
     var button = document.createElement('button');
     button.type = 'button';
-    button.className = 'service-hotspot service-hotspot--' + hotspot.color;
-    button.textContent = hotspot.title;
+    button.className = 'project-hotspot';
+    button.textContent = 'Ver Serviço';
     button.setAttribute('aria-label', 'Ver serviço: ' + hotspot.title);
     button.addEventListener('click', function(event) {
       event.preventDefault();
