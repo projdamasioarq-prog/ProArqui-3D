@@ -10,7 +10,8 @@ var APP_DATA = {
       "infoHotspots": [],
       "lobbyHotspots": [
         {"title":"Sobre Nós","action":"about","yaw":-0.45,"pitch":-0.05},
-        {"title":"Contato","action":"contact","href":"https://api.whatsapp.com/send/?phone=5511947869761&text&type=phone_number&app_absent=0","yaw":0.368,"pitch":-0.05}
+        {"title":"Contato","action":"contact","href":"https://api.whatsapp.com/send/?phone=5511947869761&text&type=phone_number&app_absent=0","yaw":0.368,"pitch":-0.05},
+        {"title":"Avaliações","action":"reviews","yaw":0.015,"pitch":-0.12}
       ]
     },
     {
