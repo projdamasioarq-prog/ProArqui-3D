@@ -21,7 +21,7 @@ app.use('/api/', rateLimit({ windowMs: 15 * 60 * 1000, limit: 60, standardHeader
 function adminOnly(req, res, next) {
   const expected = process.env.ADMIN_TOKEN;
   const supplied = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
-  if (!expected || !supplied || !crypto.timingSafeEqual(Buffer.from(supplied), Buffer.from(expected))) {
+  if (!expected || !supplied || Buffer.byteLength(supplied) !== Buffer.byteLength(expected) || !crypto.timingSafeEqual(Buffer.from(supplied), Buffer.from(expected))) {
     return res.status(401).json({ error: 'Acesso administrativo não autorizado.' });
   }
   next();
